@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/ListAllStudentView.vue'
-import UserNameView from '../views/UserNameView.vue'
+import ListAllLeaveView from '../views/ListAllLeaveView.vue'
 import SignOutView from '../views/SignOutView.vue'
+import NewRequestView from '../views/NewRequestView.vue'
+import CheckLeaveView from '../views/CheckLeaveView.vue'
 
 const routes = [
   {
@@ -12,18 +14,24 @@ const routes = [
   {
     path: '/checkleave',
     name: 'checkleave',
-    component: () => import(/* webpackChunkName: "about" */ '../views/CheckLeaveView.vue')
+    component: CheckLeaveView
   },
   {
-    path: '/username',
-    name: 'username',
-    component: UserNameView,
+    path: '/leaveList',
+    name: 'leaveList',
+    component: ListAllLeaveView,
   },
   {
     path: '/signout',
     name: 'signout',
     component: SignOutView,
-  }
+  },
+  {
+    path: '/request',
+    name: 'request',
+    component: NewRequestView,
+  },
+
 ]
 
 const router = createRouter({

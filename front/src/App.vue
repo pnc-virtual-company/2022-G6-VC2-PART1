@@ -3,8 +3,9 @@
   <nav>
     <router-link to="/">List all students</router-link> |
     <router-link to="/checkleave">Cheack leave</router-link>|
-    <router-link to="/username">User name</router-link>|
-    <router-link to="/signout">Sign out</router-link>
+    <router-link to="/leaveList">List Leave</router-link>|
+    <router-link to="/signout">Sign out</router-link> |
+    <router-link to="/request">NewRequestView</router-link>
   </nav>
   <router-view/>
 </div>
