@@ -1,13 +1,11 @@
 <template>
-  <h1>helo</h1>
+  <FormCreateUser/>
 </template>
-
 <script>
+import FormCreateUser from "../components/user_admin/FormCreateUser.vue";
 export default {
-
+  components:{
+     FormCreateUser,
+  }
 }
 </script>
-
-<style>
-
-</style>
