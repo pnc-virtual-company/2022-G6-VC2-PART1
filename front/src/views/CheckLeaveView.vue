@@ -1,5 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <CardReques/>
 </template>
+
+<script>
+import CardReques from "../components/user_admin/CardOfStudentRequest.vue"
+export default {
+  components:{
+    CardReques,
+  }
+}
+</script>
+
+<style>
+
+</style>
