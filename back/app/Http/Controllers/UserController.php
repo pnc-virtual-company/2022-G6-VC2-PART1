@@ -18,7 +18,8 @@ class UserController extends Controller
      // get user funtion
     public function getUsers()
     {
-        return User::latest()->get();
+        // return User::latest()->get();
+        return User::all();
     }
 
     //register user
@@ -49,13 +50,14 @@ class UserController extends Controller
 
 //login 
     public function login(Request $request) { 
-        if(!Auth::attempt($request->only('email', 'password'))){ 
-         return response()->json(['mas'=>"Invalid"]); 
+        if(Auth::attempt($request->only('email', 'password'))){ 
+            return response()->json(['mas'=> 'success'], 200);
         } 
         $user = Auth::user(); 
-        $token = $user->createToken('mytoken')->plainTextToken; 
-        $cookie = cookie('jwt', $token, 60*24); 
-        return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
+        return response()->json(['mas'=>"Invalid"]); 
+        // $token = $user->createToken('mytoken')->plainTextToken; 
+        // $cookie = cookie('jwt', $token, 60*24); 
+        // return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
     } 
      
     public function logout() { 
