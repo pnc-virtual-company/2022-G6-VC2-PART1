@@ -15,7 +15,7 @@
                     <p><strong>Duration : </strong> 1 day</p>
                 </div>
                 <div class="col">
-                    <p><strong>type : </strong> Go to eat dinner with family</p>
+                    <p><strong>reason : </strong> Go to eat dinner with family</p>
                 </div>
             </div>
             <div class="row">

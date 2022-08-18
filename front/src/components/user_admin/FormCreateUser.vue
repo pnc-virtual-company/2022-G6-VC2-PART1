@@ -3,45 +3,99 @@
     <div class="contain-form">
         <h3>Create New Account</h3>
         <div class="card-form">
-            user name<input type="username" placeholder="username *" />
-            email<input type="email" placeholder="Email Address *" />
-            password<input type="password" placeholder="Your Password *" />
+            user name<input type="username" placeholder="username *" v-model="name" />
+            email<input type="email" placeholder="Email Address *" v-model="email" />
+            password<input type="password" placeholder="Your Password *" v-model="password" />
         </div>
         <div class="select">
             <div class="gender1">
                 <div class="gender">
-                    <select name="" id="">
+                    <select name="" id="" v-model="gender">
                         <option value="male">Male</option>
                         <option value="male">Female</option>
                     </select>
                 </div>
-                <div class="age">
+                <!-- <div class="age">
                     <input type="number" placeholder="Your Age *" />
-                </div>
+                </div> -->
+                <div class="teacherAndstudent">
+                   <div>
+                       <input type="radio" name="school" value="student" v-model="rol" @change="hideShowClass">Student
+                   </div>
+                   <div>
+                       <input type="radio" name="school" value="teacher" v-model="rol" @change="hideShowClass">Teacher
+                   </div>
+               </div>
             </div>
-            <div class="choose">
-                <select name="" id="">
-                    <option value="class">Class web A</option>
-                    <option value="class">Class web B</option>
-                    <option value="class">Class SNA A</option>
+            <div class="choose" v-if="hideShowClass">
+                <select name="" id="" v-model="class_room">
+                    <option value="Web_2022A">Class web A</option>
+                    <option value="Web_2022B">Class web B</option>
+                    <option value="SNA">Class SNA A</option>
                 </select>
             </div>
            
-             <div class="teacherAndstudent">
-                <div>
-                    <input type="radio" name="school" value="student">Student
-                </div>
-                <div>
-                    <input type="radio" name="school" value="teacher">Teacher
-                </div>
-            </div>
         </div>
         <div class="submit">
-          <input class="submit-client" type="submit" value="Sign up" />
+          <button class="submit-client" type="submit" @click.prevent="createUser">Sign up</button>
        </div>
     </div>
   </div>
 </template>
+<script>
+import axios from '../../axios-http'
+const URL_USER =process.env.VUE_APP_API_URL+ "createUser"
+const URL_STUDENT = process.env.VUE_APP_API_URL+"students/register"
+export default{
+    data(){
+        return {
+            rol:'',
+            name:'',
+            email:'',
+            password:'',
+            gender:'',
+            class_room:''
+        }
+    },
+    computed:{
+        /**
+         * FUNTION HIDE&SHOW CLASS
+         */
+        hideShowClass(){
+            if (this.rol=='student'){
+                return true
+            }
+            return false
+        }
+    },
+    methods:{
+        /**
+         * FUNCTION CREATE USER 
+         */
+        createUser(){
+            if (this.rol=='teacher'){
+                let newUser={
+                    name:this.name,
+                    email:this.email,
+                    password:this.password,
+                    gender:this.gender
+                }
+                axios.post(URL_USER,newUser)
+            }else{
+                let newUser={
+                    name:this.name,
+                    email:this.email,
+                    password:this.password,
+                    gender:this.gender,
+                    class_room:this.class_room
+                }
+                axios.post(URL_STUDENT,newUser)
+            }
+        }
+    }
+
+}
+</script>
 <style scoped>
 .contain {
       box-sizing: border-box;
@@ -84,6 +138,7 @@ h3 {
     align-items: center;
     justify-content: space-evenly;
     display: flex;
+    margin-bottom: 10px;
 }
 .gender1{
     display: flex;
@@ -100,17 +155,19 @@ h3 {
     width:100%;
     /* margin-right: 15px; */
 }
-.gender1 .age{
+/* .gender1 .age{
      width:48%;
 }
 .select .gender1 .age input{
     box-sizing: border-box;
     padding: 8px;
     width: 100%;
-}
+} */
 .submit-client {
-  width: 75px;
-  height: 25px;
+  /* width: 75px;
+  height: 25px; */
+  padding:10px;
+  width: 30%;
   border: none;
   margin-top:30px;
   border-radius: 3px;
