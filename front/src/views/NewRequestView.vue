@@ -1,6 +1,6 @@
 <template>
     <section>
-        <StudentFormRequest/>
+        <StudentFormRequest @data-request="createRequest"/>
         <StudentCardRequest/>
     </section>
     
@@ -16,14 +16,19 @@ export default{
         StudentFormRequest,
         StudentCardRequest
     },
-    setup() {
+    data() {
     
     },
+    methods:{
+        createRequest(newRequest){
+            console.log(newRequest);
+        }
+    }
 }
 </script>
 
 
-<style>
+<style >
 *{
     padding: 0;
     margin: 0;

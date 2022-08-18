@@ -1,16 +1,19 @@
 import axios from "axios";
 
-const axiosApi = axios.create({
-  baseURL: process.env.VUE_APP_API_URL,
-  headers: {
-    "Content-type": "application/json",
+const setAuthHeader = (token) =>{
+if(token){
+  axios.defaults.headers = {
+    Authorization: 'Bearer ' + token,
   }
-});
+}else{
+  delete axios.defaults.headers.Authorization
+}
+};
 
-axiosApi.interceptors.request.use(function (config) {
-  const token = localStorage.getItem("token");
-  config.headers.Authorization = token ? `Bearer ${token}` : "";
-  return config;
-});
+// axiosApi.interceptors.request.use(function (config) {
+//   const token = localStorage.getItem("token");
+//   config.headers.Authorization = token ? `Bearer ${token}` : "";
+//   return config;
+// });
 
-export default axiosApi;
+export default setAuthHeader;

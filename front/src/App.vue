@@ -1,17 +1,31 @@
 <template>
 <div>
   <nav>
+<!-- <<<<<<< HEAD
     <router-link to="/">List all students</router-link> |
     <router-link to="/checkleave">Cheack leave</router-link>|
     <router-link to="/leaveList">List Leave</router-link>|
     <router-link to="/request">NewRequestView</router-link> |
     <router-link to="/login">Log in</router-link> |
     <router-link to="/register">Create User</router-link> 
+======= -->
+    <div class="nav_left">
+      <router-link to="/">List all students</router-link> 
+      <router-link to="/checkleave">Cheack leave</router-link>
+      <router-link to="/request">New Request</router-link>
+      <router-link to="/leaveList">List Leave</router-link>
+    </div>
+    <div class="nav_right">
+      <router-link to="/login">Log in</router-link>
+      <router-link to="/register">Create User</router-link>
+    </div>
+
   </nav>
   <router-view/>
 </div>
 </template>
-<style>
+
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -21,18 +35,25 @@
 }
 
 nav {
-  padding: 30px;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 nav a {
   font-weight: bold;
   color: #2c3e50;
+  margin:10px;
+  text-decoration: none;
 }
 
 nav a.router-link-exact-active {
   color: #42b983;
 }
-
+.nav_left,.nav_right{
+  padding: 30px;
+}
 
 a { 
     display: inline-block; 

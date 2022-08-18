@@ -8,16 +8,30 @@
             password<input type="password" placeholder="Your Password *" v-model="password" />
         </div>
         <div class="select">
-            <div class="gender">
-                <div>
-                    <input type="radio" name="gender" value="male" v-model="gender">Male
+            <div class="gender1">
+                <div class="gender">
+                    <select name="" id="">
+                        <option value="male">Male</option>
+                        <option value="male">Female</option>
+                    </select>
                 </div>
-                <div>
-                    <input type="radio" name="gender" value="female" id="" v-model="gender">Female
+                <div class="choose-class">
+                    <select name="" id="">
+                        <option value="class">Class web A</option>
+                        <option value="class">Class web B</option>
+                        <option value="class">Class SNA A</option>
+                    </select>
                 </div>
             </div>
-            <div class="age">
-                <input type="number" placeholder="Your Age *" v-model="age"/>
+
+           
+             <div class="teacherAndstudent">
+                <div>
+                    <input type="radio" name="school" value="student">Student
+                </div>
+                <div>
+                    <input type="radio" name="school" value="teacher">Teacher
+                </div>
             </div>
         </div>
         <div class="submit">
@@ -28,13 +42,13 @@
 </template>
 <style scoped>
 .contain {
-      box-sizing: border-box;
-      width: 100%;
-      margin: auto;
-      align-items: center;
-      justify-content: center;
-      display: flex;
-    }
+    margin-top: 80px;
+    box-sizing: border-box;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
 .contain .contain-form{
     width: 30%;
     border: 1px solid;
@@ -62,27 +76,39 @@ h3 {
 .select{
     width: 100%;
 }
-.select .gender{
+.select .teacherAndstudent{
     width: 100%;
     font-size: 12px;
     align-items: center;
     justify-content: space-evenly;
     display: flex;
 }
-.select .age{
+.gender1{
+    display: flex;
+    justify-content:space-between;
     width: 100%;
-    box-sizing: border-box;
-    margin: 10px 0; 
+    margin-top:15px;
+
 }
-.select .age input{
+.gender1 .gender{
+    width:48%;
+}
+.gender1 .gender select{
+    width:100%;
+}
+.gender1 .choose-class{
+     width:48%;
+}
+.select .gender1 .choose-class select{
     box-sizing: border-box;
     padding: 8px;
     width: 100%;
 }
 .submit-client {
-  width: 70px;
-  height: 20px;
+  width: 75px;
+  height: 25px;
   border: none;
+  margin-top:30px;
   border-radius: 3px;
   font-size: 15px;
   margin-right: 30px;

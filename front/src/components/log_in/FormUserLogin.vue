@@ -7,7 +7,6 @@
             password<input type="password" placeholder="Your Password *" v-model="password"/>
         </div>
         <div class="submit">
-          <!-- <button class="submit-client" type="submit" value="Sign in" @click="login">Log in</button> -->
           <input class="submit-client" type="submit" value="Sign in" @click="$emit('data-login', this.email, this.password)"/>
        </div>
     </div>

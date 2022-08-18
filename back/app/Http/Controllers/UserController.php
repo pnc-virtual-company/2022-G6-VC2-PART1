@@ -56,12 +56,12 @@ class UserController extends Controller
         $token = $user->createToken('mytoken')->plainTextToken; 
         $cookie = cookie('jwt', $token, 60*24); 
         return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
-     } 
+    } 
      
-     public function logout() { 
+    public function logout() { 
          $cookie = Cookie::forget('jwt'); 
          return response()->json(['mes'=>'Logged out Successfully'])->withCookie($cookie); 
-   }
+    }
     public function getUser($id)
     {
         return User::findOrFail($id);
