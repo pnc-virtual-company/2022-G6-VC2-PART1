@@ -10,11 +10,12 @@
         <div class="select">
             <div class="gender1">
                 <div class="gender">
-                    <select name="" id="">
+                    <select name="" id="" v-model="gender">
                         <option value="male">Male</option>
                         <option value="male">Female</option>
                     </select>
                 </div>
+<<<<<<< HEAD
                 <div class="choose-class">
                     <select name="" id="">
                         <option value="class">Class web A</option>
@@ -24,22 +25,93 @@
                 </div>
             </div>
 
-           
-             <div class="teacherAndstudent">
-                <div>
-                    <input type="radio" name="school" value="student">Student
-                </div>
-                <div>
-                    <input type="radio" name="school" value="teacher">Teacher
-                </div>
+=======
+                <!-- <div class="age">
+                    <input type="number" placeholder="Your Age *" />
+                </div> -->
+                <div class="teacherAndstudent">
+                   <div>
+                       <input type="radio" name="school" value="student" v-model="rol" @change="hideShowClass">Student
+                   </div>
+                   <div>
+                       <input type="radio" name="school" value="teacher" v-model="rol" @change="hideShowClass">Teacher
+                   </div>
+               </div>
             </div>
+            <div class="choose" v-if="hideShowClass">
+                <select name="" id="" v-model="class_room">
+                    <option value="Web_2022A">Class web A</option>
+                    <option value="Web_2022B">Class web B</option>
+                    <option value="SNA">Class SNA A</option>
+                </select>
+            </div>
+>>>>>>> b07019ea00c71694f8faec1f4beefcd8c320bae6
+           
         </div>
         <div class="submit">
+<<<<<<< HEAD
           <input class="submit-client" type="submit" value="Sign up" @click="$emit('create-user',{name:this.name, email:this.email, password:this.password, gender:this.gender})"/>
+=======
+          <button class="submit-client" type="submit" @click.prevent="createUser">Sign up</button>
+>>>>>>> b07019ea00c71694f8faec1f4beefcd8c320bae6
        </div>
     </div>
   </div>
 </template>
+<script>
+import axios from '../../axios-http'
+const URL_USER =process.env.VUE_APP_API_URL+ "createUser"
+const URL_STUDENT = process.env.VUE_APP_API_URL+"students/register"
+export default{
+    data(){
+        return {
+            rol:'',
+            name:'',
+            email:'',
+            password:'',
+            gender:'',
+            class_room:''
+        }
+    },
+    computed:{
+        /**
+         * FUNTION HIDE&SHOW CLASS
+         */
+        hideShowClass(){
+            if (this.rol=='student'){
+                return true
+            }
+            return false
+        }
+    },
+    methods:{
+        /**
+         * FUNCTION CREATE USER 
+         */
+        createUser(){
+            if (this.rol=='teacher'){
+                let newUser={
+                    name:this.name,
+                    email:this.email,
+                    password:this.password,
+                    gender:this.gender
+                }
+                axios.post(URL_USER,newUser)
+            }else{
+                let newUser={
+                    name:this.name,
+                    email:this.email,
+                    password:this.password,
+                    gender:this.gender,
+                    class_room:this.class_room
+                }
+                axios.post(URL_STUDENT,newUser)
+            }
+        }
+    }
+
+}
+</script>
 <style scoped>
 .contain {
     margin-top: 80px;
@@ -82,6 +154,7 @@ h3 {
     align-items: center;
     justify-content: space-evenly;
     display: flex;
+    margin-bottom: 10px;
 }
 .gender1{
     display: flex;
@@ -96,17 +169,23 @@ h3 {
 .gender1 .gender select{
     width:100%;
 }
+<<<<<<< HEAD
 .gender1 .choose-class{
+=======
+/* .gender1 .age{
+>>>>>>> b07019ea00c71694f8faec1f4beefcd8c320bae6
      width:48%;
 }
 .select .gender1 .choose-class select{
     box-sizing: border-box;
     padding: 8px;
     width: 100%;
-}
+} */
 .submit-client {
-  width: 75px;
-  height: 25px;
+  /* width: 75px;
+  height: 25px; */
+  padding:10px;
+  width: 30%;
   border: none;
   margin-top:30px;
   border-radius: 3px;

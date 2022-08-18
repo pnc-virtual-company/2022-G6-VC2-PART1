@@ -5,9 +5,16 @@
         <div class="card-form">
             email<input type="email" placeholder="Email Address *" v-model="email"/>
             password<input type="password" placeholder="Your Password *" v-model="password"/>
+            <div>
+              Choose your role
+              <div class="role">
+                <div class="user-role"><input type="radio" name="role" value="teacher" v-model="role">Teacher</div>
+                <div class="user-role"><input type="radio" name="role" value="student" v-model="role">Student</div>
+              </div>
+            </div>
         </div>
         <div class="submit">
-          <input class="submit-client" type="submit" value="Sign in" @click="$emit('data-login', this.email, this.password)"/>
+          <input class="submit-client" type="submit" value="Sign in" @click="$emit('data-login', this.email, this.password, this.role)"/>
        </div>
     </div>
   </div>
@@ -57,6 +64,24 @@ h3 {
 .submit-client:hover {
   background-color: rgb(9, 146, 117);
 }
+.role{
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+}
+.role .user-role{
+  /* margin-top: 20px; */
+  align-items: center;
+  /* justify-content: ; */
+  display: flex;
+}
+.role .user-role input{
+  margin: 20px;
+  align-items: center;
+  /* justify-content: ; */
+  display: flex;
+}
+
 </style>
 
 <script>
