@@ -5,14 +5,12 @@
     <router-link to="/checkleave">Cheack leave</router-link>|
     <router-link to="/leaveList">List Leave</router-link>|
     <router-link to="/request">NewRequestView</router-link> |
-    <router-link to="/in">Sign</router-link> |
-    <router-link to="/up">Sign up </router-link> 
-    
+    <router-link to="/login">Log in</router-link> |
+    <router-link to="/register">Create User</router-link> 
   </nav>
   <router-view/>
 </div>
 </template>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -3,25 +3,25 @@
     <div class="contain-form">
         <h3>Create New Account</h3>
         <div class="card-form">
-            user name<input type="username" placeholder="username *" />
-            email<input type="email" placeholder="Email Address *" />
-            password<input type="password" placeholder="Your Password *" />
+            user name<input type="username" placeholder="username *" v-model="name" />
+            email<input type="email" placeholder="Email Address *" v-model="email" />
+            password<input type="password" placeholder="Your Password *" v-model="password" />
         </div>
         <div class="select">
             <div class="gender">
                 <div>
-                    <input type="radio" name="gender" value="male">Male
+                    <input type="radio" name="gender" value="male" v-model="gender">Male
                 </div>
                 <div>
-                    <input type="radio" name="gender" value="female" id="">Female
+                    <input type="radio" name="gender" value="female" id="" v-model="gender">Female
                 </div>
             </div>
             <div class="age">
-                <input type="number" placeholder="Your Age *" />
+                <input type="number" placeholder="Your Age *" v-model="age"/>
             </div>
         </div>
         <div class="submit">
-          <input class="submit-client" type="submit" value="Sign up" />
+          <input class="submit-client" type="submit" value="Sign up" @click="$emit('create-user',{name:this.name, email:this.email, password:this.password, gender:this.gender})"/>
        </div>
     </div>
   </div>

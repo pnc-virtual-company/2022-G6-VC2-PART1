@@ -3,6 +3,16 @@
         <div class="request-form">
             <div class="header">REQUEST LEAVE</div>
             <form action="">
+                <div class="direction">
+                    <label for="">Request Type</label>
+                    <div>
+                        <select name="" id="">
+                            <option value="sick">sick</option>
+                            <option value="family">family</option>
+                            <option value="dead">dead</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="flex">
                     <div class="left">
                         <div class="date-leave">
@@ -12,6 +22,11 @@
                         <div class="date-arrive">
                             <label for="">Date Arrive</label>
                             <div><input type="date"></div>
+                        </div>
+                        <div class="duration">
+                            <br>
+                            <strong>Duration</strong>: 10day
+                            <br>
                         </div>
                     </div>
                     <div class="right">
@@ -33,13 +48,20 @@
                                 </select>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 
-                <div class="direction">
-                    <label for="">Direction Place</label>
-                    <div><textarea name="" id="" cols="30" rows="5"></textarea></div>
-                </div>
+                <!-- <div class="direction">
+                    <label for="">Request Type</label>
+                    <div>
+                        <select name="" id="">
+                            <option value="sick">sick</option>
+                            <option value="family">family</option>
+                            <option value="dead">dead</option>
+                        </select>
+                    </div>
+                </div> -->
                 <div class="reason">
                     <label for="">Reason</label>
                     <div><textarea name="" id="" cols="30" rows="5"></textarea></div>

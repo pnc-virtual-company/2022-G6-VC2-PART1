@@ -3,7 +3,7 @@ import HomeView from '../views/ListAllStudentView.vue'
 import ListAllLeaveView from '../views/ListAllLeaveView.vue'
 import NewRequestView from '../views/NewRequestView.vue'
 import CheckLeaveView from '../views/CheckLeaveView.vue'
-import SignOutView from '../views/SignOutView.vue'
+import LoginView from '../views/LoginView.vue'
 import UserNameView from '../views/UserNameView.vue'
 
 
@@ -29,13 +29,13 @@ const routes = [
     component: NewRequestView,
   },
   {
-    path: '/in',
-    name: 'in',
-    component: SignOutView,
+    path: '/login',
+    name: 'login',
+    component: LoginView,
   },
   {
-    path: '/up',
-    name: 'up',
+    path: '/register',
+    name: 'register',
     component: UserNameView,
   },
 

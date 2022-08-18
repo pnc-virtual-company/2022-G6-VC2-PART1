@@ -3,11 +3,12 @@
     <div class="contain-form">
         <h3>User Login</h3>
         <div class="card-form">
-            email<input type="email" placeholder="Email Address *" />
-            password<input type="password" placeholder="Your Password *" />
+            email<input type="email" placeholder="Email Address *" v-model="email"/>
+            password<input type="password" placeholder="Your Password *" v-model="password"/>
         </div>
         <div class="submit">
-          <input class="submit-client" type="submit" value="Sign in" />
+          <!-- <button class="submit-client" type="submit" value="Sign in" @click="login">Log in</button> -->
+          <input class="submit-client" type="submit" value="Sign in" @click="$emit('data-login', this.email, this.password)"/>
        </div>
     </div>
   </div>
@@ -59,3 +60,21 @@ h3 {
 }
 </style>
 
+<script>
+// import { defineComponent } from '@vue/composition-api'
+
+export default{
+  // data() {
+  //   return{
+  //     email:'',
+  //     password:'',
+  //   }
+  // },
+  // methods:{
+  //   login(){
+  //     this.$emit('data-login',this.email, this.password)
+  //     console.log('Hello am in form login');
+  //   }
+  // }
+}
+</script>
