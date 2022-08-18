@@ -4,6 +4,7 @@ use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [UserController::class, 'logout']);
 });
 
+
 //Rout leave Table
-Route::get('leave', [PermissionController::class, 'getAllLeave']);
-Route::post('leave', [PermissionController::class, 'createLeave']);
-Route::put('leave/{id}', [PermissionController::class, 'updateLeave']);
-Route::delete('leave/{id}', [PermissionController::class, 'deleteLeave']);
+Route::get('leave', [LeaveController::class, 'getAllLeave']);
+Route::post('leave', [LeaveController::class, 'createLeave']);
+Route::put('leave/{id}', [LeaveController::class, 'updateLeave']);
+Route::delete('leave/{id}', [LeaveController::class, 'deleteLeave']);
+
+
+/**
+ * STUDENT ROUT
+ */
+Route::post('/students/register',[StudentController::class,'store']);
+Route::post('/students/login',[StudentController::class,'login']);
+Route::post('/students/logout',[StudentController::class,'logout']);
+Route::get('students',[StudentController::class,'index']);
+Route::get('students/{id}',[StudentController::class,'show']);
+Route::post('students/{id}',[StudentController::class,'update']);
+Route::delete('students/{id}',[StudentController::class,'destroy']);

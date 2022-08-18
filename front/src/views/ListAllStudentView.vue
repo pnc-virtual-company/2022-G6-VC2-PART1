@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-   <h1>list</h1>
+
    <listAllStudent></listAllStudent>
   </div>
 </template>
