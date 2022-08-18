@@ -11,6 +11,7 @@
       <router-link to="/in">Sign in</router-link>
       <router-link to="/up">Sign up</router-link>
     </div>
+
   </nav>
   <router-view/>
 </div>
