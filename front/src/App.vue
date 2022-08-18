@@ -5,7 +5,7 @@
     <router-link to="/checkleave">Cheack leave</router-link>|
     <router-link to="/leaveList">List Leave</router-link>|
     <router-link to="/request">NewRequestView</router-link> |
-    <router-link to="/in">Sign</router-link> |
+    <router-link to="/in">Sign in</router-link> |
     <router-link to="/up">Sign up </router-link> 
     
   </nav>

@@ -8,16 +8,32 @@
             password<input type="password" placeholder="Your Password *" />
         </div>
         <div class="select">
-            <div class="gender">
-                <div>
-                    <input type="radio" name="gender" value="male">Male
+            <div class="gender1">
+                <div class="gender">
+                    <select name="" id="">
+                        <option value="male">Male</option>
+                        <option value="male">Female</option>
+                    </select>
                 </div>
-                <div>
-                    <input type="radio" name="gender" value="female" id="">Female
+                <div class="age">
+                    <input type="number" placeholder="Your Age *" />
                 </div>
             </div>
-            <div class="age">
-                <input type="number" placeholder="Your Age *" />
+            <div class="choose">
+                <select name="" id="">
+                    <option value="class">Class web A</option>
+                    <option value="class">Class web B</option>
+                    <option value="class">Class SNA A</option>
+                </select>
+            </div>
+           
+             <div class="teacherAndstudent">
+                <div>
+                    <input type="radio" name="school" value="student">Student
+                </div>
+                <div>
+                    <input type="radio" name="school" value="teacher">Teacher
+                </div>
             </div>
         </div>
         <div class="submit">
@@ -62,27 +78,41 @@ h3 {
 .select{
     width: 100%;
 }
-.select .gender{
+.select .teacherAndstudent{
     width: 100%;
     font-size: 12px;
     align-items: center;
     justify-content: space-evenly;
     display: flex;
 }
-.select .age{
+.gender1{
+    display: flex;
+    justify-content:space-between;
     width: 100%;
-    box-sizing: border-box;
-    margin: 10px 0; 
+    margin-top:15px;
+
 }
-.select .age input{
+.gender1 .gender{
+    width:48%;
+    /* margin-right: 15px; */
+}
+.gender1 .gender select{
+    width:100%;
+    /* margin-right: 15px; */
+}
+.gender1 .age{
+     width:48%;
+}
+.select .gender1 .age input{
     box-sizing: border-box;
     padding: 8px;
     width: 100%;
 }
 .submit-client {
-  width: 70px;
-  height: 20px;
+  width: 75px;
+  height: 25px;
   border: none;
+  margin-top:30px;
   border-radius: 3px;
   font-size: 15px;
   margin-right: 30px;
