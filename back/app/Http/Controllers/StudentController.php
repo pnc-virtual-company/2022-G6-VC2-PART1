@@ -41,7 +41,7 @@ class StudentController extends Controller
         $student->password=bcrypt($request->password);
         $student->save();
         // $token=$student->createToken('myToken')->plainTextToken;
-        return response()->json(['mes'=>'store is Successfully'],201);
+        return response()->json(['sms'=>'store is Successfully'],201);
         // return response()->json(['mes'=>'store is Successfully','token'=>$token],201);
     }
 
@@ -80,7 +80,7 @@ class StudentController extends Controller
         $student->password=bcrypt($request->password);
         $student->save();
         // $token=$student->createToken('myToken')->plainTextToken;
-        return response()->json(['mes'=>'Update is Successfully'],201);
+        return response()->json(['sms'=>'Update is Successfully'],201);
         // return response()->json(['mes'=>'Update is Successfully','token'=>$token],201);
     }
 
@@ -93,7 +93,7 @@ class StudentController extends Controller
     public function destroy($id)
     {
         Student::destroy($id);
-        return response()->json(['mes'=>'Delete is Successfully'],201);
+        return response()->json(['sms'=>'Delete is Successfully'],201);
     }
     
     public function login(Request $request){
@@ -102,12 +102,12 @@ class StudentController extends Controller
        // check password
        if(!$student|| !Hash::check($request->password, $student->password))
        {
-           return response()->json(['message'=>'Invalide password'],401);
+           return response()->json(['sms'=>'Invalide password'],401);
        }
         // $id = Auth::id();
         // $token = $student->createToken('mytoken')->plainTextToken; 
         // $cookie = cookie('jwt', $token, 60*24); 
         // return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
-        return response()->json(['mas'=> 'success'], 200) ;
+        return response()->json(['sms'=> 'success'], 200) ;
     } 
 }
