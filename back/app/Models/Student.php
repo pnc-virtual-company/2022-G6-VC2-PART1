@@ -11,4 +11,9 @@ class Student extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable=['name','class_room','gender','email','password','remember_token'];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

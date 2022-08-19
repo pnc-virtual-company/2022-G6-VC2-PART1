@@ -15,20 +15,6 @@
                         <option value="male">Female</option>
                     </select>
                 </div>
-<<<<<<< HEAD
-                <div class="choose-class">
-                    <select name="" id="">
-                        <option value="class">Class web A</option>
-                        <option value="class">Class web B</option>
-                        <option value="class">Class SNA A</option>
-                    </select>
-                </div>
-            </div>
-
-=======
-                <!-- <div class="age">
-                    <input type="number" placeholder="Your Age *" />
-                </div> -->
                 <div class="teacherAndstudent">
                    <div>
                        <input type="radio" name="school" value="student" v-model="rol" @change="hideShowClass">Student
@@ -45,23 +31,18 @@
                     <option value="SNA">Class SNA A</option>
                 </select>
             </div>
->>>>>>> b07019ea00c71694f8faec1f4beefcd8c320bae6
            
         </div>
         <div class="submit">
-<<<<<<< HEAD
-          <input class="submit-client" type="submit" value="Sign up" @click="$emit('create-user',{name:this.name, email:this.email, password:this.password, gender:this.gender})"/>
-=======
           <button class="submit-client" type="submit" @click.prevent="createUser">Sign up</button>
->>>>>>> b07019ea00c71694f8faec1f4beefcd8c320bae6
        </div>
     </div>
   </div>
 </template>
 <script>
-import axios from '../../axios-http'
-const URL_USER =process.env.VUE_APP_API_URL+ "createUser"
-const URL_STUDENT = process.env.VUE_APP_API_URL+"students/register"
+// import axios from '../../axios-http'
+// const URL_USER =process.env.VUE_APP_API_URL+ "createUser"
+// const URL_STUDENT = process.env.VUE_APP_API_URL+"students/register"
 export default{
     data(){
         return {
@@ -96,7 +77,7 @@ export default{
                     password:this.password,
                     gender:this.gender
                 }
-                axios.post(URL_USER,newUser)
+                this.$emit('create-user', newUser, this.rol)
             }else{
                 let newUser={
                     name:this.name,
@@ -105,7 +86,7 @@ export default{
                     gender:this.gender,
                     class_room:this.class_room
                 }
-                axios.post(URL_STUDENT,newUser)
+                this.$emit('create-user', newUser, this.rol)
             }
         }
     }
@@ -169,9 +150,7 @@ h3 {
 .gender1 .gender select{
     width:100%;
 }
-<<<<<<< HEAD
-.gender1 .choose-class{
-=======
+
 /* .gender1 .age{
 >>>>>>> b07019ea00c71694f8faec1f4beefcd8c320bae6
      width:48%;

@@ -102,7 +102,7 @@ class StudentController extends Controller
        // check password
        if(!$student|| !Hash::check($request->password, $student->password))
        {
-           return response()->json(['message'=>'Invalide password'],401);
+           return response()->json(['mas'=>'Invalide password']);
        }
         // $id = Auth::id();
         // $token = $student->createToken('mytoken')->plainTextToken; 

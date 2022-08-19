@@ -1,6 +1,7 @@
 <template>
   <div class="contain">
-    <div class="contain-form">
+    <div class="contain-form" @submit.prevent>
+      <form action="">
         <h3>User Login</h3>
         <div class="card-form">
             email<input type="email" placeholder="Email Address *" v-model="email"/>
@@ -13,12 +14,57 @@
               </div>
             </div>
         </div>
-        <div class="submit">
-          <input class="submit-client" type="submit" value="Sign in" @click="$emit('data-login', this.email, this.password, this.role)"/>
-       </div>
+        <div class="submit" v-if="role == 'teacher'">
+          <router-link to="/checkleave"><button @click="storeDataUser">Log In</button></router-link>
+        </div>
+        <div class="submit" v-if="role == 'student'">
+          <router-link to="/leaveList"><button @click="storeDataUser">Log In</button></router-link>
+        </div>
+      </form>
     </div>
   </div>
 </template>
+<script>
+import axios from '@/axios-http'
+
+export default{
+  data() {
+    return{
+      email:'',
+      role:'teacher',
+      password:''
+    }
+  },
+  methods:{
+    storeDataUser(){
+      let dataLogin = {email:this.email, password:this.password}
+      if(this.role == 'teacher'){
+        axios.post(process.env.VUE_APP_API_URL+'login', dataLogin).then(res=>{
+          if(res.data.mas == 'success'){
+            localStorage.setItem('user-role', this.role)
+            localStorage.setItem('email', this.email)
+            this.$router.go()
+          }else{
+            alert("Your Login not success. Please try again");
+          }
+        })
+      }
+      if(this.role == 'student'){
+        axios.post(process.env.VUE_APP_API_URL+'students/login', dataLogin).then(res=>{
+          if(res.data.mas == 'success'){
+            localStorage.setItem('user-role', this.role)
+            localStorage.setItem('email', this.email)
+            this.$router.go()
+          }else{
+            alert("Your Login not success. Please try again");
+          }
+        })
+      }
+    }
+  }
+}
+</script>
+
 <style scoped>
 .contain {
       box-sizing: border-box;
@@ -84,21 +130,3 @@ h3 {
 
 </style>
 
-<script>
-// import { defineComponent } from '@vue/composition-api'
-
-export default{
-  // data() {
-  //   return{
-  //     email:'',
-  //     password:'',
-  //   }
-  // },
-  // methods:{
-  //   login(){
-  //     this.$emit('data-login',this.email, this.password)
-  //     console.log('Hello am in form login');
-  //   }
-  // }
-}
-</script>

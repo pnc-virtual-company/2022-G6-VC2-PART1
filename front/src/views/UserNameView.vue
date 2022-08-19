@@ -14,11 +14,20 @@ export default {
     }
   },
   methods:{
-    createNewUser(userData){
-      console.log(userData);
-      axios.post(process.env.VUE_APP_API_URL+'createUser',userData).then(response=>{
-        console.log(response);
-      })
+    createNewUser(newUser, rol){
+      console.log('good morning teacher');
+      console.log(rol);
+      if (rol=='teacher'){
+        console.log(newUser);
+        axios.post(process.env.VUE_APP_API_URL+'createUser',newUser).then(response=>{
+          console.log(response);
+        })
+      }else{
+        axios.post(process.env.VUE_APP_API_URL+'students/register',newUser).then(response=>{
+          console.log(response);
+        })
+        console.log(newUser);
+      }
     }
   }
 }

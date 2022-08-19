@@ -1,28 +1,35 @@
 <template>
-<div>
+<!-- Teacher navigation -->
+<div v-if="checkForUserRole=='teacher'">
   <nav>
-<!-- <<<<<<< HEAD
-    <router-link to="/">List all students</router-link> |
-    <router-link to="/checkleave">Cheack leave</router-link>|
-    <router-link to="/leaveList">List Leave</router-link>|
-    <router-link to="/request">NewRequestView</router-link> |
-    <router-link to="/login">Log in</router-link> |
-    <router-link to="/register">Create User</router-link> 
-======= -->
     <div class="nav_left">
       <router-link to="/">List all students</router-link> 
       <router-link to="/checkleave">Cheack leave</router-link>
+    </div>
+    <div class="nav_right">
+      <router-link to="/signout">Sign in</router-link>
+      <router-link to="/signout">Sign up</router-link>
+    </div>
+  </nav>
+  <router-view/>
+</div>
+
+<!-- Student navigation -->
+<div v-if="checkForUserRole=='student'">
+  <nav>
+    <div class="nav_left">
       <router-link to="/request">New Request</router-link>
       <router-link to="/leaveList">List Leave</router-link>
     </div>
     <div class="nav_right">
-      <router-link to="/login">Log in</router-link>
-      <router-link to="/register">Create User</router-link>
+      <router-link to="/login">Sign in</router-link>
+      <router-link to="/signout">Sign up</router-link>
     </div>
-
   </nav>
   <router-view/>
+<!-- Form user login -->
 </div>
+  <LoginView v-if="checkForUserRole==''"/>
 </template>
 
 <style scoped>
@@ -78,3 +85,30 @@ a:hover:after {
     transform-origin: bottom left; 
   }
 </style>
+
+  <script>
+  import LoginView from '@/views/LoginView.vue'
+  
+  export default{
+    components:{
+      LoginView,
+    },
+    data() {
+      return {
+        checkUserRole:''
+      }
+    },
+    computed:{
+      checkForUserRole(){
+        let userRole = localStorage.getItem('user-role')
+        if(userRole == 'teacher'){
+          return 'teacher';
+        }else if(userRole == 'student'){
+          return 'student';
+        }else{
+          return ''
+        }
+      }
+    },
+  }
+  </script>

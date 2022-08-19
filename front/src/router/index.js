@@ -5,6 +5,7 @@ import NewRequestView from '../views/NewRequestView.vue'
 import CheckLeaveView from '../views/CheckLeaveView.vue'
 import LoginView from '../views/LoginView.vue'
 import UserNameView from '../views/UserNameView.vue'
+import SignOutView from '../views/SignOutView.vue'
 
 
 const routes = [
@@ -37,6 +38,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: UserNameView,
+  },
+  {
+    path: '/signout',
+    name: 'signout',
+    component: SignOutView,
   },
 
 ]
