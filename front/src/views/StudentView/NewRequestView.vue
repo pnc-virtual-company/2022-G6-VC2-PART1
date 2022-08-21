@@ -1,7 +1,7 @@
 <template>
     <section>
         <StudentFormRequest @data-request="createRequest"/>
-        <StudentCardRequest/>
+        <!-- <StudentCardRequest/> -->
     </section>
     
 </template>
@@ -9,12 +9,12 @@
 <script>
 // import { ref } from 'vue'
 import StudentFormRequest from '@/components/student/StudentFormRequest.vue'
-import StudentCardRequest from '@/components/student/StudentCardRequest.vue'
+// import StudentCardRequest from '@/components/student/StudentCardRequest.vue'
 
 export default{
     components:{
         StudentFormRequest,
-        StudentCardRequest
+        // StudentCardRequest
     },
     data() {
     

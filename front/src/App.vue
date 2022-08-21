@@ -5,9 +5,9 @@
     <div class="nav_left">
       <router-link to="/">List all students</router-link> 
       <router-link to="/checkleave">Cheack leave</router-link>
+      <router-link to="/createuser">Create User</router-link>
     </div>
     <div class="nav_right">
-      <router-link to="/signout">Sign in</router-link>
       <router-link to="/signout">Sign up</router-link>
     </div>
   </nav>
@@ -22,7 +22,7 @@
       <router-link to="/leaveList">List Leave</router-link>
     </div>
     <div class="nav_right">
-      <router-link to="/login">Sign in</router-link>
+      <router-link to="/createuser">Sign in</router-link>
       <router-link to="/signout">Sign up</router-link>
     </div>
   </nav>
@@ -96,6 +96,15 @@ a:hover:after {
     data() {
       return {
         checkUserRole:''
+      }
+    },
+    methods:{
+      signOut(){
+        // localStorage.removeItem('user-role');
+        localStorage.setItem('user-role', '')
+        localStorage.removeItem('user');
+        localStorage.removeItem('email');
+        this.checkForUserRole()
       }
     },
     computed:{

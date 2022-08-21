@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/ListAllStudentView.vue'
-import ListAllLeaveView from '../views/ListAllLeaveView.vue'
-import NewRequestView from '../views/NewRequestView.vue'
-import CheckLeaveView from '../views/CheckLeaveView.vue'
+import HomeView from '../views/UserView/ListAllStudentView.vue'
+import ListAllLeaveView from '../views/StudentView/ListAllLeaveView.vue'
+import NewRequestView from '../views/StudentView/NewRequestView.vue'
+import CheckLeaveView from '../views/UserView/CheckLeaveView.vue'
 import LoginView from '../views/LoginView.vue'
-import UserNameView from '../views/UserNameView.vue'
+import CreateUserView from '../views/UserView/CreateUserView.vue'
 import SignOutView from '../views/SignOutView.vue'
 
 
@@ -35,9 +35,9 @@ const routes = [
     component: LoginView,
   },
   {
-    path: '/register',
-    name: 'register',
-    component: UserNameView,
+    path: '/createuser',
+    name: 'createuser',
+    component: CreateUserView,
   },
   {
     path: '/signout',

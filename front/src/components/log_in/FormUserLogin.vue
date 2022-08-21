@@ -43,7 +43,14 @@ export default{
           if(res.data.mas == 'success'){
             localStorage.setItem('user-role', this.role)
             localStorage.setItem('email', this.email)
-            this.$router.go()
+            axios.get(process.env.VUE_APP_API_URL+'users').then(res=>{
+              for (const user of res.data) {
+                if(user.email == this.email){
+                  localStorage.setItem('user', JSON.stringify(user))
+                  this.$router.go()
+                }
+              }
+            })
           }else{
             alert("Your Login not success. Please try again");
           }
@@ -51,10 +58,18 @@ export default{
       }
       if(this.role == 'student'){
         axios.post(process.env.VUE_APP_API_URL+'students/login', dataLogin).then(res=>{
-          if(res.data.mas == 'success'){
+          console.log(res.data.mas);
+          if(res.data.sms == 'success'){
             localStorage.setItem('user-role', this.role)
             localStorage.setItem('email', this.email)
-            this.$router.go()
+            axios.get(process.env.VUE_APP_API_URL+'students').then(res=>{
+              for (const user of res.data) {
+                if(user.email == this.email){
+                  localStorage.setItem('user', JSON.stringify(user))
+                  this.$router.go()
+                }
+              }
+            })
           }else{
             alert("Your Login not success. Please try again");
           }
@@ -67,18 +82,18 @@ export default{
 
 <style scoped>
 .contain {
-      box-sizing: border-box;
-      width: 100%;
-      margin: auto;
-      align-items: center;
-      justify-content: center;
-      display: flex;
-    }
-.contain .contain-form{
-    width: 30%;
-    border: 1px solid;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.contain .contain-form {
+  width: 30%;
+  border: 1px solid;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 20px;
 }
 h3 {
   color: black;
@@ -91,20 +106,20 @@ h3 {
   width: 100%;
   text-align: left;
 }
-.card-form input{
-    margin-bottom: 10px;
-    width: 100%;
-    padding: 10px;
-    outline: none;
-    box-sizing: border-box;
+.card-form input {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  box-sizing: border-box;
 }
-.submit-client {
-  width: 70px;
-  height: 20px;
+.submit button {
+  width: 100%;
+  height: 5vh;
   border: none;
+  margin:auto;
   border-radius: 3px;
   font-size: 15px;
-  margin-right: 30px;
   background-color: rgb(19, 185, 149);
 }
 .submit-client:hover {
@@ -129,4 +144,3 @@ h3 {
 }
 
 </style>
-

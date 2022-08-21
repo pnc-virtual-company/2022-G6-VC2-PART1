@@ -15,7 +15,7 @@ class LeaveController extends Controller
     public function getAllLeave()
     {
         // return  Leave::with("students")->latest()->get();
-        return Leave::get();
+        return Leave::with("students")->get();
     }
 
     /**
@@ -27,10 +27,8 @@ class LeaveController extends Controller
     public function createLeave(Request $request)
     {
         $request-> validate([
-
             'reason'=> 'required|min:5',
         ]);
-
         $leave = new Leave();
         $leave -> student_id = $request ->student_id;
         $leave -> start_date = $request -> start_date;
@@ -39,9 +37,9 @@ class LeaveController extends Controller
         $leave -> reason = $request -> reason;
         $leave -> leave_type = $request -> leave_type;
         $leave -> status =$request -> status;
+
         $leave -> save();
         return response()->json($leave);
-
     }
 
     /**

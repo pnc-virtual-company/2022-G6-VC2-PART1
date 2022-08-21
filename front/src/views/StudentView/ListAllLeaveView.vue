@@ -5,7 +5,7 @@
 <script>
 // import { ref } from 'vue'
 // import axios from "../../api/api.js"
-import axios from '../axios-http';
+import axios from '../../axios-http';
 import StudentTableRequest from '@/components/student/StudentTableRequest.vue'
 
 export default{
