@@ -95,5 +95,14 @@ class LeaveController extends Controller
     //     return response()->json(['message'=> 'ID Not Found'], 200);
     //   }
     // }
+
+    /**
+     * Get data with foreign key
+     * return all data that has this foreign key
+     */
+    public function getAllLeaveWithUser($id)
+    {
+        return Leave::where('student_id',"=", $id)->get();
+    }
 }
 

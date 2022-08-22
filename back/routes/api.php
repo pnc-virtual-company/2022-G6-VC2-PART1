@@ -35,6 +35,7 @@ Route::post('/createUser', [UserController::class, 'createUser']);
 
 //Rout leave Table
 Route::get('leave', [LeaveController::class, 'getAllLeave']);
+Route::get('leave/{id}', [LeaveController::class, 'getAllLeaveWithUser']);
 Route::post('leave', [LeaveController::class, 'createLeave']);
 Route::put('leave/{id}', [LeaveController::class, 'updateLeave']);
 Route::delete('leave/{id}', [LeaveController::class, 'deleteLeave']);
