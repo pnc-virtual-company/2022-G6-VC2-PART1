@@ -8,7 +8,7 @@
       <router-link to="/createuser">Create User</router-link>
     </div>
     <div class="nav_right">
-      <router-link to="/signout">Sign up</router-link>
+      <router-link to="/signout">Sign Out</router-link>
     </div>
   </nav>
   <router-view/>
@@ -22,8 +22,7 @@
       <router-link to="/leaveList">List Leave</router-link>
     </div>
     <div class="nav_right">
-      <router-link to="/createuser">Sign in</router-link>
-      <router-link to="/signout">Sign up</router-link>
+      <router-link to="/signout">Sign Out</router-link>
     </div>
   </nav>
   <router-view/>

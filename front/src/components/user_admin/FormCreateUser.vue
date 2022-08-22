@@ -5,7 +5,7 @@
         <div class="card-form">
             user name<input type="username" placeholder="username *" v-model="name" />
             <small v-if="name_empty">Please check your user name</small><br>
-            email<input type="email" placeholder="Email Address *" v-model="email" />
+            email<input type="text" placeholder="Email Address *" v-model="email" />
             <small v-if="email_empty">Please check your email</small><br>
             password<input type="password" placeholder="Your Password *" v-model="password" />
             <small v-if="password_empty">Please check your password</small><br>
@@ -95,6 +95,10 @@ export default{
                     gender:this.gender
                 }
                 this.$emit('create-user', newUser, this.rol)
+                this.name=''
+                this.email=''
+                this.password=''
+                this.gender=''
             }else{
                 let newUser={
                     name:this.name,
@@ -104,6 +108,10 @@ export default{
                     class_room:this.class_room
                 }
                 this.$emit('create-user', newUser, this.rol)
+                this.name=''
+                this.email=''
+                this.password=''
+                this.gender=''
             }
         }
     }

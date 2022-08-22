@@ -10,58 +10,56 @@
           <th>Start Date</th> 
           <th>End Date</th> 
           <th>Duration</th> 
-          <th>Direction</th> 
           <th>Reason</th> 
           <th>Status</th> 
         </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+        <tr v-for="leave of leaveData" :key="leave"> 
+            <td>{{leave.created_at}}</td>
+            <td>{{leave.start_date}}</td>
+            <td>{{leave.end_date}}</td>
+            <td>{{leave.duration}}</td>
+            <td>{{leave.reason}}</td>
+            <td>{{leave.status}}</td>
         </tr> 
       </table>
 </section>
 </template>
+
+<script>
+// import { defineComponent } from '@vue/composition-api'
+import axios from '@/axios-http'
+
+export default{
+  data() {
+    return{
+      leaveData: []
+    }
+  },
+  methods:{
+    getUserLeave(){
+      let userId = localStorage.getItem('user')
+      axios.get(process.env.VUE_APP_API_URL+'leave/'+userId[6]).then(res=>{
+        this.leaveData = res.data
+      })
+    }
+  },
+  mounted(){
+    this.getUserLeave()
+  }
+
+  // computed:{
+  //   getUserLeave(){
+  //     let userData = []
+  //     let userId = localStorage.getItem('user')
+  //     axios.get(process.env.VUE_APP_API_URL+'leave/'+userId[6]).then(res=>{
+  //       userData = res.data
+  //     })
+  //     return userData
+  //   }
+  // }
+}
+</script>
+
 
 <style scoped>
 

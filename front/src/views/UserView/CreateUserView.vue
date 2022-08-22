@@ -16,9 +16,13 @@ export default {
   methods:{
     createNewUser(newUser, rol){
       if (rol=='teacher'){
-        axios.post(process.env.VUE_APP_API_URL+'createUser',newUser)
+        axios.post(process.env.VUE_APP_API_URL+'createUser',newUser).then(res=>{
+          console.log(res);
+          alert('User Create Sucessfuly')
+        })
       }else{
         axios.post(process.env.VUE_APP_API_URL+'students/register',newUser)
+        alert('User Create Sucessfuly')
       }
     }
   }
