@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Leave;
 
 class LeaveController extends Controller
 {
@@ -11,9 +12,10 @@ class LeaveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getAllLeave()
     {
-        //
+        // return  Leave::with("students")->latest()->get();
+        return Leave::with("students")->get();
     }
 
     /**
@@ -22,9 +24,21 @@ class LeaveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function createLeave(Request $request)
     {
-        //
+        $request-> validate([
+            'reason'=> 'required|min:3',
+        ]);
+        $leave = new Leave();
+        $leave -> student_id = $request ->student_id;
+        $leave -> start_date = $request -> start_date;
+        $leave-> end_date = $request -> end_date;
+        $leave -> duration = $request -> duration;
+        $leave -> reason = $request -> reason;
+        $leave -> leave_type = $request -> leave_type;
+        $leave -> status =$request -> status;
+        $leave -> save();
+        return response()->json($leave);
     }
 
     /**
@@ -33,10 +47,10 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     return Leave::find($id);
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -45,10 +59,25 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    // public function updateLeave(Request $request, $id)
+    // {
+    //     $request-> validate([
+
+    //         'reason'=> 'required|min:5',
+    //     ]);
+
+    //     $leave = Leave::findOrfail($id);
+    //     $leave -> student_id = $request ->student_id;
+    //     $leave -> start_date = $request -> start_date;
+    //     $leave-> end_date = $request -> end_date;
+    //     $leave -> duration = $request -> duration;
+    //     $leave -> reason = $request -> reason;
+    //     $leave -> leave_type = $request -> leave_type;
+    //     $leave -> status =$request -> status;
+    //     $leave -> save();
+    //     // return response()->json($leave);
+    //     return response()->json(['message' => 'leave created successfully', 'data' => $leave], 201);
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -56,8 +85,14 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function deleteLeave($id)
+    // {
+    //     $isDelete = Leave::destroy($id);
+    //   if($isDelete == 1){
+    //     return response()->json(['message'=>'delete'],200);
+    //   }else{
+    //     return response()->json(['message'=> 'ID Not Found'], 200);
+    //   }
+    // }
 }
+

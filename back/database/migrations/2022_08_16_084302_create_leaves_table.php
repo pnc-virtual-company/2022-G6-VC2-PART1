@@ -22,7 +22,6 @@ return new class extends Migration
             $table->integer('duration');
             $table->string('reason');
             $table->string('leave_type');
-            $table->string('direction');
             $table->string('status');
             $table->timestamps();
         });

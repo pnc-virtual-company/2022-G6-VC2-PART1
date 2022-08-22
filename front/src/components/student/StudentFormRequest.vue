@@ -63,6 +63,8 @@
 
 </template>
 <script>
+import axios from "../../axios-http"
+const REQUEST_URL = process.env.VUE_APP_API_URL + "leave"
 export default {
     data(){
         return{
@@ -117,6 +119,17 @@ export default {
             }else if((this.time_leave!=this.time_arrive)&& (this.time_arrive!=''&& this.time_leave!='')){
                 this.duration+=1
             }
+        },
+        addReques(){
+            let newReques={ student_id:2,
+                            start_date:this.start_date,
+                            end_date:this.end_date,
+                            duration:this.duration,
+                            reason:this.reason,
+                            leave_type:this.leave_type,
+                            status:'padding'
+                          }
+            axios.post(REQUEST_URL,newReques)
         }
     },
     mounted(){
@@ -125,5 +138,6 @@ export default {
          */
         this.disableCalendar=this.convertDate(new Date())
     }
+
 }
 </script>

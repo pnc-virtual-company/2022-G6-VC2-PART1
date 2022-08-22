@@ -1,31 +1,66 @@
 <template>
-  <div class="contain">
+  <div class="contain" @submit.prevent>
     <div class="contain-form">
-        <h3>User Login</h3>
-        <div class="card-form">
-            email<input type="email" placeholder="Email Address *" />
-            password<input type="password" placeholder="Your Password *" />
-        </div>
-        <div class="submit">
-          <input class="submit-client" type="submit" value="Sign in" />
-       </div>
+      <h3>User Login</h3>
+      <div class="card-form">
+        email<input 
+        type="email" 
+        placeholder="Email Address *"
+        v-model="email"
+         />
+        password<input
+          type="password"
+          placeholder="Your Password *"
+          v-model="password"
+        />
+      </div>
+      <div class="submit">
+        <button type="submit" value="Sign in" @click="loginUser">Login</button>
+      </div>
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    loginUser() {
+      let log_in = {
+        email: this.email,
+        password: this.password,
+      };
+      console.log(log_in);
+      this.$emit("loginUser", {
+        email: this.email,
+        password: this.password,
+      });
+      // this.email="";
+      // this.password="";
+    },
+  },
+};
+
+</script>
+
 <style scoped>
 .contain {
-      box-sizing: border-box;
-      width: 100%;
-      margin: auto;
-      align-items: center;
-      justify-content: center;
-      display: flex;
-    }
-.contain .contain-form{
-    width: 30%;
-    border: 1px solid;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.contain .contain-form {
+  width: 30%;
+  border: 1px solid;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 20px;
 }
 h3 {
   color: black;
@@ -38,24 +73,20 @@ h3 {
   width: 100%;
   text-align: left;
 }
-.card-form input{
-    margin-bottom: 10px;
-    width: 100%;
-    padding: 10px;
-    outline: none;
-    box-sizing: border-box;
+.card-form input {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  box-sizing: border-box;
 }
-.submit-client {
-  width: 70px;
-  height: 20px;
+.submit button {
+  width: 100%;
+  height: 5vh;
   border: none;
+  margin:auto;
   border-radius: 3px;
   font-size: 15px;
-  margin-right: 30px;
   background-color: rgb(19, 185, 149);
 }
-.submit-client:hover {
-  background-color: rgb(9, 146, 117);
-}
 </style>
-

@@ -11,4 +11,12 @@ class Student extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable=['name','class_room','gender','email','password','remember_token'];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    public function leaves(){
+        $this->hasMany(Leave::class,'student_id');
+    }
 }

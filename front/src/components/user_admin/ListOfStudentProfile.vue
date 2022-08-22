@@ -4,36 +4,12 @@
             <input type="text" placeholder="search" class="search">
             <button class="btn-orange">Search</button>
         </div>
-        <div class="card">
+        <div class="card" v-for="student of students" :key="student">
             <div class="card-title">
                 <div class="circle">SLMS</div>
                 <div>
-                    <h1>vichet morm</h1>
-                    <label>web-2022-A</label>
-                </div>
-            </div>
-            <div>
-                <button class="btn-orange">read more</button>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-title">
-                <div class="circle">SLMS</div>
-                <div>
-                    <h1>vichet morm</h1>
-                    <label>web-2022-A</label>
-                </div>
-            </div>
-            <div>
-                <button class="btn-orange">read more</button>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-title">
-                <div class="circle">SLMS</div>
-                <div>
-                    <h1>vichet morm</h1>
-                    <label>web-2022-A</label>
+                    <h3>{{student.name}} </h3>
+                    <label>{{student.class_room}}</label>
                 </div>
             </div>
             <div>
@@ -42,7 +18,13 @@
         </div>
     </div>
 </template>
-
+ <script>
+ export default {
+    props:{
+        students:Array
+    }
+ }
+ </script>
 
 <style scoped>
 *{

@@ -10,59 +10,45 @@
           <th>Start Date</th> 
           <th>End Date</th> 
           <th>Duration</th> 
-          <th>Direction</th> 
+          <th>Leave type</th> 
           <th>Reason</th> 
           <th>Status</th> 
         </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr> 
-        <tr> 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr> 
+        <tr v-for = "(leave,index) of student_leave" :key="index"> 
+            <td>{{leave.created_at}}</td>
+            <td>{{leave.start_date}}</td>
+            <td>{{leave.end_date}}</td>
+            <td>{{leave.duration}}</td>
+            <td>{{leave.leave_type}}</td>
+            <td>{{leave.reason}}</td>
+            <td :class="{'padding':leave.status=='padding'}">{{leave.status}}</td>
+        </tr>  
       </table>
 </section>
 </template>
+<script>
+import axios from "../../axios-http";
+const URL_studentLeave = process.env.VUE_APP_API_URL + "leave";
+export default {
+  data() {
+    return {
+      student_leave:[]
+    };
+  },
 
+    // FUNCTION students leave///
+    methods: {
+      getStudentLeave() {
+        axios.get(URL_studentLeave).then(response=>{
+            this.student_leave = response.data;
+        })
+      }
+    },
+    mounted(){
+        this.getStudentLeave();
+    }
+  }
+</script>
 <style scoped>
 
 table { 
@@ -122,5 +108,17 @@ th{
 }
 .button-42:hover {
   box-shadow: rgba(211, 208, 207, 0.5) 0 3px 8px;
+}
+.padding{
+  color: #FFAD5C;
+}
+.cancel{
+  color: #6BD6F8;
+}
+.approve{
+  color:#4d7eaf
+}
+.enject{
+  color: red;
 }
 </style>

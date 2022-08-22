@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,11 +28,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/users', [UserController::class, 'getUsers']);
     Route::put('/users/{id}', [UserController::class, 'updateUser']);
     Route::delete('/users/{id}', [UserController::class, 'destroyUser']);
-
-    
     Route::get('/users/{id}', [UserController::class, 'getUser']);
     Route::post('/logout', [UserController::class, 'logout']);
 });
+
+
+//Rout leave Table
+Route::get('leave', [LeaveController::class, 'getAllLeave']);
+Route::post('leave', [LeaveController::class, 'createLeave']);
+Route::put('leave/{id}', [LeaveController::class, 'updateLeave']);
+Route::delete('leave/{id}', [LeaveController::class, 'deleteLeave']);
 
 
 /**
