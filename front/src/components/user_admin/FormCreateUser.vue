@@ -1,5 +1,5 @@
 <template>
-  <div class="contain">
+  <div class="contain" @submit.prevent>
     <div class="contain-form">
         <h3>Create New Account</h3>
         <div class="card-form">
@@ -37,7 +37,7 @@
            
         </div>
         <div class="submit">
-          <button class="submit-client" type="submit" @click.prevent="checkValidation">Sign up</button>
+          <button class="submit-client" type="submit" @click="checkValidation">Sign up</button>
        </div>
     </div>
   </div>
@@ -49,7 +49,7 @@
 export default{
     data(){
         return {
-            rol:'',
+            rol:'teacher',
             name:'',
             email:'',
             password:'',
@@ -84,6 +84,7 @@ export default{
             if(this.name.length == 0){this.name_empty = true}
             if(this.rol == ''){this.rol_empty = true}
             if(this.gender == ''){this.gender_empty = true}
+            // console.log(this.rol , this.name_empty , this.email_empty , this.password_empty , this.gender_empty);
             if(!this.rol_empty && !this.name_empty && !this.email_empty && !this.password_empty && !this.gender_empty){this.createUser()}
         },
         createUser(){
@@ -199,5 +200,8 @@ h3 {
 }
 .submit-client:hover {
   background-color:  rgb(9, 146, 117);
+}
+small{
+    color: red;
 }
 </style>

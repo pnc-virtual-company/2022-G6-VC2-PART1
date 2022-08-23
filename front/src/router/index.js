@@ -6,6 +6,7 @@ import CheckLeaveView from '../views/UserView/CheckLeaveView.vue'
 import LoginView from '../views/LoginView.vue'
 import CreateUserView from '../views/UserView/CreateUserView.vue'
 import SignOutView from '../views/SignOutView.vue'
+import StudentProfileView from '../views/UserView/StudentProfileView.vue'
 
 
 const routes = [
@@ -43,6 +44,11 @@ const routes = [
     path: '/signout',
     name: 'signout',
     component: SignOutView,
+  },
+  {
+    path: '/studentprofile',
+    name: 'studentprofile',
+    component: StudentProfileView,
   },
 
 ]

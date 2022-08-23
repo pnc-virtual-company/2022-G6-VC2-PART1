@@ -75,7 +75,10 @@ export default{
     padding: 7px;
     font-size: 16px;
 }
-.request .request-form .direction, .reason{
+.request .request-form .leave-type, .reason{
+    width: 100%;
+}
+.request .request-form .leave-type select{
     width: 100%;
 }
 .request .request-form textarea{

@@ -13,7 +13,7 @@
           <th>Reason</th> 
           <th>Status</th> 
         </tr> 
-        <tr v-for="leave of leaveData" :key="leave"> 
+        <tr v-for="leave of student_leave" :key="leave"> 
             <td>{{leave.created_at}}</td>
             <td>{{leave.start_date}}</td>
             <td>{{leave.end_date}}</td>
@@ -24,43 +24,30 @@
       </table>
 </section>
 </template>
-
 <script>
-// import { defineComponent } from '@vue/composition-api'
-import axios from '@/axios-http'
-
-export default{
+import axios from "../../axios-http";
+// const URL_studentLeave = process.env.VUE_APP_API_URL + "leave";
+export default {
   data() {
-    return{
-      leaveData: []
-    }
+    return {
+      student_leave:[]
+    };
   },
   methods:{
     getUserLeave(){
       let userId = localStorage.getItem('user')
+      console.log(userId[6]);
       axios.get(process.env.VUE_APP_API_URL+'leave/'+userId[6]).then(res=>{
-        this.leaveData = res.data
+        this.student_leave = res.data
+        console.log(res.data);
       })
     }
   },
   mounted(){
     this.getUserLeave()
   }
-
-  // computed:{
-  //   getUserLeave(){
-  //     let userData = []
-  //     let userId = localStorage.getItem('user')
-  //     axios.get(process.env.VUE_APP_API_URL+'leave/'+userId[6]).then(res=>{
-  //       userData = res.data
-  //     })
-  //     return userData
-  //   }
-  // }
 }
 </script>
-
-
 <style scoped>
 
 table { 
@@ -112,7 +99,6 @@ th{
   -webkit-user-select: none;
   vertical-align: top;
   white-space: nowrap;
-  /* width: 100%; */
   z-index: 9;
   border: 0;
   transition: box-shadow .2s;
@@ -120,5 +106,17 @@ th{
 }
 .button-42:hover {
   box-shadow: rgba(211, 208, 207, 0.5) 0 3px 8px;
+}
+.padding{
+  color: #FFAD5C;
+}
+.cancel{
+  color: #6BD6F8;
+}
+.approve{
+  color:#4d7eaf
+}
+.enject{
+  color: red;
 }
 </style>

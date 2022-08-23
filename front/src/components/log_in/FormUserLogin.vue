@@ -90,6 +90,7 @@ export default{
   display: flex;
 }
 .contain .contain-form {
+  margin-top: 120px;
   width: 30%;
   border: 1px solid;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

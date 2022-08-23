@@ -27,10 +27,10 @@ class UserController extends Controller
     {
         $request-> validate([
             'name'=>'required|string|max:200',
-            'email'=>'required|string|email|max:255|unique:users',
+            'email'=>'required|unique:users,email,$this->id,id',
             'password'=>'required|string|min:8',
-            
         ]);
+
 
         $user = new User();
         $user-> name = $request -> name;
@@ -41,11 +41,12 @@ class UserController extends Controller
         $user ->save();
         // $token = $user->createToken('myToken')->plainTextToken;
 
-        $response = [
-            'user' => $user,
-            // 'token' => $token
-        ];
-        return response()->json($response);
+        if ($user === 1) {
+            return response()->json($response);
+        } else {
+            return response()->json(['message' => 'User cannot create'], 201);
+        }
+        // return response()->json($response);
     }
 
 //login 
