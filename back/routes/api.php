@@ -24,13 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/createUser', [UserController::class, 'createUser']);
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+// Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/users', [UserController::class, 'getUsers']);
     Route::put('/users/{id}', [UserController::class, 'updateUser']);
     Route::delete('/users/{id}', [UserController::class, 'destroyUser']);
     Route::get('/users/{id}', [UserController::class, 'getUser']);
     Route::post('/logout', [UserController::class, 'logout']);
-});
+// });
 
 
 //Rout leave Table
