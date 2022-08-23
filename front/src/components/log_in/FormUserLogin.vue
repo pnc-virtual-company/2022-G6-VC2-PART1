@@ -3,11 +3,11 @@
     <div class="contain-form">
       <h3>User Login</h3>
       <div class="card-form">
-        email<input 
-        type="email" 
-        placeholder="Email Address *"
-        v-model="email"
-         />
+        email<input
+          type="email"
+          placeholder="Email Address *"
+          v-model="email"
+        />
         password<input
           type="password"
           placeholder="Your Password *"
@@ -20,7 +20,9 @@
     </div>
   </div>
 </template>
+
 <script>
+import axios from "../../axios-http";
 export default {
   data() {
     return {
@@ -34,17 +36,14 @@ export default {
         email: this.email,
         password: this.password,
       };
-      console.log(log_in);
-      this.$emit("loginUser", {
-        email: this.email,
-        password: this.password,
-      });
-      // this.email="";
-      // this.password="";
+      axios
+        .post(process.env.VUE_APP_API_URL + "login", log_in)
+        .then((response) => {
+          console.log(response.data);
+        });
     },
   },
 };
-
 </script>
 
 <style scoped>
@@ -84,7 +83,7 @@ h3 {
   width: 100%;
   height: 5vh;
   border: none;
-  margin:auto;
+  margin: auto;
   border-radius: 3px;
   font-size: 15px;
   background-color: rgb(19, 185, 149);
