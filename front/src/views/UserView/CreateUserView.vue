@@ -3,7 +3,7 @@
 </template>
 <script>
 import FormCreateUser from "../../components/user_admin/FormCreateUser.vue";
-import axios from '../../axios-http';
+import axios from '@/api/api';
 export default {
   components:{
      FormCreateUser,
@@ -16,7 +16,7 @@ export default {
   methods:{
     createNewUser(newUser, rol){
       if (rol=='teacher'){
-        axios.post(process.env.VUE_APP_API_URL+'createUser',newUser)
+        axios.post('createUser',newUser)
         .then(()=>{
           alert('User Create Sucessfuly')
         })
@@ -24,7 +24,7 @@ export default {
           alert('Fail to create user')
       });
       }else{
-        axios.post(process.env.VUE_APP_API_URL+'students/register',newUser)
+        axios.post('students/register',newUser)
         .then(()=>{
           alert('User create Successfully')
         }).catch(function(){

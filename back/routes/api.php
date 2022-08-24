@@ -22,31 +22,32 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 // user Rout appi (/users)
 Route::post('/login', [UserController::class, 'login']);
-Route::post('/createUser', [UserController::class, 'createUser']);
+/**
+ * STUDENT ROUT
+ */
+Route::post('/students/login',[StudentController::class,'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/createUser', [UserController::class, 'createUser']);
     Route::get('/users', [UserController::class, 'getUsers']);
     Route::put('/users/{id}', [UserController::class, 'updateUser']);
     Route::delete('/users/{id}', [UserController::class, 'destroyUser']);
     Route::get('/users/{id}', [UserController::class, 'getUser']);
     Route::post('/logout', [UserController::class, 'logout']);
-});
+    
+    /**
+     * Leave request route
+     * 
+     * @return leave data
+     */
+    Route::get('leave', [LeaveController::class, 'getAllLeave']);
+    Route::get('leave/{id}', [LeaveController::class, 'getAllLeaveWithUser']);
+    Route::get('leave/status/{status}', [LeaveController::class, 'getAllLeaveWithStatus']);
+    Route::post('leave', [LeaveController::class, 'createLeave']);
+    Route::put('leave/{id}', [LeaveController::class, 'updateLeave']);
+    Route::delete('leave/{id}', [LeaveController::class, 'deleteLeave']);
 
 
-//Rout leave Table
-Route::get('leave', [LeaveController::class, 'getAllLeave']);
-Route::get('leave/{id}', [LeaveController::class, 'getAllLeaveWithUser']);
-Route::get('leave/status/{status}', [LeaveController::class, 'getAllLeaveWithStatus']);
-Route::post('leave', [LeaveController::class, 'createLeave']);
-Route::put('leave/{id}', [LeaveController::class, 'updateLeave']);
-Route::delete('leave/{id}', [LeaveController::class, 'deleteLeave']);
-
-
-/**
- * STUDENT ROUT
- */
-Route::post('/students/login',[StudentController::class,'login']);
-Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/students/register',[StudentController::class,'store']);
     Route::post('/students/logout',[StudentController::class,'logout']);
     Route::get('students',[StudentController::class,'index']);
@@ -54,4 +55,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('students/{id}',[StudentController::class,'update']);
     Route::delete('students/{id}',[StudentController::class,'destroy']);
 });
+
+
+
+
+// <<<<<<< HEAD
+// Route::group(['middleware' => ['auth:sanctum']], function () {
+    // =======
+    
+// Route::group(['middleware' => ['auth:sanctum']], function () {
+// });
 

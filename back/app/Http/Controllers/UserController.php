@@ -14,24 +14,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-     // get user funtion
     public function getUsers()
     {
-        // return User::latest()->get();
         return User::all();
     }
 
-    //register user
-    public function createUser(Request $request)
-    {
+/******************************** Create New User *********************************** */
+    public function createUser(Request $request){
         $request-> validate([
             'name'=>'required|string|max:200',
             'email'=>'required|unique:users,email,$this->id,id',
             'password'=>'required|string|min:8',
 
         ]);
-
         $user = new User();
         $user-> name = $request -> name;
         $user-> gender = $request -> gender;
@@ -41,14 +36,10 @@ class UserController extends Controller
         $user ->save();
         $token = $user->createToken('myToken')->plainTextToken;
 
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-        return response()->json($response);
+        return response()->json(['message' => 'User create Sucessfully']);
     }
 
-//login 
+/********************************** User Log In ************************************* */
     public function login(Request $request) { 
         if(Auth::attempt($request->only('email', 'password'))){ 
             $user = Auth::user(); 
@@ -58,20 +49,20 @@ class UserController extends Controller
         } 
         return response()->json(['mas'=>"Invalid"]); 
     } 
-     
+    
+/************************************ Log out ****************************************/
     public function logout() { 
          $cookie = Cookie::forget('jwt'); 
          return response()->json(['mes'=>'Logged out Successfully'])->withCookie($cookie); 
     }     
 
-    public function getUser($id)
-    {
+/************************************ Get One User With Id ***************************/
+    public function getUser($id){
         return User::findOrFail($id);
     }
     
-//create user
-    public function updateUser(Request $request, $id)
-    {
+/************************************ Update User Data ******************************* */
+    public function updateUser(Request $request, $id){
         $user=User::findOrFail($id);
         $user-> name = $request -> name;
         $user-> gender = $request -> gender;
@@ -80,13 +71,10 @@ class UserController extends Controller
         $user->save();
 
         return response()->json(['message' => 'User Update Successfully!'], 200);
-      
     }
 
-    //Delete 
-    public function destroyUser($id)
-    {
-    
+/************************************* Delete user *********************************** */
+    public function destroyUser($id){
         $iSDelete = User::destroy($id);
         if ($iSDelete === 1) {
             return response()->json(['message' => 'User deleted successfully'], 200);

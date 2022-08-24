@@ -6,10 +6,7 @@
     {{user.email}}
     {{user.password}}
   </ul>
-
   </div>
-
-
   <FormUserSignOut />
  </div>
 </template>
@@ -21,18 +18,8 @@ export default {
   components:{
     FormUserSignOut,
   },
-  data(){
-    return{
-      userlogin:[],
-    };
-  },
-  methods: {
-  // getLogin() {
-  //   http.get('name')
-  //   .then(response => {
-  //     this.userlogin = response.data;
-  //   })
-  // },
+
+
   signOut(){
         // localStorage.removeItem('user-role');
         localStorage.setItem('user-role', '')
@@ -56,6 +43,5 @@ export default {
       // this.getLogin();
     });
   }
-}
 }
 </script>

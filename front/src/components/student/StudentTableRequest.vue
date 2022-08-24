@@ -34,11 +34,11 @@ export default {
   },
   methods:{
     getUserLeave(){
-      let userId = localStorage.getItem('user')
-      console.log(userId[6]);
-      axios.get('leave/'+userId[6]).then(res=>{
+      let userId = JSON.parse(localStorage.getItem('user')).id
+      console.log(userId);
+      axios.get('leave/'+userId).then(res=>{
         this.student_leave = res.data
-        console.log(res.data);
+        console.log(res);
       })
     }
   },

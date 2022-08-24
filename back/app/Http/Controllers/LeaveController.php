@@ -14,7 +14,6 @@ class LeaveController extends Controller
      */
     public function getAllLeave()
     {
-        // return  Leave::with("students")->latest()->get();
         return Leave::with("students")->get();
     }
 
@@ -70,7 +69,6 @@ class LeaveController extends Controller
         $leave -> leave_type = $request -> leave_type;
         $leave -> status =$request -> status;
         $leave -> save();
-        // return response()->json($leave);
         return response()->json(['message' => 'leave created successfully', 'data' => $leave], 201);
     }
 

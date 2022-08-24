@@ -41,7 +41,6 @@ class StudentController extends Controller
         $student->password=bcrypt($request->password);
         $student->save();
         $token=$student->createToken('myToken')->plainTextToken;
-        // return response()->json(['sms'=>'store is Successfully'],201);
         return response()->json(['mes'=>'store is Successfully','token'=>$token],201);
     }
 
@@ -90,13 +89,18 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student  $id)
     {
-        Student::destroy($id);
-        return response()->json(['sms'=>'Delete is Successfully'],201);
+        return $id->delete();
     }
     
-    public function login(Request $request){
+    /**
+     * Login user with specified email and password
+     * 
+     * @param \App\Models\Student $studdent
+     */
+    public function login(Request $request)
+    {
        // check email
        $student = Student::where('email',$request->email)->first();
        // check password
@@ -110,12 +114,12 @@ class StudentController extends Controller
     } 
 
     /**
-     * Logout
+     * Logout with specified user
+     * 
+     * @return delete token of user
      */
-    public function logout() {
-        Auth::user()->tokens->each(function($token, $key) {
-            $token->delete();
-        });
-        return response()->json('Successfully logged out');
+    public function logout(Request $request){
+        Auth::user()->tokens()->delete(); 
+        return response()->json(['message' => 'Sign out success!'], 200);
     }
 }

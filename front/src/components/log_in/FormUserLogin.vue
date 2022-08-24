@@ -1,4 +1,5 @@
 <template>
+
   <div class="contain">
     <div class="contain-form" @submit.prevent>
       <form action="">
@@ -21,9 +22,11 @@
           <router-link to="/leaveList"><button @click="storeDataUser">Log In</button></router-link>
         </div>
       </form>
+
     </div>
   </div>
 </template>
+
 <script>
 import axios from '@/api/api'
 
@@ -79,6 +82,7 @@ export default{
     }
   }
 }
+
 </script>
 
 <style scoped>
@@ -119,7 +123,7 @@ h3 {
   width: 100%;
   height: 5vh;
   border: none;
-  margin:auto;
+  margin: auto;
   border-radius: 3px;
   font-size: 15px;
   background-color: rgb(19, 185, 149);
