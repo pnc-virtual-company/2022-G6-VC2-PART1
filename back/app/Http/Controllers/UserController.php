@@ -46,7 +46,7 @@ class UserController extends Controller
         // } else {
         //     return response()->json(['message' => 'User cannot create'], 201);
         // }
-        return response()->json($response);
+        return response()->json($user);
     }
 
 //login 
