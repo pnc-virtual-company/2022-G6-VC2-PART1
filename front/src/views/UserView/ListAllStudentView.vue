@@ -1,11 +1,16 @@
 <template>
+<div>
   <div v-if="!viewProfile" class="home">
-
-   <listAllStudent :students="dataStudents" @user-id="isViewProfile"></listAllStudent>
+    <listAllStudent
+      :students="dataStudents"
+      @user-id="isViewProfile"   
+      @deleteItem="onDelete"
+    ></listAllStudent>
   </div>
   <div v-if="viewProfile">
-    <StudentProfile :student="dataStudent"/>
+    <StudentProfile :student="dataStudent" />
   </div>
+</div>
 </template>
 
 <script>
@@ -48,16 +53,22 @@ export default {
       console.log(res.data);
       this.dataStudent = res.data
     })
-  }
+  },
+  // __________delete_________
+  onDelete(id){
+        axios.delete(URL_STUDENTS + id).then(() => {
+        this.getAllStudents();
+    })
  },
-  mounted(){
+},
+mounted(){
     this.getAllStudents()
   }
 }
 </script>
 
 <style scoped>
-  .displayNone{
-    display: none;
-  }
+.displayNone {
+  display: none;
+}
 </style>

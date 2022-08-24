@@ -4,7 +4,7 @@
             <input type="text" placeholder="search" class="search">
             <button class="btn-orange">Search</button>
         </div>
-        <div class="card" v-for="student of students" :key="student">
+        <div class="card" v-for="student of students" :key="student" >
             <div class="card-title">
                 <div class="circle">SLMS</div>
                 <div>
@@ -14,11 +14,9 @@
             </div>
             <div>
                 <button class="btn-orange" @click="provideUserId(student.id)">read more</button>
+                <button class="btn-red" @click="deleteStudents(student.id)">delete</button>
             </div>
         </div>
-    </div>
-    <div>
-
     </div>
 </template>
 <script>
@@ -29,7 +27,11 @@
         },
         methods:{
             provideUserId(id){
-                this.$emit('user-id', id);
+                this.$emit('user-id',id);
+            },
+            //________delete student__________
+            deleteStudents(deleteId){
+                this.$emit('deleteItem', deleteId)
             }
         }
     }
@@ -90,5 +92,10 @@
     padding: 0.5rem;
     border-radius: 5px;
     background: orange;
+}
+.btn-red{
+    padding: 0.5rem;
+    border-radius: 5px;
+    background: rgb(243, 48, 44);
 }
 </style>
