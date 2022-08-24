@@ -84,7 +84,6 @@ export default{
             if(this.name.length == 0){this.name_empty = true}
             if(this.rol == ''){this.rol_empty = true}
             if(this.gender == ''){this.gender_empty = true}
-            // console.log(this.rol , this.name_empty , this.email_empty , this.password_empty , this.gender_empty);
             if(!this.rol_empty && !this.name_empty && !this.email_empty && !this.password_empty && !this.gender_empty){this.createUser()}
         },
         createUser(){

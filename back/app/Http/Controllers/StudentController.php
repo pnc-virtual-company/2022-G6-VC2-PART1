@@ -40,9 +40,8 @@ class StudentController extends Controller
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         $student->save();
-        // $token=$student->createToken('myToken')->plainTextToken;
-        return response()->json(['sms'=>'store is Successfully'],201);
-        // return response()->json(['mes'=>'store is Successfully','token'=>$token],201);
+        $token=$student->createToken('myToken')->plainTextToken;
+        return response()->json(['mes'=>'store is Successfully','token'=>$token],201);
     }
 
     /**
@@ -79,9 +78,9 @@ class StudentController extends Controller
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         $student->save();
-        // $token=$student->createToken('myToken')->plainTextToken;
-        return response()->json(['sms'=>'Update is Successfully'],201);
-        // return response()->json(['mes'=>'Update is Successfully','token'=>$token],201);
+        $token=$student->createToken('myToken')->plainTextToken;
+        // return response()->json(['sms'=>'Update is Successfully'],201);
+        return response()->json(['mes'=>'Update is Successfully','token'=>$token],201);
     }
 
     /**
@@ -90,18 +89,18 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     Student::destroy($id);
-    //     return response()->json(['sms'=>'Delete is Successfully'],201);
-    // }
-
     public function destroy(Student  $id)
     {
         return $id->delete();
     }
     
-    public function login(Request $request){
+    /**
+     * Login user with specified email and password
+     * 
+     * @param \App\Models\Student $studdent
+     */
+    public function login(Request $request)
+    {
        // check email
        $student = Student::where('email',$request->email)->first();
        // check password
@@ -111,13 +110,16 @@ class StudentController extends Controller
        }
         $id = Auth::id();
         $token = $student->createToken('mytoken')->plainTextToken; 
-        // $cookie = cookie('jwt', $token, 60*24); 
-        // return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
-        return response()->json(['mas'=> 'success','token'=>$token], 200);
+        return response()->json(['mas'=> 'success','token'=>$token], 200); 
     } 
-    //function signout//
+
+    /**
+     * Logout with specified user
+     * 
+     * @return delete token of user
+     */
     public function logout(Request $request){
         Auth::user()->tokens()->delete(); 
-        return response()->json(['message' => 'Sign out success!']);
+        return response()->json(['message' => 'Sign out success!'], 200);
     }
 }

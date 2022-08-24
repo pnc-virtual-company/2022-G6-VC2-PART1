@@ -17,9 +17,9 @@
 // @ is an alias to /src
 import listAllStudent from '@/components/user_admin/ListOfStudentProfile.vue'
 import StudentProfile from '@/components/user_admin/StudentProfile.vue'
-import axios from '../../axios-http'
-const URL_LISTSTUDENTS = process.env.VUE_APP_API_URL + 'students'
-const URL_STUDENTS = process.env.VUE_APP_API_URL + 'students/'
+import axios from '@/api/api'
+// const URL_LISTSTUDENTS = process.env.VUE_APP_API_URL + 'students'
+// const URL_STUDENTS = process.env.VUE_APP_API_URL + 'students/'
 export default {
  components:{
   listAllStudent,
@@ -34,7 +34,7 @@ export default {
  },
  methods:{
   getAllStudents(){
-    axios.get(URL_LISTSTUDENTS).then((result) => {
+    axios.get('students').then((result) => {
       this.dataStudents= result.data;
     })
   },
@@ -49,14 +49,14 @@ export default {
     }
   },
   provideUserData(id){
-    axios.get(URL_STUDENTS+id).then(res=>{
+    axios.get('students/'+id).then(res=>{
       console.log(res.data);
       this.dataStudent = res.data
     })
   },
   // __________delete_________
   onDelete(id){
-        axios.delete(URL_STUDENTS + id).then(() => {
+        axios.delete('students/' + id).then(() => {
         this.getAllStudents();
     })
  },
