@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Leave;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
 
 class LeaveController extends Controller
 {
@@ -37,6 +39,7 @@ class LeaveController extends Controller
         $leave -> leave_type = $request -> leave_type;
         $leave -> status =$request -> status;
         $leave -> save();
+        Mail::to('oun.bav@student.passerellesnumeriques.org')->send(new TestMail($leave));
         return response()->json($leave);
     }
 
