@@ -4,8 +4,10 @@
             <div class="text"><h2>Are you sure to Sing out your account?</h2></div>
             <div class="button-group">
                 <button class="orange" @click="$router.go(-1)">Concel</button>
-                <router-link to="/login" class="blue" @click="signOut">Confirm</router-link>
-                <!-- <button class="blue">Confirm</button> -->
+                <button class="blue">
+                    <router-link  class="link" to="/login"  @click="signOut .go(-1)">Confirm</router-link>
+                </button>
+              
             </div>
         </div>
     </div>
@@ -46,7 +48,7 @@ export default {
 }
 .contain .contain-form{
     background: white;
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     padding: 50px;
 }
 .contain .contain-form .text{
@@ -62,7 +64,10 @@ export default {
 .contain .contain-form .button-group .orange{
     background: orange;
 }
-.contain .contain-form .button-group .blue{
-    background: blue;
+.contain .contain-form .button-group  .blue{
+       background: #05B2E9;
+}
+.link{
+    text-decoration: none;
 }
 </style>

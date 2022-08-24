@@ -1,105 +1,116 @@
 <template>
   <div class="status">
     <div class="status-card">
-      <div class="card-padding card"><h2>Padding</h2><h3>{{statusPadding}}</h3></div>
-      <div class="card-reject card"><h2>Reject</h2><h3>{{statusReject}}</h3></div>
-      <div class="card-approve card"><h2>Approve</h2><h3>{{statusApprove}}</h3></div>
+      <div class="card-padding card">
+        <h2>Padding</h2>
+        <h3>{{ statusPadding }}</h3>
+      </div>
+      <div class="card-reject card">
+        <h2>Reject</h2>
+        <h3>{{ statusReject }}</h3>
+      </div>
+      <div class="card-approve card">
+        <h2>Approve</h2>
+        <h3>{{ statusApprove }}</h3>
+      </div>
     </div>
   </div>
+
   <div v-for="student of student_leave" :key="student">
     <div class="card" v-if="student.status == 'padding'">
       <div class="card_title">
-        <h2>{{student.students.name}}</h2>
+        <h2>{{ student.students.name }}</h2>
       </div>
       <div class="card_body">
         <div class="row">
-          <p>{{student.students.class_room}}</p>
+          <p>{{ student.students.class_room }}</p>
           <div class="col">
-            <p><strong>type : </strong> {{student.leave_type}}</p>
+            <p><strong>type : </strong> {{ student.leave_type }}</p>
           </div>
         </div>
         <div class="row">
           <div>
-            <p><strong>Duration : </strong> {{student.duration}} day</p>
+            <p><strong>Duration : </strong> {{ student.duration }} day</p>
           </div>
           <div class="col">
-            <p><strong>reason : </strong> {{student.reason}}</p>
+            <p><strong>reason : </strong> {{ student.reason }}</p>
           </div>
         </div>
         <div class="row">
           <div>
-            <p><strong>Start : </strong> {{student.start_date}}</p>
+            <p><strong>Start : </strong> {{ student.start_date }}</p>
           </div>
           <div class="col">
-            <p><strong>End : </strong> {{student.end_date}}</p>
+            <p><strong>End : </strong> {{ student.end_date }}</p>
           </div>
         </div>
       </div>
       <div class="card_footer">
-        <button class="btn-orange" @click="changeStatus(student, 'reject')">reject</button>
-        <button class="btn-blue" @click="changeStatus(student, 'approve')">approve</button>
+        <button class="btn-orange" @click="changeStatus(student, 'reject')">
+          reject
+        </button>
+        <button class="btn-blue" @click="changeStatus(student, 'approve')">
+          approve
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
-import axios from '@/api/api'
+import axios from "@/api/api";
 export default {
   data() {
     return {
-      student_leave:[],
-      statusPadding:0,
-      statusReject:0,
-      statusApprove:0
+      student_leave: [],
+      statusPadding: 0,
+      statusReject: 0,
+      statusApprove: 0,
     };
   },
-    // FUNCTION students leave///
-    methods: {
-      getStudentLeave() {
-        axios.get('leave').then(response=>{
-            this.student_leave = response.data;
-        })
-        this.getNumberOfStatus();
-      },
-      /**
-       * admit update status for student request
-       * return new status
-       */
-      changeStatus(leaveData, status) {
-        leaveData.status = status
-        axios.put('leave/'+leaveData.id, leaveData)
-        this.getNumberOfStatus()
-      },
-      /**
-       * count number of each status
-       */
-      getNumberOfStatus() {
-        axios.get('leave/'+'status/padding').then(response=>{
-            this.statusPadding = response.data.length;
-        })
-        axios.get('leave/'+'status/reject').then(response=>{
-            this.statusReject = response.data.length;
-        })
-        axios.get('leave/'+'status/approve').then(response=>{
-            this.statusApprove = response.data.length;
-        })
-      },
-
+  // FUNCTION students leave///
+  methods: {
+    getStudentLeave() {
+      axios.get("leave").then((response) => {
+        this.student_leave = response.data;
+      });
+      this.getNumberOfStatus();
     },
-    mounted(){
-        this.getStudentLeave();
-        
-    }
-  }
+    /**
+     * admit update status for student request
+     * return new status
+     */
+    changeStatus(leaveData, status) {
+      leaveData.status = status;
+      axios.put("leave/" + leaveData.id, leaveData);
+      this.getNumberOfStatus();
+    },
+    /**
+     * count number of each status
+     */
+    getNumberOfStatus() {
+      axios.get("leave/" + "status/padding").then((response) => {
+        this.statusPadding = response.data.length;
+      });
+      axios.get("leave/" + "status/reject").then((response) => {
+        this.statusReject = response.data.length;
+      });
+      axios.get("leave/" + "status/approve").then((response) => {
+        this.statusApprove = response.data.length;
+      });
+    },
+  },
+  mounted() {
+    this.getStudentLeave();
+  },
+};
 </script>
 
 <style scoped>
 body {
   background: rgb(229, 229, 229);
 }
-.status{
+.status {
   /* background: #ffad5c; */
   align-items: center;
   justify-content: center;
@@ -107,21 +118,21 @@ body {
   margin-top: 40px;
   /* background: #55b4f4; */
 }
-.status .status-card{
+.status .status-card {
   width: 50%;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
   display: flex;
   gap: 20px;
 }
-.status .status-card .card{
+.status .status-card .card {
   background: white;
   text-align: center;
 }
-.status .status-card .card h3{
+.status .status-card .card h3 {
   padding: 20px 0;
 }
-.status .status-card .card button{
+.status .status-card .card button {
   padding: 7px 25px;
   border: none;
   margin-bottom: 10px;

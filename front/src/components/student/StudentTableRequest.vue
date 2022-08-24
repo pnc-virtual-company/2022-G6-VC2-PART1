@@ -1,10 +1,22 @@
 <template>
     <section>
+        <div class="myoption">
+        <h4>Leave type : </h4>
+        <select class="leave_type" v-model="leave_type" >
+          <option value="">All</option>
+           <option value="sick">Sick</option>
+           <option value="home">Home</option>
+        </select>
+        <h4>Status : </h4>
+        <select class="status" v-model="status" >
+          <option value="">All</option>
+          <option value="cancel">Cancel</option>
+          <option value="padding">Padding</option>
+          <option value="approve">Aprove</option>
+          <option value="reject">Reject</option>
+        </select>
+      </div>
     <table> 
-        <div class="search-bar">
-                <input type="text">
-                <button class="button-42">search</button>
-        </div>
         <tr> 
           <th>Request Date</th> 
           <th>Start Date</th> 
@@ -12,6 +24,7 @@
           <th>Duration</th> 
           <th>Reason</th> 
           <th>Status</th> 
+          <th>Leave type</th> 
         </tr> 
         <tr v-for="leave of student_leave" :key="leave"> 
             <td>{{leave.created_at}}</td>
@@ -19,27 +32,65 @@
             <td>{{leave.end_date}}</td>
             <td>{{leave.duration}}</td>
             <td>{{leave.reason}}</td>
-            <td>{{leave.status}}</td>
+            <td :class="{'padding':leave.status=='padding'}" v-if="leave.status=='padding'">{{leave.status}}</td>
+            <td :class="{'cancel':leave.status=='cancel'}" v-if="leave.status=='cancel'">{{leave.status}}</td>
+            <td :class="{'approve':leave.status=='approve'}" v-if="leave.status=='approve'">{{leave.status}}</td>
+            <td :class="{'reject':leave.status=='reject'}" v-if="leave.status=='reject'">{{leave.status}}</td>
+            <td>{{leave.leave_type}}</td>
         </tr> 
       </table>
 </section>
 </template>
 <script>
 import axios from '@/api/api'
+let userId = JSON.parse(localStorage.getItem('user')).id
 export default {
   data() {
     return {
-      student_leave:[]
+      student_leave:[],
+      leave_type:'',
+      status:'',
     };
+  },
+  watch:{
+  leave_type(){
+    this.optionChange()
+  },
+  status(){
+    this.optionChange()
+  }
   },
   methods:{
     getUserLeave(){
-      let userId = JSON.parse(localStorage.getItem('user')).id
-      console.log(userId);
       axios.get('leave/'+userId).then(res=>{
         this.student_leave = res.data
-        console.log(res);
       })
+    },
+      /**
+     * FUNCTION FOR STATUS OR LEAVE TYPE CHANGE
+     */
+    optionChange(){
+      if(this.leave_type !=='' || this.status !==''){
+        if (this.leave_type !== '' && this.status ===''){
+            axios.get('leave/'+userId).then(res=>{
+              this.student_leave = res.data.filter(leave=>leave.leave_type==this.leave_type)
+            })
+            
+        }
+        else if (this.status !== '' && this.leave_type ===''){
+            axios.get('leave/'+userId).then(res=>{
+              this.student_leave = res.data.filter(leave=>leave.status==this.status)
+            })
+        }
+        else{
+            axios.get('leave/'+userId).then(res=>{
+              this.student_leave = res.data.filter(leave=>leave.status==this.status && leave.leave_type==this.leave_type)
+            })
+        }
+      }
+      else{
+        this.getUserLeave()
+      }
     }
   },
   mounted(){
@@ -115,7 +166,18 @@ th{
 .approve{
   color:#4d7eaf
 }
-.enject{
+.reject{
   color: red;
+}
+.myoption{
+  display:flex;
+  margin:auto;
+  width:60%;
+  justify-content:space-evenly;
+  align-items: center;
+  margin-top: 10px;
+}
+.leave_type,.status{
+  margin-top: 15px;
 }
 </style>

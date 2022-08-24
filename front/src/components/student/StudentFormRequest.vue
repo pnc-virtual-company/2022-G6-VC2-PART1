@@ -20,7 +20,7 @@
                         </div>
                         <div class="date-arrive">
                             <label for="">Date Arrive</label>
-                            <div><input type="date" v-model="end_date" @change="checkDuration" :min="disableCalendar" required></div>
+                            <div><input type="date" v-model="end_date" @change="checkDuration" :min="start_date" required></div>
                         </div>
                     </div>
                     <div class="right">

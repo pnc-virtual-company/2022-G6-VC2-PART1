@@ -97,7 +97,7 @@ export default{
 .contain .contain-form {
   margin-top: 120px;
   width: 30%;
-  border: 1px solid;
+  /* border: 1px solid; */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 20px;
 }
@@ -126,10 +126,10 @@ h3 {
   margin: auto;
   border-radius: 3px;
   font-size: 15px;
-  background-color: rgb(19, 185, 149);
+   background: #05B2E9;
 }
 .submit-client:hover {
-  background-color: rgb(9, 146, 117);
+   background: #05B2E9;
 }
 .role{
   align-items: center;

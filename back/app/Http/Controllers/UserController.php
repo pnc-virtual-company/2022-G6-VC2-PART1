@@ -34,9 +34,12 @@ class UserController extends Controller
         $user -> password = bcrypt($request->password);
 
         $user ->save();
-        $token = $user->createToken('myToken')->plainTextToken;
+        // $token = $user->createToken('myToken')->plainTextToken;
+
+        return response()->json($user);
 
         return response()->json(['message' => 'User create Sucessfully']);
+
     }
 
 /********************************** User Log In ************************************* */
