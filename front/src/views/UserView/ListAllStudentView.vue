@@ -5,6 +5,7 @@
       :students="dataStudents"
       @user-id="isViewProfile"   
       @deleteItem="onDelete"
+      @filter-student ="filterStudent"
     ></listAllStudent>
   </div>
   <div v-if="viewProfile">
@@ -60,6 +61,15 @@ export default {
         this.getAllStudents();
     })
  },
+//  filter-student
+filterStudent(search){
+  if(search!=''){
+    this.dataStudents = this.dataStudents.filter(student=>student.name.toLowerCase().includes(search.toLowerCase()))
+  }
+  else{
+    this.getAllStudents()
+  }
+}
 },
 mounted(){
     this.getAllStudents()
