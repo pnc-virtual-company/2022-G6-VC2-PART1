@@ -40,9 +40,9 @@ class StudentController extends Controller
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         $student->save();
-        // $token=$student->createToken('myToken')->plainTextToken;
-        return response()->json(['sms'=>'store is Successfully'],201);
-        // return response()->json(['mes'=>'store is Successfully','token'=>$token],201);
+        $token=$student->createToken('myToken')->plainTextToken;
+        // return response()->json(['sms'=>'store is Successfully'],201);
+        return response()->json(['mes'=>'store is Successfully','token'=>$token],201);
     }
 
     /**
@@ -79,9 +79,9 @@ class StudentController extends Controller
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         $student->save();
-        // $token=$student->createToken('myToken')->plainTextToken;
-        return response()->json(['sms'=>'Update is Successfully'],201);
-        // return response()->json(['mes'=>'Update is Successfully','token'=>$token],201);
+        $token=$student->createToken('myToken')->plainTextToken;
+        // return response()->json(['sms'=>'Update is Successfully'],201);
+        return response()->json(['mes'=>'Update is Successfully','token'=>$token],201);
     }
 
     /**
@@ -104,10 +104,18 @@ class StudentController extends Controller
        {
            return response()->json(['mas'=>'Invalide password']);
        }
-        // $id = Auth::id();
-        // $token = $student->createToken('mytoken')->plainTextToken; 
-        // $cookie = cookie('jwt', $token, 60*24); 
-        // return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
-        return response()->json(['sms'=> 'success'], 200) ;
+        $id = Auth::id();
+        $token = $student->createToken('mytoken')->plainTextToken; 
+        return response()->json(['mas'=> 'success','token'=>$token], 200); 
     } 
+
+    /**
+     * Logout
+     */
+    public function logout() {
+        Auth::user()->tokens->each(function($token, $key) {
+            $token->delete();
+        });
+        return response()->json('Successfully logged out');
+    }
 }

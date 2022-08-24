@@ -29,8 +29,8 @@ class UserController extends Controller
             'name'=>'required|string|max:200',
             'email'=>'required|unique:users,email,$this->id,id',
             'password'=>'required|string|min:8',
-        ]);
 
+        ]);
 
         $user = new User();
         $user-> name = $request -> name;
@@ -39,45 +39,30 @@ class UserController extends Controller
         $user -> password = bcrypt($request->password);
 
         $user ->save();
-        // $token = $user->createToken('myToken')->plainTextToken;
+        $token = $user->createToken('myToken')->plainTextToken;
 
-        if ($user === 1) {
-            return response()->json($response);
-        } else {
-            return response()->json(['message' => 'User cannot create'], 201);
-        }
-        // return response()->json($response);
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+        return response()->json($response);
     }
 
 //login 
     public function login(Request $request) { 
         if(Auth::attempt($request->only('email', 'password'))){ 
-            return response()->json(['mas'=> 'success'], 200);
+            $user = Auth::user(); 
+            $token = $user->createToken('mytoken')->plainTextToken; 
+            $cookie = cookie('jwt', $token, 60*1); 
+            return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
         } 
-
-        $user = Auth::user(); 
         return response()->json(['mas'=>"Invalid"]); 
-        // $token = $user->createToken('mytoken')->plainTextToken; 
-        // $cookie = cookie('jwt', $token, 60*24); 
-        // return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
-    }
+    } 
      
-    // public function logout() { 
-    //      $cookie = Cookie::forget('jwt'); 
-    //      return response()->json(['mes'=>'Logged out Successfully'])->withCookie($cookie); 
-    // }
-
-        // $user = Auth::user(); 
-        // $token = $user->createToken('mytoken')->plainTextToken; 
-        // $cookie = cookie('jwt', $token, 60*24); 
-        // return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
-        // return response()->json(['mas'=> 'success'], 200);
-    //  } 
-     
-//      public function logout() { 
-//          $cookie = Cookie::forget('jwt'); 
-//          return response()->json(['mes'=>'Logged out Successfully'])->withCookie($cookie); 
-//    }
+    public function logout() { 
+         $cookie = Cookie::forget('jwt'); 
+         return response()->json(['mes'=>'Logged out Successfully'])->withCookie($cookie); 
+    }     
 
     public function getUser($id)
     {
