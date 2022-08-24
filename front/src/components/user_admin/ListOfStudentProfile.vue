@@ -8,23 +8,32 @@
             <div class="card-title">
                 <div class="circle">SLMS</div>
                 <div>
-                    <h3>{{student.name}} </h3>
+                    <h3>{{student.name}}</h3>
                     <label>{{student.class_room}}</label>
                 </div>
             </div>
             <div>
-                <button class="btn-orange">read more</button>
+                <button class="btn-orange" @click="provideUserId(student.id)">read more</button>
             </div>
         </div>
     </div>
+    <div>
+
+    </div>
 </template>
- <script>
- export default {
-    props:{
-        students:Array
+<script>
+    // import 
+    export default {
+        props:{
+            students:Array
+        },
+        methods:{
+            provideUserId(id){
+                this.$emit('user-id', id);
+            }
+        }
     }
- }
- </script>
+</script>
 
 <style scoped>
 *{

@@ -59,25 +59,20 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function updateLeave(Request $request, $id)
-    // {
-    //     $request-> validate([
-
-    //         'reason'=> 'required|min:5',
-    //     ]);
-
-    //     $leave = Leave::findOrfail($id);
-    //     $leave -> student_id = $request ->student_id;
-    //     $leave -> start_date = $request -> start_date;
-    //     $leave-> end_date = $request -> end_date;
-    //     $leave -> duration = $request -> duration;
-    //     $leave -> reason = $request -> reason;
-    //     $leave -> leave_type = $request -> leave_type;
-    //     $leave -> status =$request -> status;
-    //     $leave -> save();
-    //     // return response()->json($leave);
-    //     return response()->json(['message' => 'leave created successfully', 'data' => $leave], 201);
-    // }
+    public function updateLeave(Request $request, $id)
+    {
+        $leave = Leave::findOrfail($id);
+        $leave -> student_id = $request ->student_id;
+        $leave -> start_date = $request -> start_date;
+        $leave-> end_date = $request -> end_date;
+        $leave -> duration = $request -> duration;
+        $leave -> reason = $request -> reason;
+        $leave -> leave_type = $request -> leave_type;
+        $leave -> status =$request -> status;
+        $leave -> save();
+        // return response()->json($leave);
+        return response()->json(['message' => 'leave created successfully', 'data' => $leave], 201);
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -94,5 +89,23 @@ class LeaveController extends Controller
     //     return response()->json(['message'=> 'ID Not Found'], 200);
     //   }
     // }
+
+    /**
+     * Get data with foreign key
+     * return all data that has this foreign key
+     */
+    public function getAllLeaveWithUser($id)
+    {
+        return Leave::where('student_id',"=", $id)->orderBy('id', 'desc')->get();
+    }
+
+    /**
+     * Get data with status
+     * return all data that has this status
+     */
+    public function getAllLeaveWithStatus($request)
+    {
+        return Leave::where('status',"=", $request)->get();
+    }
 }
 

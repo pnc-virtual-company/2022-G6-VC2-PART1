@@ -102,12 +102,17 @@ class StudentController extends Controller
        // check password
        if(!$student|| !Hash::check($request->password, $student->password))
        {
-           return response()->json(['sms'=>'Invalide password'],401);
+           return response()->json(['mas'=>'Invalide password']);
        }
-        // $id = Auth::id();
-        // $token = $student->createToken('mytoken')->plainTextToken; 
+        $id = Auth::id();
+        $token = $student->createToken('mytoken')->plainTextToken; 
         // $cookie = cookie('jwt', $token, 60*24); 
         // return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
-        return response()->json(['sms'=> 'success'], 200) ;
+        return response()->json(['mas'=> 'success','token'=>$token], 200);
     } 
+    //function signout//
+    public function logout(Request $request){
+        Auth::user()->tokens()->delete(); 
+        return response()->json(['message' => 'Sign out success!']);
+    }
 }

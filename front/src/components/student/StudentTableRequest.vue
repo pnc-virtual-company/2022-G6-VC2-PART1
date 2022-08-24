@@ -10,44 +10,43 @@
           <th>Start Date</th> 
           <th>End Date</th> 
           <th>Duration</th> 
-          <th>Leave type</th> 
           <th>Reason</th> 
           <th>Status</th> 
         </tr> 
-        <tr v-for = "(leave,index) of student_leave" :key="index"> 
+        <tr v-for="leave of student_leave" :key="leave"> 
             <td>{{leave.created_at}}</td>
             <td>{{leave.start_date}}</td>
             <td>{{leave.end_date}}</td>
             <td>{{leave.duration}}</td>
-            <td>{{leave.leave_type}}</td>
             <td>{{leave.reason}}</td>
-            <td :class="{'padding':leave.status=='padding'}">{{leave.status}}</td>
-        </tr>  
+            <td>{{leave.status}}</td>
+        </tr> 
       </table>
 </section>
 </template>
 <script>
 import axios from "../../axios-http";
-const URL_studentLeave = process.env.VUE_APP_API_URL + "leave";
+// const URL_studentLeave = process.env.VUE_APP_API_URL + "leave";
 export default {
   data() {
     return {
       student_leave:[]
     };
   },
-
-    // FUNCTION students leave///
-    methods: {
-      getStudentLeave() {
-        axios.get(URL_studentLeave).then(response=>{
-            this.student_leave = response.data;
-        })
-      }
-    },
-    mounted(){
-        this.getStudentLeave();
+  methods:{
+    getUserLeave(){
+      let userId = JSON.parse(localStorage.getItem('user')).id
+      console.log(userId);
+      axios.get(process.env.VUE_APP_API_URL+'leave/'+userId).then(res=>{
+        this.student_leave = res.data
+        console.log(res);
+      })
     }
+  },
+  mounted(){
+    this.getUserLeave()
   }
+}
 </script>
 <style scoped>
 
@@ -100,7 +99,6 @@ th{
   -webkit-user-select: none;
   vertical-align: top;
   white-space: nowrap;
-  /* width: 100%; */
   z-index: 9;
   border: 0;
   transition: box-shadow .2s;

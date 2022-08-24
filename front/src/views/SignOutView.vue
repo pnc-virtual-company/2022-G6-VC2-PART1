@@ -6,24 +6,42 @@
     {{user.email}}
     {{user.password}}
   </ul>
-
   </div>
-
-
-  <UserLogin @loginUser="loginUser"/>
-  <button @click="getdata">get data</button>
+  <FormUserSignOut />
  </div>
 </template>
 
 <script>
-import UserLogin from "../components/log_in/FormUserLogin.vue";
-
+import FormUserSignOut from "../components/signout/FormUserSignOut.vue";
+import axios from "../axios-http";
 export default {
   components:{
-    UserLogin,
+    FormUserSignOut,
   },
-  // data(){
-  // },
-  
+
+
+  signOut(){
+        // localStorage.removeItem('user-role');
+        localStorage.setItem('user-role', '')
+        localStorage.removeItem('user');
+        localStorage.removeItem('email');
+        this.checkForUserRole()
+  },
+  loginUser(object) {
+    axios.post(process.env.VUE_APP_API_URL+'login', object)
+    .then(res => {
+      console.log('Hello world');
+      console.log(res.data);
+      // this.getLogin();
+      this.getdata()
+    });
+  },
+  getdata(){
+    axios.get(process.env.VUE_APP_API_URL+'users')
+    .then(res => {
+      console.log(res.data);
+      // this.getLogin();
+    });
+  }
 }
 </script>

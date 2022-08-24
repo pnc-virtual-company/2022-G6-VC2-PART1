@@ -1,20 +1,34 @@
 <template>
-<div>
+<!-- Teacher navigation -->
+<div v-if="checkForUserRole=='teacher'">
   <nav>
     <div class="nav_left">
       <router-link to="/">List all students</router-link> 
       <router-link to="/checkleave">Cheack leave</router-link>
+      <router-link to="/createuser">Create User</router-link>
+    </div>
+    <div class="nav_right">
+      <router-link to="/signout">Sign Out</router-link>
+    </div>
+  </nav>
+  <router-view/>
+</div>
+
+<!-- Student navigation -->
+<div v-if="checkForUserRole=='student'">
+  <nav>
+    <div class="nav_left">
       <router-link to="/request">New Request</router-link>
       <router-link to="/leaveList">List Leave</router-link>
     </div>
     <div class="nav_right">
-      <router-link to="/in">Sign in</router-link>
-      <router-link to="/up">Sign up</router-link>
+      <router-link to="/signout">Sign Out</router-link>
     </div>
-
   </nav>
   <router-view/>
+<!-- Form user login -->
 </div>
+  <LoginView v-if="checkForUserRole==''"/>
 </template>
 
 <style scoped>
@@ -70,3 +84,39 @@ a:hover:after {
     transform-origin: bottom left; 
   }
 </style>
+
+  <script>
+  import LoginView from '@/views/LoginView.vue'
+  
+  export default{
+    components:{
+      LoginView,
+    },
+    data() {
+      return {
+        checkUserRole:''
+      }
+    },
+    methods:{
+      signOut(){
+        // localStorage.removeItem('user-role');
+        localStorage.setItem('user-role', '')
+        localStorage.removeItem('user');
+        localStorage.removeItem('email');
+        this.checkForUserRole()
+      }
+    },
+    computed:{
+      checkForUserRole(){
+        let userRole = localStorage.getItem('user-role')
+        if(userRole == 'teacher'){
+          return 'teacher';
+        }else if(userRole == 'student'){
+          return 'student';
+        }else{
+          return ''
+        }
+      }
+    },
+  }
+  </script>

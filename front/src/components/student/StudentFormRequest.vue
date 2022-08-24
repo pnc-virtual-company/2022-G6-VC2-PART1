@@ -42,6 +42,7 @@
                                 </select>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="duration">
@@ -121,7 +122,8 @@ export default {
             }
         },
         addReques(){
-            let newReques={ student_id:2,
+            let student_id = JSON.parse(localStorage.getItem('user'))
+            let newReques={ student_id:student_id.id,
                             start_date:this.start_date,
                             end_date:this.end_date,
                             duration:this.duration,
@@ -130,6 +132,12 @@ export default {
                             status:'padding'
                           }
             axios.post(REQUEST_URL,newReques)
+            this.time_leave = '';
+            this.time_arrive = '';
+            this.duration = '';
+            this.reason = '';
+            this.start_date = new Date();
+            this.end_date = new Date();
         }
     },
     mounted(){
@@ -138,6 +146,5 @@ export default {
          */
         this.disableCalendar=this.convertDate(new Date())
     }
-
 }
 </script>

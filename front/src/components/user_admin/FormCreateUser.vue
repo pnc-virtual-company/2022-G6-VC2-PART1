@@ -1,35 +1,35 @@
 <template>
-  <div class="contain">
+  <div class="contain" @submit.prevent>
     <div class="contain-form">
         <h3>Create New Account</h3>
         <div class="card-form">
             user name<input type="username" placeholder="username *" v-model="name" />
-            email<input type="email" placeholder="Email Address *" v-model="email" />
+            <small v-if="name_empty">Please check your user name</small><br>
+            email<input type="text" placeholder="Email Address *" v-model="email" />
+            <small v-if="email_empty">Please check your email</small><br>
             password<input type="password" placeholder="Your Password *" v-model="password" />
+            <small v-if="password_empty">Please check your password</small><br>
         </div>
         <div class="select">
             <div class="gender1">
                 <div class="gender">
                     <select name="" id="" v-model="gender">
-                        <option value="male">Male</option>
+                        <option selected value="male">Male</option>
                         <option value="male">Female</option>
                     </select>
                 </div>
-                <!-- <div class="age">
-                    <input type="number" placeholder="Your Age *" />
-                </div> -->
                 <div class="teacherAndstudent">
                    <div>
                        <input type="radio" name="school" value="student" v-model="rol" @change="hideShowClass">Student
                    </div>
                    <div>
-                       <input type="radio" name="school" value="teacher" v-model="rol" @change="hideShowClass">Teacher
+                       <input type="radio" checked name="school" value="teacher" v-model="rol" @change="hideShowClass">Teacher
                    </div>
                </div>
             </div>
             <div class="choose" v-if="hideShowClass">
                 <select name="" id="" v-model="class_room">
-                    <option value="Web_2022A">Class web A</option>
+                    <option checked value="Web_2022A">Class web A</option>
                     <option value="Web_2022B">Class web B</option>
                     <option value="SNA">Class SNA A</option>
                 </select>
@@ -37,24 +37,30 @@
            
         </div>
         <div class="submit">
-          <button class="submit-client" type="submit" @click.prevent="createUser">Sign up</button>
+          <button class="submit-client" type="submit" @click="checkValidation">Sign up</button>
        </div>
     </div>
   </div>
 </template>
 <script>
-import axios from '../../axios-http'
-const URL_USER =process.env.VUE_APP_API_URL+ "createUser"
-const URL_STUDENT = process.env.VUE_APP_API_URL+"students/register"
+// import axios from '../../axios-http'
+// const URL_USER =process.env.VUE_APP_API_URL+ "createUser"
+// const URL_STUDENT = process.env.VUE_APP_API_URL+"students/register"
 export default{
     data(){
         return {
-            rol:'',
+            rol:'teacher',
             name:'',
             email:'',
             password:'',
             gender:'',
-            class_room:''
+            class_room:'',
+            rol_empty:false,
+            name_empty:false,
+            email_empty:false,
+            password_empty:false,
+            gender_empty:false,
+
         }
     },
     computed:{
@@ -72,6 +78,15 @@ export default{
         /**
          * FUNCTION CREATE USER 
          */
+        checkValidation(){
+            if(!(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.email) || this.email == ''){this.email_empty=true}
+            if(this.password.length < 8){this.password_empty = true}
+            if(this.name.length == 0){this.name_empty = true}
+            if(this.rol == ''){this.rol_empty = true}
+            if(this.gender == ''){this.gender_empty = true}
+            // console.log(this.rol , this.name_empty , this.email_empty , this.password_empty , this.gender_empty);
+            if(!this.rol_empty && !this.name_empty && !this.email_empty && !this.password_empty && !this.gender_empty){this.createUser()}
+        },
         createUser(){
             if (this.rol=='teacher'){
                 let newUser={
@@ -80,7 +95,11 @@ export default{
                     password:this.password,
                     gender:this.gender
                 }
-                axios.post(URL_USER,newUser)
+                this.$emit('create-user', newUser, this.rol)
+                this.name=''
+                this.email=''
+                this.password=''
+                this.gender=''
             }else{
                 let newUser={
                     name:this.name,
@@ -89,7 +108,11 @@ export default{
                     gender:this.gender,
                     class_room:this.class_room
                 }
-                axios.post(URL_STUDENT,newUser)
+                this.$emit('create-user', newUser, this.rol)
+                this.name=''
+                this.email=''
+                this.password=''
+                this.gender=''
             }
         }
     }
@@ -98,13 +121,13 @@ export default{
 </script>
 <style scoped>
 .contain {
-      box-sizing: border-box;
-      width: 100%;
-      margin: auto;
-      align-items: center;
-      justify-content: center;
-      display: flex;
-    }
+    margin-top: 80px;
+    box-sizing: border-box;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
 .contain .contain-form{
     width: 30%;
     border: 1px solid;
@@ -149,16 +172,16 @@ h3 {
 }
 .gender1 .gender{
     width:48%;
-    /* margin-right: 15px; */
 }
 .gender1 .gender select{
     width:100%;
-    /* margin-right: 15px; */
 }
+
 /* .gender1 .age{
+>>>>>>> b07019ea00c71694f8faec1f4beefcd8c320bae6
      width:48%;
 }
-.select .gender1 .age input{
+.select .gender1 .choose-class select{
     box-sizing: border-box;
     padding: 8px;
     width: 100%;
@@ -177,5 +200,8 @@ h3 {
 }
 .submit-client:hover {
   background-color:  rgb(9, 146, 117);
+}
+small{
+    color: red;
 }
 </style>

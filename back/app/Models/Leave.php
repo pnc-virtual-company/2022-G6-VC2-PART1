@@ -12,4 +12,5 @@ class Leave extends Model
     public function students(){
         return $this->belongsTo(Student::class,'student_id');
     }
+    protected $casts = ['created_at'=>"date: d-M-Y", "updated_at"=>"date: d-M-Y"];
 }
