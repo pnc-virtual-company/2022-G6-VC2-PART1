@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import axios from "../../axios-http";
-const URL_studentLeave = process.env.VUE_APP_API_URL + "leave/";
+
+import axios from '@/api/api'
 export default {
   data() {
     return {
@@ -58,7 +58,7 @@ export default {
     // FUNCTION students leave///
     methods: {
       getStudentLeave() {
-        axios.get(URL_studentLeave).then(response=>{
+        axios.get('leave').then(response=>{
             this.student_leave = response.data;
         })
         this.getNumberOfStatus();
@@ -69,20 +69,20 @@ export default {
        */
       changeStatus(leaveData, status) {
         leaveData.status = status
-        axios.put(URL_studentLeave+leaveData.id, leaveData)
+        axios.put('leave/'+leaveData.id, leaveData)
         this.getNumberOfStatus()
       },
       /**
        * count number of each status
        */
       getNumberOfStatus() {
-        axios.get(URL_studentLeave+'status/padding').then(response=>{
+        axios.get('leave/'+'status/padding').then(response=>{
             this.statusPadding = response.data.length;
         })
-        axios.get(URL_studentLeave+'status/reject').then(response=>{
+        axios.get('leave/'+'status/reject').then(response=>{
             this.statusReject = response.data.length;
         })
-        axios.get(URL_studentLeave+'status/approve').then(response=>{
+        axios.get('leave/'+'status/approve').then(response=>{
             this.statusApprove = response.data.length;
         })
       },

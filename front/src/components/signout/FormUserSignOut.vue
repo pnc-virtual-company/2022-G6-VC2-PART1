@@ -20,12 +20,11 @@ export default {
     },
     methods:{
       signOut(){
-        // localStorage.removeItem('user-role');
         localStorage.setItem('user-role', '')
         localStorage.removeItem('user');
         localStorage.removeItem('email');
+        localStorage.removeItem('token');
         this.$router.go()
-        // this.checkForUserRole()
       }
     }
 }

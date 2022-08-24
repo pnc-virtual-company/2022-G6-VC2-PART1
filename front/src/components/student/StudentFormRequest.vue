@@ -64,8 +64,7 @@
 
 </template>
 <script>
-import axios from "../../axios-http"
-const REQUEST_URL = process.env.VUE_APP_API_URL + "leave"
+import axios from '@/api/api'
 export default {
     data(){
         return{
@@ -131,7 +130,7 @@ export default {
                             leave_type:this.leave_type,
                             status:'padding'
                           }
-            axios.post(REQUEST_URL,newReques)
+            axios.post('leave/',newReques)
             this.time_leave = '';
             this.time_arrive = '';
             this.duration = '';

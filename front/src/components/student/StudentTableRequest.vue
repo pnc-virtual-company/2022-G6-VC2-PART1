@@ -25,8 +25,7 @@
 </section>
 </template>
 <script>
-import axios from "../../axios-http";
-// const URL_studentLeave = process.env.VUE_APP_API_URL + "leave";
+import axios from '@/api/api'
 export default {
   data() {
     return {
@@ -37,7 +36,7 @@ export default {
     getUserLeave(){
       let userId = localStorage.getItem('user')
       console.log(userId[6]);
-      axios.get(process.env.VUE_APP_API_URL+'leave/'+userId[6]).then(res=>{
+      axios.get('leave/'+userId[6]).then(res=>{
         this.student_leave = res.data
         console.log(res.data);
       })
