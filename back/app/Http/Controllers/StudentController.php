@@ -90,10 +90,15 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     Student::destroy($id);
+    //     return response()->json(['sms'=>'Delete is Successfully'],201);
+    // }
+
+    public function destroy(Student  $id)
     {
-        Student::destroy($id);
-        return response()->json(['sms'=>'Delete is Successfully'],201);
+        return $id->delete();
     }
     
     public function login(Request $request){
