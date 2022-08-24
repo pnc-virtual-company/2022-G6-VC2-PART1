@@ -12,7 +12,7 @@
           <option value="">All</option>
           <option value="cancel">Cancel</option>
           <option value="padding">Padding</option>
-          <option value="aprove">Aprove</option>
+          <option value="approve">Aprove</option>
           <option value="reject">Reject</option>
         </select>
       </div>
@@ -87,7 +87,9 @@ export default {
               this.student_leave = res.data.filter(leave=>leave.status==this.status && leave.leave_type==this.leave_type)
             })
         }
-  
+      }
+      else{
+        this.getUserLeave()
       }
     }
   },
@@ -164,7 +166,7 @@ th{
 .approve{
   color:#4d7eaf
 }
-.enject{
+.reject{
   color: red;
 }
 .myoption{
