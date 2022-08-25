@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="search-bar">
-            <input type="text" placeholder="search" class="search">
-            <button class="btn-orange">Search</button>
+            <input type="text" placeholder="search" class="search" v-model="search">
+            <!-- <button class="btn-orange">Search</button> -->
         </div>
         <div class="card" v-for="student of students" :key="student" >
             <div class="card-title">
@@ -25,6 +25,11 @@
         props:{
             students:Array
         },
+        data(){
+            return {
+                search:''
+            }
+        },
         methods:{
             provideUserId(id){
                 this.$emit('user-id',id);
@@ -33,6 +38,11 @@
             //________delete student__________
             deleteStudents(deleteId){
                 this.$emit('deleteItem', deleteId)
+            }
+        },
+        watch:{
+            search(){
+                this.$emit('filter-student', this.search)
             }
         }
     }
