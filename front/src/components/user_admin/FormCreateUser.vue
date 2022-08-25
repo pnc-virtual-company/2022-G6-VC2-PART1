@@ -29,10 +29,16 @@
             </div>
             <div class="choose" v-if="hideShowClass">
                 <select name="" id="" v-model="class_room">
-                    <option checked value="Web_2022A">Class web A</option>
-                    <option value="Web_2022B">Class web B</option>
+                    <option checked value="Web A">Class web A</option>
+                    <option value="We B">Class web B</option>
                     <option value="SNA">Class SNA A</option>
                 </select>
+           
+                <section name="" id="" v-model="bacth">
+                    <option checked value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                </section>
             </div>
            
         </div>
@@ -55,6 +61,7 @@ export default{
             password:'',
             gender:'',
             class_room:'',
+            bacth:'',
             rol_empty:false,
             name_empty:false,
             email_empty:false,
@@ -105,7 +112,9 @@ export default{
                     email:this.email,
                     password:this.password,
                     gender:this.gender,
-                    class_room:this.class_room
+                    class_room:this.class_room,
+                    bacth:this.bacth
+
                 }
                 this.$emit('create-user', newUser, this.rol)
                 this.name=''
