@@ -29,6 +29,8 @@ class StudentController extends Controller
         $request->validate([
             'name' => 'min:3|max:20|required',
             'class_room' => 'required',
+            'bacth' => 'required',
+            'phone_number' => 'required',
             'gender' => 'required',
             'email' => 'required',
             'password' => 'required',
@@ -36,6 +38,8 @@ class StudentController extends Controller
         $student=new Student();
         $student->name=$request->name;
         $student->class_room=$request->class_room;
+        $student->bacth=$request->bacth;
+        $student->phone_number=$request->phone_number;
         $student->gender=$request->gender;
         $student->email=$request->email;
         $student->password=bcrypt($request->password);

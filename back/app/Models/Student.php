@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Student extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $fillable=['name','class_room','gender','email','password','remember_token'];
+    protected $fillable=['name','class_room','bacth','phone_number','gender','email','password','remember_token'];
 
     protected $hidden = [
         'created_at',
