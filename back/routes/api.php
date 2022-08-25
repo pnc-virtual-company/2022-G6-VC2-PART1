@@ -47,13 +47,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('leave/{id}', [LeaveController::class, 'updateLeave']);
     Route::delete('leave/{id}', [LeaveController::class, 'deleteLeave']);
 
-
+    /*
+    *STUDENT ROUTE
+     */
     Route::post('/students/register',[StudentController::class,'store']);
     Route::post('/students/logout',[StudentController::class,'logout']);
     Route::get('students',[StudentController::class,'index']);
     Route::get('students/{id}',[StudentController::class,'show']);
     Route::post('students/{id}',[StudentController::class,'update']);
     Route::delete('students/{id}',[StudentController::class,'destroy']);
+    Route::patch('students/{id}',[StudentController::class,'resetPassword']);
 });
 
 

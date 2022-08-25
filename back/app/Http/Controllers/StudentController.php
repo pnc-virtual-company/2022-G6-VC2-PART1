@@ -29,6 +29,8 @@ class StudentController extends Controller
         $request->validate([
             'name' => 'min:3|max:20|required',
             'class_room' => 'required',
+            'bacth' => 'required',
+            'phone_number' => 'required',
             'gender' => 'required',
             'email' => 'required',
             'password' => 'required',
@@ -36,6 +38,8 @@ class StudentController extends Controller
         $student=new Student();
         $student->name=$request->name;
         $student->class_room=$request->class_room;
+        $student->bacth=$request->bacth;
+        $student->phone_number=$request->phone_number;
         $student->gender=$request->gender;
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
@@ -69,13 +73,16 @@ class StudentController extends Controller
             'class_room' => 'required',
             'gender' => 'required',
             'email' => 'required',
- 
+
         ]);
         $student= Student::findOrFail($id);
         $student->name=$request->name;
         $student->class_room=$request->class_room;
         $student->gender=$request->gender;
         $student->email=$request->email;
+        $student->phone_number=$request->phone_number;
+        $student->bacth=$request->bacth;
+
         $student->save();
         $token=$student->createToken('myToken')->plainTextToken;
         return response()->json(['mes'=>'Update is Successfully','token'=>$token],201);
@@ -119,5 +126,13 @@ class StudentController extends Controller
     public function logout(Request $request){
         Auth::user()->tokens()->delete(); 
         return response()->json(['message' => 'Sign out success!'], 200);
+    }
+    public function resetPassword(Request $request, $id){
+        $student= Student::findOrFail($id);
+        if (Hash::check($request->oldPassword,$student->password)){
+            $student->password=bcrypt($request->newPassword);
+            $student->save();
+            return response()->json($student);
+        }
     }
 }

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('class_room');
+            $table->string('bacth');
+            $table->string('phone_number');
             $table->string('gender');
             $table->string('email')->unique();
             $table->string('password');

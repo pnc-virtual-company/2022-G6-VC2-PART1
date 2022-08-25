@@ -8,11 +8,6 @@ export default {
   components:{
      FormCreateUser,
   },
-  data(){
-    return{
-
-    }
-  },
   methods:{
     createNewUser(newUser, rol){
       if (rol=='teacher'){
@@ -30,7 +25,6 @@ export default {
         }).catch(function(){
           alert('Fail to create user')
         })
-        alert('User Create Sucessfuly')
       }
     }
   }

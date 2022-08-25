@@ -5,9 +5,8 @@
             <div class="button-group">
                 <button class="orange" @click="$router.go(-1)">Concel</button>
                 <button class="blue">
-                    <router-link  class="link" to="/login">Confirm</router-link>
+                    <router-link  class="link" to="/login"  @click="signOut">Confirm</router-link>
                 </button>
-              
             </div>
         </div>
     </div>
