@@ -7,7 +7,6 @@
                 <button class="blue">
                     <router-link  class="link" to="/login"  @click="signOut">Confirm</router-link>
                 </button>
-              
             </div>
         </div>
     </div>

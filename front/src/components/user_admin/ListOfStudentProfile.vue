@@ -33,6 +33,7 @@
         methods:{
             provideUserId(id){
                 this.$emit('user-id',id);
+                localStorage.setItem("studentid",id)
             },
             //________delete student__________
             deleteStudents(deleteId){

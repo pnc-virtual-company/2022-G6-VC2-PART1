@@ -7,8 +7,8 @@
             <small v-if="name_empty">Please check your user name</small><br>
             email<input type="text" placeholder="Email Address *" v-model="email" />
             <small v-if="email_empty">Please check your email</small><br>
-            password<input type="password" placeholder="Your Password *" v-model="password" />
-            <small v-if="password_empty">Please check your password</small><br>
+            <!-- password<input type="password" placeholder="Your Password *" v-model="password" /> -->
+            <!-- <small v-if="password_empty">Please check your password</small><br> -->
         </div>
         <div class="select">
             <div class="gender1">
@@ -52,7 +52,7 @@ export default{
             rol:'teacher',
             name:'',
             email:'',
-            password:'',
+            password:12345678,
             gender:'',
             class_room:'',
             rol_empty:false,
@@ -97,7 +97,7 @@ export default{
                 this.$emit('create-user', newUser, this.rol)
                 this.name=''
                 this.email=''
-                this.password=''
+                // this.password=''
                 this.gender=''
             }else{
                 let newUser={
