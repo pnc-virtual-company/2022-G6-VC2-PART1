@@ -188,12 +188,14 @@ img {
     -premailer-width: 100%;
     margin: 30px auto;
     width: 100%;
+    border-collapse: collapse;
 }
 
 .table th {
     border-bottom: 1px solid #edeff2;
     margin: 0;
     padding-bottom: 8px;
+    border:1px solid #000;
 }
 
 .table td {
@@ -202,6 +204,7 @@ img {
     line-height: 18px;
     margin: 0;
     padding: 10px 0;
+    border:1px solid #000;
 }
 
 .content-cell {
