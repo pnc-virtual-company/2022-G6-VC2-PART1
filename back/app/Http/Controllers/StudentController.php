@@ -69,14 +69,14 @@ class StudentController extends Controller
             'class_room' => 'required',
             'gender' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            // 'password' => 'required',
         ]);
         $student= Student::findOrFail($id);
         $student->name=$request->name;
         $student->class_room=$request->class_room;
         $student->gender=$request->gender;
         $student->email=$request->email;
-        $student->password=bcrypt($request->password);
+        // $student->password=bcrypt($request->password);
         $student->save();
         $token=$student->createToken('myToken')->plainTextToken;
         // return response()->json(['sms'=>'Update is Successfully'],201);
