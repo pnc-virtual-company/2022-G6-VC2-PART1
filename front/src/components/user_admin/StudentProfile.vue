@@ -76,6 +76,14 @@
           <strong>User Email</strong><br />
           <input type="text" v-model="email" />
         </div>
+        <div class="email input">
+          <strong>Bacth</strong>
+         <input
+                type="text"
+                placeholder="input your bacth"
+                v-model="bacth" />
+        </div>
+
         <div class="flex">
           <div class="select">
             <strong>User Gender</strong><br />
@@ -92,7 +100,7 @@
               <option value="SNA 2022">SNA</option>
             </select>
           </div>
-          <div class="select">
+          <!-- <div class="select">
             <strong>Bacth</strong><br />
             <div class="bacth">
               <input
@@ -101,7 +109,7 @@
                 v-model="bacth"
               />
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="button-group">
@@ -247,7 +255,7 @@ export default {
   display: flex;
   width: 70%;
   margin: 50px auto;
-  height: 70vh;
+  height: 78vh;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 4px;
 }
@@ -302,9 +310,9 @@ export default {
   text-indent: 20px;
 }
 /* on menu update */
-.contain .contain-right .update-detail .input {
-  margin-top: 20px;
-}
+ .contain .contain-right .update-detail .input {
+ margin-top: 10px;
+ } 
 .contain .contain-right .update-detail .input input {
   padding: 10px;
   margin-top: 4px;

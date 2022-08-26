@@ -1,5 +1,5 @@
 <template>
-  <div class="contain" @submit.prevent>
+  <div class="contain " @submit.prevent>
     <div class="contain-form">
       <h3>Create New Account</h3>
       <div class="card-form">
@@ -18,48 +18,47 @@
             v-model="phone_number"
           />
         </div>
-      </div>
-      <div class="select">
-       
-        <div class="choose flex" v-if="hideShowClass">
-          <select name="" id="" v-model="gender">
-            <option selected value="male">Male</option>
-            <option value="male">Female</option>
-          </select>
-          
-          <select name="" id="" v-model="class_room">
-            <option checked value="Web A">Class web A</option>
-            <option value="Web B">Class web B</option>
-            <option value="SNA">Class SNA</option>
-          </select>
-          
-          <div class="bacth">
-            <input type="text" placeholder="input your bacth" v-model="bacth">
-          </div>
 
+        <div class="bacth" v-if="hideShowClass">
+         Bacth <input type="text" placeholder="input your bacth" v-model="bacth" />
         </div>
       </div>
-       <div class="gender1 " >
-          <div class="teacherAndstudent flex">
-              <input
-                type="radio"
-                name="school"
-                value="student"
-                v-model="rol"
-                @change="hideShowClass"
-              />Student
-           
-              <input
-                type="radio"
-                checked
-                name="school"
-                value="teacher"
-                v-model="rol"
-                @change="hideShowClass"
-              />Teacher
-         
-          </div>
+
+      <div class="choose " v-if="hideShowClass">
+            Gender<select name="" id="" v-model="gender">
+              <option selected value="male">Male</option>
+              <option value="male">Female</option>
+            </select>
+
+            Class<select name="" id="" v-model="class_room">
+              <option checked value="Web A">Class web A</option>
+              <option value="Web B">Class web B</option>
+              <option value="SNA">Class SNA</option>
+            </select>
+ 
+      </div>
+      
+
+      <div class="gender1">
+        <div class="teacherAndstudent flex">
+          <input
+            type="radio"
+            name="school"
+            value="student"
+            v-model="rol"
+            @change="hideShowClass"
+          />Student
+
+          <input
+            type="radio"
+            checked
+            name="school"
+            value="teacher"
+            v-model="rol"
+            @change="hideShowClass"
+          />Teacher
         </div>
+      </div>
       <div class="submit">
         <button class="submit-client" type="submit" @click="checkValidation">
           Sign up
@@ -201,6 +200,7 @@ h3 {
 }
 .select {
   width: 100%;
+
 }
 
 .select .teacherAndstudent {
@@ -256,7 +256,8 @@ small {
   justify-content: space-between;
   align-items: center;
 }
-.bacth{
-  height: 5vh;
+.choose{
+  margin-top: 8px;
+
 }
 </style>
