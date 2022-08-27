@@ -9,7 +9,7 @@
                 <div class="circle">SLMS</div>
                 <div>
                     <h3>{{student.name}}</h3>
-                    <label>{{student.class_room}}</label>
+                    <label>{{student.bacth+' '}}{{student.class_room}}</label>
                 </div>
             </div>
             <div>

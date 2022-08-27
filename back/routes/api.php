@@ -27,8 +27,8 @@ Route::post('/login', [UserController::class, 'login']);
  */
 Route::post('/students/login',[StudentController::class,'login']);
 
+Route::post('/createUser', [UserController::class, 'createUser']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/createUser', [UserController::class, 'createUser']);
     Route::get('/users', [UserController::class, 'getUsers']);
     Route::put('/users/{id}', [UserController::class, 'updateUser']);
     Route::delete('/users/{id}', [UserController::class, 'destroyUser']);
@@ -47,21 +47,23 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('leave/{id}', [LeaveController::class, 'updateLeave']);
     Route::delete('leave/{id}', [LeaveController::class, 'deleteLeave']);
 
-
+    /*
+    *STUDENT ROUTE
+     */
     Route::post('/students/register',[StudentController::class,'store']);
     Route::post('/students/logout',[StudentController::class,'logout']);
     Route::get('students',[StudentController::class,'index']);
     Route::get('students/{id}',[StudentController::class,'show']);
     Route::post('students/{id}',[StudentController::class,'update']);
     Route::delete('students/{id}',[StudentController::class,'destroy']);
+    Route::patch('students/{id}',[StudentController::class,'resetPassword']);
 });
 
 
 
 
-// <<<<<<< HEAD
 // Route::group(['middleware' => ['auth:sanctum']], function () {
-    // =======
+
     
 // Route::group(['middleware' => ['auth:sanctum']], function () {
 // });

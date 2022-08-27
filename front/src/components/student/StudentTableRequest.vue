@@ -43,7 +43,6 @@
 </template>
 <script>
 import axios from '@/api/api'
-
 export default {
   data() {
     return {
