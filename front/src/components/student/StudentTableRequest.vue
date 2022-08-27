@@ -43,7 +43,7 @@
 </template>
 <script>
 import axios from '@/api/api'
-let userId = JSON.parse(localStorage.getItem('user')).id
+
 export default {
   data() {
     return {
@@ -62,6 +62,7 @@ export default {
   },
   methods:{
     getUserLeave(){
+      let userId = JSON.parse(localStorage.getItem('user')).id
       axios.get('leave/'+userId).then(res=>{
         this.student_leave = res.data
       })
@@ -70,6 +71,7 @@ export default {
      * FUNCTION FOR STATUS OR LEAVE TYPE CHANGE
      */
     optionChange(){
+      let userId = JSON.parse(localStorage.getItem('user')).id
       if(this.leave_type !=='' || this.status !==''){
         if (this.leave_type !== '' && this.status ===''){
             axios.get('leave/'+userId).then(res=>{

@@ -4,7 +4,7 @@
             <div class="text"><h2>Are you sure to Sing out your account?</h2></div>
             <div class="button-group">
                 <button class="orange" @click="$router.go(-1)">Concel</button>
-                <button class="blue">
+                <button class="blue" @click="signOut">
                     <router-link  class="link" to="/login">Confirm</router-link>
                 </button>
               
