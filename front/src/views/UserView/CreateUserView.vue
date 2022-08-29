@@ -10,13 +10,14 @@ export default {
   },
   methods:{
     createNewUser(newUser, rol){
+      console.log('User Created successfully');
       if (rol=='teacher'){
         axios.post('createUser',newUser)
         .then(()=>{
           alert('User Create Sucessfuly')
         })
         .catch(function () {
-          alert('Fail to create user')
+          alert(JSON.stringify(newUser))
       });
       }else{
         axios.post('students/register',newUser)

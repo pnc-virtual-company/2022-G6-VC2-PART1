@@ -1,6 +1,9 @@
 <template>
 
   <div class="contain">
+    <div class="description">
+      <!-- <h1>WELCOME TO <br> LEAVE STUDENT SYSTEM MANAGEMENT</h1> -->
+    </div>
     <div class="contain-form" @submit.prevent>
       <form action="">
         <h3>User Login</h3>
@@ -25,6 +28,9 @@
 
     </div>
   </div>
+    <div class="footer">
+      <small>Group 6 2022</small>
+    </div>
 </template>
 
 <script>
@@ -90,17 +96,28 @@ export default{
 .contain {
   box-sizing: border-box;
   width: 100%;
+  height: 75vh;
   margin: auto;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   display: flex;
 }
+.contain .description{
+  /* color: #05B2E9; */
+  margin-left: 50px;
+  width: 40%;
+  line-height: 50px;
+}
+.contain .description .h1{
+
+}
 .contain .contain-form {
-  margin-top: 120px;
+  margin-top: 230px;
   width: 30%;
-  /* border: 1px solid; */
+  margin-right: 150px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 20px;
+  padding: 50px;
+  background: white;
 }
 h3 {
   color: black;
@@ -112,6 +129,7 @@ h3 {
   background: none;
   width: 100%;
   text-align: left;
+  background: white;
 }
 .card-form input {
   margin-bottom: 10px;
@@ -148,6 +166,18 @@ h3 {
   align-items: center;
   /* justify-content: ; */
   display: flex;
+}
+
+.footer{
+  background: #05B2E9;
+  height: 26px;
+  width: 100%;
+  padding-top: 130px;
+}
+.footer small{
+  font-weight: bold;
+  padding-left: 40px;
+  /* margin-top: 250px; */
 }
 
 </style>

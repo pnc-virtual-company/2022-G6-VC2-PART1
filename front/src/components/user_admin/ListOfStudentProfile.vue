@@ -2,21 +2,33 @@
     <div>
         <div class="search-bar">
             <input type="text" placeholder="search" class="search" v-model="search">
-            <!-- <button class="btn-orange">Search</button> -->
+            <select name="" id="" class="search">
+                <option value="class">Class</option>
+                <option value="name">Name</option>
+                <option value="batch">Batch</option>
+            </select>
+            <button class="button-search">Search</button>
         </div>
-        <div class="card" v-for="student of students" :key="student" >
-            <div class="card-title">
-                <div class="circle">SLMS</div>
-                <div>
-                    <h3>{{student.name}}</h3>
-                    <label>{{student.bacth+' '}}{{student.class_room}}</label>
-                </div>
-            </div>
-            <div>
-                <button class="btn-orange" @click="provideUserId(student.id)">read more</button>
-                <button class="btn-red" @click="deleteStudents(student.id)">delete</button>
-            </div>
-        </div>
+        <table>
+            <tr> 
+                <th>IMAGE</th> 
+                <th>NAME</th> 
+                <th>BATCH</th> 
+                <th>CLASS</th> 
+                <th>MORE</th> 
+            </tr> 
+            <tr  v-for="student of students" :key="student">
+                <td><img class="circle" src="https://w7.pngwing.com/pngs/273/399/png-transparent-blue-rose-in-bloom-blue-rose-cut-flowers-blue-flower-blue-navy-blue-flower-thumbnail.png" alt=""></td>
+                <td>{{student.name}}</td>
+                <td>{{student.bacth+' '}}</td>
+                <td>{{student.class_room}}</td>
+                <td class="group-button">
+                    <button class="detail" @click="provideUserId(student.id)">DETAIL</button>
+                    <button class="delete" @click="deleteStudents(student.id)">DELETE</button>
+                </td>
+            </tr>
+        </table>
+
     </div>
 </template>
 <script>
@@ -54,19 +66,29 @@
     border: none;
 }
 .search-bar{
+    width: 80%;
+    margin: 0 auto;
+    align-items: right;
+    justify-content: right;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    /* background: #000; */
-    padding: 5px;
+    margin-top: 50px;
+    gap: 10px;
 }
 .search{
-    padding: 7px;
-    margin-right: 10px;
-    border-radius: 10px;
-    background: rgb(216, 216, 216);
+    padding: 0 10px;
+    border-radius: 3px;
+    border: 1px solid gainsboro;
     width: 20%;
+    height: 40px;
+}
+select{
+    padding: 10px;
+}
+.button-search{
+    width: 80px;
+    height: 40px;
+    background: #FFAD5C;
+    border-radius: 4px;
 }
 .card{
     width: 50%;
@@ -88,14 +110,13 @@
 }
 .circle{
     padding: 10px;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: #000;
     margin-right: 4px;
-    display: flex;
     justify-content: center;
     align-items: center;
+    display: flex;
     color: wheat;
     font-size: 20px;
 }
@@ -109,4 +130,43 @@
     border-radius: 5px;
     background: rgb(243, 48, 44);
 }
+/*  */
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  margin-top: 20px;
+}
+table th{
+    background: #05B2E9;
+    text-align: center;
+    padding: 12px;
+}
+
+table td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #DDD;
+    width: 16%;
+}
+table .group-button{
+    width: 30%;
+    gap: 20px;
+}
+table .group-button .detail{
+    gap: 20px;
+    background: #05B2E9;
+    padding: 6px 20px;
+    margin-right: 15px;
+    border-radius: 4px;
+}
+table .group-button .delete{
+    gap: 20px;
+    background: #FFAD5C;
+    padding: 6px 20px;
+    margin-right: 15px;
+    border-radius: 4px;
+}
+
 </style>
