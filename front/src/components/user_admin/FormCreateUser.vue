@@ -11,6 +11,10 @@
         <small v-if="name_empty">Please check your user name</small><br />
         email<input type="text" placeholder="Email Address *" v-model="email" />
         <small v-if="email_empty">Please check your email</small><br />
+            Gender<select name="" id="" v-model="gender">
+              <option selected value="male">Male</option>
+              <option value="male">Female</option>
+            </select>
         <div class="choose" v-if="hideShowClass">
           phone number<input
             type="number"
@@ -25,10 +29,10 @@
       </div>
 
       <div class="choose " v-if="hideShowClass">
-            Gender<select name="" id="" v-model="gender">
+            <!-- Gender<select name="" id="" v-model="gender">
               <option selected value="male">Male</option>
               <option value="male">Female</option>
-            </select>
+            </select> -->
 
             Class<select name="" id="" v-model="class_room">
               <option checked value="Web A">Class web A</option>
@@ -59,6 +63,10 @@
           />Teacher
         </div>
       </div>
+      <div class="test">
+    <input type="file" @change="upload">
+    <button @click="addImage">upload</button>
+  </div>
       <div class="submit">
         <button class="submit-client" type="submit" @click="checkValidation">
           Sign up
@@ -66,8 +74,10 @@
       </div>
     </div>
   </div>
+
 </template>
 <script>
+
 export default {
   data() {
     return {
@@ -79,11 +89,13 @@ export default {
       class_room: "",
       phone_number: "",
       bacth: "",
+      picture:'',
       rol_empty: false,
       name_empty: false,
       email_empty: false,
       password_empty: false,
       gender_empty: false,
+
     };
   },
   computed: {
@@ -101,6 +113,13 @@ export default {
     /**
      * FUNCTION CREATE USER
      */
+    upload(e){
+        console.log(e.target.files[0]);
+        this.picture=e.target.files[0]
+    },
+    addImage(){
+      console.log("Hello this is ", this.picture);
+    },
     checkValidation() {
       if (
         !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -139,6 +158,7 @@ export default {
           email: this.email,
           password: this.password,
           gender: this.gender,
+          picture: this.picture,
         };
         this.$emit("create-user", newUser, this.rol);
         this.name = "";
@@ -154,6 +174,7 @@ export default {
           class_room: this.class_room,
           phone_number: this.phone_number,
           bacth: this.bacth,
+          picture: this.picture,
         };
         this.$emit("create-user", newUser, this.rol);
         this.name = "";

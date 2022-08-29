@@ -6,7 +6,7 @@
         </div>
         <div class="card" v-for="student of students" :key="student" >
             <div class="card-title">
-                <div class="circle">SLMS</div>
+                <img class="circle" :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
                 <div>
                     <h3>{{student.name}}</h3>
                     <label>{{student.bacth+' '}}{{student.class_room}}</label>

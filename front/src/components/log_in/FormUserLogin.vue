@@ -5,8 +5,30 @@
       <form action="">
         <h3>User Login</h3>
         <div class="card-form">
-            email<input type="email" placeholder="Email Address *" v-model="email"/>
-            password<input type="password" placeholder="Your Password *" v-model="password"/>
+            Email<input type="email" placeholder="Email Address *" v-model="email"/><label class="label">Password</label>
+      <div class="field">
+         <div class="control">
+          <div class="boder">
+            <div class="flex">
+
+              <input 
+                 class=" none"
+                 :type="showPassword ? 'text' : 'password'" 
+                 placeholder="Password" 
+                 v-model="password" 
+               />
+              <i 
+              @click="toggleShow"
+              :class="showPassword ? 'fa fa-eye' : 'fa fa-eye-slash'" 
+              style="font-size: 17px" 
+              ></i>
+            <div>
+            </div>
+            </div>
+          </div>
+         </div>
+              
+        </div>
             <div>
               Choose your role
               <div class="role">
@@ -35,10 +57,14 @@ export default{
     return{
       email:'',
       role:'teacher',
-      password:''
+      password:'',
+      showPassword:false,
     }
   },
   methods:{
+    toggleShow(){
+      this.showPassword=!this.showPassword;
+    },
     storeDataUser(){
       let dataLogin = {email:this.email, password:this.password}
       if(this.role == 'teacher'){
@@ -87,67 +113,77 @@ export default{
 </script>
 
 <style scoped>
-.contain {
-  box-sizing: border-box;
-  width: 100%;
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-}
-.contain .contain-form {
-  margin-top: 120px;
-  width: 30%;
-  /* border: 1px solid; */
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 20px;
-}
-h3 {
-  color: black;
-  font-size: 20px;
-  padding-bottom: 15px;
-}
-.card-form {
-  margin: auto;
-  background: none;
-  width: 100%;
-  text-align: left;
-}
-.card-form input {
-  margin-bottom: 10px;
-  width: 100%;
-  padding: 10px;
-  outline: none;
-  box-sizing: border-box;
-}
-.submit button {
-  width: 100%;
-  height: 5vh;
-  border: none;
-  margin: auto;
-  border-radius: 3px;
-  font-size: 15px;
-   background: #05B2E9;
-}
-.submit-client:hover {
-   background: #05B2E9;
-}
-.role{
-  align-items: center;
-  justify-content: space-evenly;
-  display: flex;
-}
-.role .user-role{
-  /* margin-top: 20px; */
-  align-items: center;
-  /* justify-content: ; */
-  display: flex;
-}
-.role .user-role input{
-  margin: 20px;
-  align-items: center;
-  /* justify-content: ; */
-  display: flex;
-}
-
-</style>
+  .contain {
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  .contain .contain-form {
+    margin-top: 120px;
+    width: 30%;
+    /* border: 1px solid; */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 20px;
+  }
+  h3 {
+    color: black;
+    font-size: 20px;
+    padding-bottom: 15px;
+  }
+  .card-form {
+    margin: auto;
+    background: none;
+    width: 100%;
+    text-align: left;
+  }
+  .card-form input {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .submit button {
+    width: 100%;
+    height: 5vh;
+    border: none;
+    margin: auto;
+    border-radius: 3px;
+    font-size: 15px;
+     background: #05B2E9;
+  }
+  .submit-client:hover {
+     background: #05B2E9;
+  }
+  .role{
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+  }
+  .role .user-role{
+    /* margin-top: 20px; */
+    align-items: center;
+    /* justify-content: ; */
+    display: flex;
+  }
+  .role .user-role input{
+    margin: 20px;
+    align-items: center;
+    /* justify-content: ; */
+    display: flex;
+  }
+  .flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .none{
+    border: none;
+  }
+  .boder{
+    border: 1px solid;
+  }
+  </style>

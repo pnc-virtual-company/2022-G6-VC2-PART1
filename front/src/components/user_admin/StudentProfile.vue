@@ -2,10 +2,7 @@
   <div class="contain">
     <div class="contain-left">
       <div class="contain-img">
-        <img
-          src="https://i.pinimg.com/originals/62/3a/a8/623aa8f9933ee9a286871bf6e0782538.jpg"
-          alt=""
-        />
+        <img :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
       </div>
       <div class="user-name">
         <h2>{{ student.name }}</h2>
