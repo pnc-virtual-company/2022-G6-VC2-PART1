@@ -20,6 +20,8 @@ use App\Http\Controllers\StudentController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::patch('change/{id}',[UserController::class,'resetAdminPassword']);
+
 // user Rout appi (/users)
 Route::post('/login', [UserController::class, 'login']);
 /**
@@ -56,15 +58,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('students/{id}',[StudentController::class,'show']);
     Route::post('students/{id}',[StudentController::class,'update']);
     Route::delete('students/{id}',[StudentController::class,'destroy']);
-    Route::patch('students/{id}',[StudentController::class,'resetPassword']);
+    Route::patch('resetStudentPassword/{id}',[StudentController::class,'resetPassword']);
 });
 
 
 
 
-// Route::group(['middleware' => ['auth:sanctum']], function () {
-
-    
-// Route::group(['middleware' => ['auth:sanctum']], function () {
-// });
 
