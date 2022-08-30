@@ -85,4 +85,15 @@ class UserController extends Controller
             return response()->json(['message' => 'User cannot delete'], 404);
         }
     }
+
+    public function resetAdminPassword(Request $request, $id){
+        $user = User::find($id);
+        if (Hash::check($request->oldPassword,$user->password)){
+            $user->password=bcrypt($request->newPassword);
+            $user->save();
+            return $user;
+        }
+        return 'password can not change!!';
+
+    }
 }
