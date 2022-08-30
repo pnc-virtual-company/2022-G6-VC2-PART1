@@ -63,7 +63,6 @@ export default{
             })
           }else{
             alert("Your Login not success. Please try again");
-            
           }
         })
       }
@@ -107,9 +106,6 @@ export default{
   margin-left: 50px;
   width: 40%;
   line-height: 50px;
-}
-.contain .description .h1{
-
 }
 .contain .contain-form {
   margin-top: 230px;
