@@ -33,7 +33,7 @@ class StudentController extends Controller
             'phone_number' => 'required',
             'gender' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            // 'password' => 'required',
         ]);
         $student=new Student();
         $student->name=$request->name;
