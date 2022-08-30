@@ -22,7 +22,8 @@
           <router-link to="/checkleave"><button @click="storeDataUser">Log In</button></router-link>
         </div>
         <div class="submit" v-if="role == 'student'">
-          <router-link to="/leaveList"><button @click="storeDataUser">Log In</button></router-link>
+          <!-- <router-link to="/leaveList"><button @click="storeDataUser">Log In</button></router-link> -->
+          <button @click="storeDataUser">Log In</button>
         </div>
       </form>
 
@@ -49,6 +50,7 @@ export default{
       let dataLogin = {email:this.email, password:this.password}
       if(this.role == 'teacher'){
         axios.post('login', dataLogin).then(res=>{
+          console.log(res.data);
           if(res.data.mas == 'success'){
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('user-role', this.role)
