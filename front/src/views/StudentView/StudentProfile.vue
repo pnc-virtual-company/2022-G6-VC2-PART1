@@ -8,7 +8,7 @@
         />
       </div>
       <div class="user-name">
-        <h2>{{ }}</h2>
+        <h2>{{student.name }}</h2>
       </div>
       <div class="contain-menu">
         <nav>

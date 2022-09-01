@@ -39,13 +39,6 @@
               <p>{{ admin.email }}</p>
             </div>
           </div>
-          <div>
-            <button class="btn-back">
-              <router-link class="link-a" to="/" @click="$router.go(0)"
-                >Back</router-link
-              >
-            </button>
-          </div>
         </div>
   
         <div class="update-detail" v-if="onUpdate">
@@ -199,6 +192,9 @@
         }
       
       },
+      checkValidationPassword(){
+     
+      }
     },
   };
   </script>
