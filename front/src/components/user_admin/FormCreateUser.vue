@@ -10,7 +10,12 @@
           <form action="">
             <div class="card">
               <div class="head">
-                <img src="https://media.istockphoto.com/vectors/young-man-anime-style-character-vector-id1188980757?k=20&m=1188980757&s=612x612&w=0&h=mchP5EsIbmDRCWs3k8N2xtDfjaMTF2DU3ahc_HPsSMw=" alt="">
+                <!-- <img src="https://media.istockphoto.com/vectors/young-man-anime-style-character-vector-id1188980757?k=20&m=1188980757&s=612x612&w=0&h=mchP5EsIbmDRCWs3k8N2xtDfjaMTF2DU3ahc_HPsSMw=" alt=""> -->
+                <label for="image">
+                  <img v-if="previewImage != null" :src="previewImage" alt="">
+                  <img v-if="previewImage == null" src="../../assets/upload_image.jpg" alt="">
+                </label> 
+                <input type="file" @change="uploadImage" hidden id="image">
               </div>
               <div class="body">
                 <div class="name input">*Name <br><input type="text" placeholder="" class="my-input" v-model="name"></div>
@@ -39,7 +44,12 @@
           <form action="">
             <div class="card">
               <div class="head">
-                <img src="https://freesvg.org/img/1514826571.png" alt="">
+                <!-- <img src="https://freesvg.org/img/1514826571.png" alt=""> -->
+                <label for="image">
+                  <img v-if="previewImage != null" :src="previewImage" alt="">
+                  <img v-if="previewImage == null" src="../../assets/upload_image.jpg" alt="">
+                </label> 
+                <input type="file" @change="uploadImage" hidden id="image">
               </div>
               <div class="body">
                 <div class="name input">*Name <br><input type="text" placeholder="" class="my-input" v-model="name"></div>
@@ -85,12 +95,14 @@
 export default {
   data() {
     return {
+      previewImage:null,
       name: "",
       email: "",
       password: 12345678,
       gender: "male",
       class_room: "",
       phone_number: "",
+      picture: "user",
       batch: "",
       name_empty: false,
       class_empty: false,
@@ -101,6 +113,10 @@ export default {
     };
   },
   methods: {
+    uploadImage(e){
+      this.picture=e.target.files[0]
+      this.previewImage = URL.createObjectURL(this.picture);
+    },
     /**
      * @todo change form for user create user
      * @return new form for create user
@@ -108,8 +124,10 @@ export default {
     isCreateUser(){
       if(this.create_role){
         this.create_role = false
+        this.clearnForm()
       }else{
         this.create_role = true
+        this.clearnForm()
       }
     },
     /**
@@ -152,32 +170,40 @@ export default {
      * @return new admin
      */
     createAdmin() {
-        let newUser = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          gender: this.gender,
-        };
+      console.log("Image is the best");
+        // let newUser = {name:this.name, email:this.email, password:this.password, gender:this.gender, picture:this.picture}
+        let newUser = new FormData();
+        newUser.append("name", this.name);
+        newUser.append("email", this.email);
+        newUser.append("password", this.password);
+        newUser.append("gender", this.gender);
+        if(this.picture != 'user'){
+          newUser.append("picture", this.picture);
+        }
         this.$emit("create-user", newUser, 'teacher');
-        this.clearnForm
+        console.log("Image is the best");
+
+      this.clearnForm
     },
     /**
      * @todo create new student
      * @return new student
      */
     createStudent() {
-        let newUser = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          gender: this.gender,
-          class_room: this.class_room,
-          phone_number: this.phone_number,
-          bacth: this.batch,
-        };
-        this.$emit("create-user", newUser, 'student');
-        console.log(newUser);
-        this.clearnForm
+      let newUser = new FormData();
+      newUser.append("name", this.name);
+      newUser.append("email", this.email);
+      newUser.append("password", this.password);
+      newUser.append("gender", this.gender);
+      newUser.append("class_room", this.class_room);
+      newUser.append("phone_number",this.phone_number);
+      if(this.picture != 'user'){
+        newUser.append("picture", this.picture);
+      }
+      newUser.append("bacth", this.batch);
+      this.$emit("create-user", newUser, 'student');
+      console.log(newUser);
+      this.clearnForm
     },
     /**
      * @todo clean form create
@@ -187,7 +213,9 @@ export default {
       this.email = "";
       this.phone_number = "";
       this.class_room = "";
-      this.batch = ""
+      this.batch = "",
+      this.previewImage = null,
+      this.picture=""
     }
   },
 };
