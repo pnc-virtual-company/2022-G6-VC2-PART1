@@ -2,8 +2,8 @@
   <div class="contain">
     <div class="contain-left">
       <div class="contain-img">
-                    <img v-if="student.picture == null" class="circle" src="../../assets/user.png"  alt="">
-                    <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
+        <img v-if="student.picture == null" class="circle" src="../../assets/user.png"  alt="">
+        <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
       </div>
       <div class="user-name">
         <h2>{{ student.name }}</h2>
@@ -98,16 +98,7 @@
               <option value="SNA 2022">SNA</option>
             </select>
           </div>
-          <!-- <div class="select">
-            <strong>Bacth</strong><br />
-            <div class="bacth">
-              <input
-                type="text"
-                placeholder="input your bacth"
-                v-model="bacth"
-              />
-            </div>
-          </div> -->
+         
         </div>
 
         <div class="button-group">

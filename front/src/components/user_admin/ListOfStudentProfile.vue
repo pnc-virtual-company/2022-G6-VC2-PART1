@@ -2,13 +2,9 @@
     <div>
         <div class="search-bar">
             <input type="text" placeholder="search" class="search" v-model="search">
-            <select name="" id="" class="search">
-                <option value="class">Class</option>
-                <option value="name">Name</option>
-                <option value="batch">Batch</option>
-            </select>
-            <button class="button-search">Search</button>
+            <!-- <button class="btn-orange">Search</button> -->
         </div>
+
         <table>
             <tr> 
                 <th>IMAGE</th> 

@@ -33,8 +33,12 @@ class StudentController extends Controller
             'phone_number' => 'required',
             'gender' => 'required',
             'email' => 'required',
-            // 'password' => 'required',
+            'password' => 'required',
+            // 'picture' => 'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999',
+            'password' => 'required',
+
         ]);
+        $request->file('picture')->store('public/images');
         $student=new Student();
         $student->name=$request->name;
         $student->class_room=$request->class_room;
@@ -47,10 +51,9 @@ class StudentController extends Controller
             $request->file('picture')->store('public/images');
             $student->picture = $request->file('picture')->hashName();
         }
-        // $student->picture = $request->picture;
         $student->save();
-        $token=$student->createToken('myToken')->plainTextToken;
-        return response()->json(['mes'=>'store is Successfully','token'=>$token],201);
+        // $token=$student->createToken('myToken')->plainTextToken;
+        return response()->json(['mes'=>'store is Successfully'],201);
     }
 
     /**

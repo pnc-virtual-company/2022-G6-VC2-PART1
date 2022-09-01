@@ -10,7 +10,6 @@
           <form action="">
             <div class="card">
               <div class="head">
-                <!-- <img src="https://media.istockphoto.com/vectors/young-man-anime-style-character-vector-id1188980757?k=20&m=1188980757&s=612x612&w=0&h=mchP5EsIbmDRCWs3k8N2xtDfjaMTF2DU3ahc_HPsSMw=" alt=""> -->
                 <label for="image">
                   <img v-if="previewImage != null" :src="previewImage" alt="">
                   <img v-if="previewImage == null" src="../../assets/upload_image.jpg" alt="">
@@ -44,7 +43,6 @@
           <form action="">
             <div class="card">
               <div class="head">
-                <!-- <img src="https://freesvg.org/img/1514826571.png" alt=""> -->
                 <label for="image">
                   <img v-if="previewImage != null" :src="previewImage" alt="">
                   <img v-if="previewImage == null" src="../../assets/upload_image.jpg" alt="">
@@ -62,7 +60,7 @@
                     </select>
                   </div>
                   <div class="phone input">*Phone Number <br>
-                    <input type="number" class="input my-input" v-model="phone_number">
+                    <input type="text" class="input my-input" v-model="phone_number">
                   </div>
                 </div>
                 <div class="flex">
@@ -90,15 +88,17 @@
       </div>
     </div>
   </div>
+
 </template>
 <script>
+
 export default {
   data() {
     return {
       previewImage:null,
       name: "",
       email: "",
-      password: 12345678,
+      password: '12345678',
       gender: "male",
       class_room: "",
       phone_number: "",
@@ -109,6 +109,7 @@ export default {
       batch_empty: false,
       phone_number_empty: false,
       email_empty: false,
+      password_empty: false,
       create_role:true
     };
   },
@@ -121,6 +122,13 @@ export default {
      * @todo change form for user create user
      * @return new form for create user
      */
+    upload(e){
+        console.log(e.target.files[0]);
+        this.picture=e.target.files[0]
+    },
+    addImage(){
+      console.log("Hello this is ", this.picture);
+    },
     isCreateUser(){
       if(this.create_role){
         this.create_role = false
@@ -161,7 +169,7 @@ export default {
       if (this.batch == '' ){ this.batch_empty = true }
       // check for create user
       if (!this.name_empty && !this.email_empty && !this.phone_number_empty && !this.class_empty && !this.batch_empty) {
-        console.log('Where are you now?');
+        // console.log('Where are you now?');
         this.createStudent()
       }
     },
@@ -215,13 +223,13 @@ export default {
       this.class_room = "";
       this.batch = "",
       this.previewImage = null,
-      this.picture=""
+      this.picture="user"
+      this.picture= "";
     }
   },
 };
 </script>
 <style scoped>
-
 .container{
   align-items: center;
   justify-content: center;

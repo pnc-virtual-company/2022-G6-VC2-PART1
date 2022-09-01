@@ -61,36 +61,57 @@
         </div>
         <div class="previouse_password">
           <strong>Previous Password</strong>
+          <div class="flex">
           <input
-            type="password"
+          :type="showOldPassword ? 'text' : 'password'"
             name=""
             id=""
             placeholder="previous password !!"
             v-model="oldPassword"
             required
           />
+          <i
+              @click="oldPasswords"
+              :class="showOldPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              style="font-size: 17px"
+            ></i>
+          </div>
         </div>
         <div class="new_password">
           <strong>New Password</strong>
+          <div class="flex">
           <input
-            type="password"
+          :type="showNewPassword ? 'text' : 'password'"
             name=""
             id=""
-            placeholder="new password !!"
+            placeholder="previous password !!"
             v-model="newPassword"
             required
           />
+          <i
+              @click="newPasswords"
+              :class="showNewPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              style="font-size: 17px"
+            ></i>
+          </div>
         </div>
         <div class="conform_password">
           <strong>Confirm Password</strong>
+          <div class="flex">
           <input
-            type="password"
+          :type="showConfirmPassword ? 'text' : 'password'"
             name=""
             id=""
-            placeholder="confirm password !!"
+            placeholder="previous password !!"
             v-model="confirmPassword"
             required
           />
+          <i
+              @click="confirmPasswords"
+              :class="showConfirmPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              style="font-size: 17px"
+            ></i>
+          </div>
         </div>
         <div class="button_group">
           <button @click="resetPassword">Reset</button>
@@ -113,6 +134,11 @@ export default {
       class_room: "",
       bacth: "",
       phone_number: "",
+
+       ///reset//
+       showOldPassword: "",
+      showNewPassword: "",
+      showConfirmPassword:"",
       /**
        * PASSWORD DATA
        */
@@ -123,6 +149,18 @@ export default {
     };
   },
   methods: {
+    oldPasswords() {
+      this.showOldPassword = !this.showOldPassword;
+      
+    },
+    newPasswords(){
+      this.showNewPassword = !this.showNewPassword;
+      
+    },
+    confirmPasswords(){
+      this.showConfirmPassword = !this.showConfirmPassword;
+
+    },
     pageAccount() {
       this.onAccount = true;
       this.onUpdate = false;
@@ -346,5 +384,10 @@ export default {
   border: none;
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
