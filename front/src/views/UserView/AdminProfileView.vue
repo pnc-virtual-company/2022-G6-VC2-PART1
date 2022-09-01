@@ -2,11 +2,12 @@
   <div class="contain">
     <div class="contain-left">
       <div class="contain-img">
-        <img :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
+        <img
+          src="https://i.pinimg.com/originals/62/3a/a8/623aa8f9933ee9a286871bf6e0782538.jpg"
+          alt=""
+        />
       </div>
-      <div class="user-name">
-        <h2>{{ student.name }}</h2>
-      </div>
+
       <div class="contain-menu">
         <nav>
           <ul>
@@ -27,27 +28,15 @@
           <h1>User Information Detail</h1>
           <div class="name flex">
             <strong>User Name: </strong>
-            <p>{{ student.name }}</p>
+            <p>{{ admin.name }}</p>
           </div>
           <div class="gender flex">
             <strong>User Gender: </strong>
-            <p>{{ student.gender }}</p>
-          </div>
-          <div class="Class-room flex">
-            <strong>Class Room: </strong>
-            <p>{{ student.class_room }}</p>
-          </div>
-          <div class="Class-room flex">
-            <strong>Bacth: </strong>
-            <p>{{ student.bacth }}</p>
-          </div>
-          <div class="Class-room flex">
-            <strong>Phone Number: </strong>
-            <p>{{ student.phone_number }}</p>
+            <p>{{ admin.gender }}</p>
           </div>
           <div class="email flex">
             <strong>User Email: </strong>
-            <p>{{ student.email }}</p>
+            <p>{{ admin.email }}</p>
           </div>
         </div>
         <div>
@@ -65,90 +54,86 @@
           <strong>User Name</strong><br />
           <input type="text" v-model="name" />
         </div>
-        <div class="phone input">
-          <strong>phone number</strong><br />
-          <input type="number" v-model="phone_number" />
-        </div>
+
         <div class="email input">
           <strong>User Email</strong><br />
           <input type="text" v-model="email" />
-        </div>
-        <div class="email input">
-          <strong>Bacth</strong>
-         <input
-                type="text"
-                placeholder="input your bacth"
-                v-model="bacth" />
         </div>
 
         <div class="flex">
           <div class="select">
             <strong>User Gender</strong><br />
             <select name="" id="" v-model="gender">
-              <option value="male">Male</option>
+              <option selected value="male">Male</option>
               <option value="female">Female</option>
             </select>
           </div>
-          <div class="select">
-            <strong>Class</strong><br />
-            <select name="" id="" v-model="class_room">
-              <option value="Web 2022 A">Web A</option>
-              <option value="Web 2022 B">Web B</option>
-              <option value="SNA 2022">SNA</option>
-            </select>
-          </div>
-         
         </div>
-
         <div class="button-group">
-          <button class="update" @click="updataStudent">Update</button>
-          <button class="concel">
-            <router-link class="link-a" to="/" @click="$router.go(0)"
-              >Back</router-link
-            >
-          </button>
+          <button class="update" @click="updataAdmin">Update</button>
         </div>
       </div>
-
+      <!-- _______________Updata_Password form___________ -->
       <div class="updae_password" v-if="onReset">
         <div class="title">
           <h1>RESET PASSWORD</h1>
         </div>
         <div class="previouse_password">
           <strong>Previous Password</strong>
+          <div class="flex">
           <input
-            type="password"
+          :type="showOldPassword ? 'text' : 'password'"
             name=""
             id=""
             placeholder="previous password !!"
             v-model="oldPassword"
             required
           />
+          <i
+              @click="oldPasswords"
+              :class="showOldPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              style="font-size: 17px"
+            ></i>
+          </div>
         </div>
         <div class="new_password">
           <strong>New Password</strong>
-          <input
-            type="password"
-            name=""
-            id=""
-            placeholder="new password !!"
-            v-model="newPassword"
-            required
-          />
+          <div class="flex">
+            <input
+              :type="showNewPassword ? 'text' : 'password'"
+              name=""
+              id=""
+              placeholder="new password !!"
+              v-model="newPassword"
+              required
+            />
+            <i
+              @click="newPasswords"
+              :class="showNewPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              style="font-size: 17px"
+            ></i>
+          </div>
         </div>
         <div class="conform_password">
           <strong>Confirm Password</strong>
-          <input
-            type="password"
-            name=""
-            id=""
-            placeholder="confirm password !!"
-            v-model="confirmPassword"
-            required
-          />
+          <div class="flex">
+            <input
+              :type="showConfirmPassword ? 'text' : 'password'"
+              name=""
+              id=""
+              placeholder="confirm password !!"
+              v-model="confirmPassword"
+              required
+            />
+            <i
+              @click="confirmPasswords"
+              :class="showConfirmPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              style="font-size: 17px"
+            ></i>
+          </div>
         </div>
         <div class="button_group">
-          <button @click="resetPassword">Reset</button>
+          <button @click="resetAdminPassword">Reset</button>
         </div>
       </div>
     </div>
@@ -159,9 +144,6 @@
 import axios from "@/api/api";
 
 export default {
-  props: {
-    student: Array,
-  },
   data() {
     return {
       onAccount: true,
@@ -169,19 +151,38 @@ export default {
       onReset: false,
       name: "",
       email: "",
-      gender: "",
-      class_room: "",
-      bacth: "",
-      phone_number: "",
+      gender: "male",
+
+      ///reset//
+      showOldPassword: "",
+      showNewPassword: "",
+      showConfirmPassword:"",
+
       /**
        * PASSWORD DATA
        */
       oldPassword: "",
       newPassword: "",
       confirmPassword: "",
+      /**
+       * get user from local storage
+       */
+      admin: JSON.parse(localStorage.getItem("user")),
     };
   },
   methods: {
+    oldPasswords() {
+      this.showOldPassword = !this.showOldPassword;
+      
+    },
+    newPasswords(){
+      this.showNewPassword = !this.showNewPassword;
+      
+    },
+    confirmPasswords(){
+      this.showConfirmPassword = !this.showConfirmPassword;
+
+    },
     pageAccount() {
       this.onAccount = true;
       this.onUpdate = false;
@@ -191,49 +192,45 @@ export default {
       this.onAccount = false;
       this.onUpdate = true;
       this.onReset = false;
-      this.name = this.student.name;
-      this.email = this.student.email;
-      this.gender = this.student.gender;
-      this.class_room = this.student.class_room;
-      this.bacth = this.student.bacth;
-      this.phone_number = this.student.phone_number;
+      this.name = this.admin.name;
+      this.email = this.admin.email;
+      this.gender = this.admin.gender;
     },
     pageUpdatPassword() {
       this.onAccount = false;
       this.onUpdate = false;
       this.onReset = true;
     },
-    // ___________ Updata Student____________
-    updataStudent() {
-      let student = {
+    // ___________ Updata Admin____________
+    updataAdmin() {
+      let admin = {
         name: this.name,
         email: this.email,
         gender: this.gender,
-        class_room: this.class_room,
-        bacth: this.bacth,
-        phone_number: this.phone_number,
       };
-      let id = JSON.parse(localStorage.getItem("studentid"));
-      axios.post("students/" + id, student).then((res) => {
+      let id = JSON.parse(localStorage.getItem("user")).id;
+      axios.put("users/" + id, admin).then((res) => {
         console.log(res.data);
+        console.log(id);
+      });
+      axios.get("/users/" + id).then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data));
       });
       this.onAccount = true;
       this.onUpdate = false;
     },
-    resetPassword() {
+    // ___________________reset Password______________
+    resetAdminPassword() {
       if (this.newPassword == this.confirmPassword) {
-        let id = JSON.parse(localStorage.getItem("studentid"));
+        let user = JSON.parse(localStorage.getItem("user"));
         let password = {
           oldPassword: this.oldPassword,
           newPassword: this.newPassword,
         };
         axios
-        .patch("students/" + id, password).then(()=>{
-          console.log(this.oldPassword)
-          alert("Reset succefully!")
-        })
-        .catch(alert("please check your old password"));
-       
+          .patch("change/" + user.id, password)
+          .then(alert("Change password succefully!!"));
+        // .catch(alert("Please check your old password!!"));
       } else {
         alert("Please check your confirm password");
       }
@@ -302,9 +299,9 @@ export default {
   text-indent: 20px;
 }
 /* on menu update */
- .contain .contain-right .update-detail .input {
- margin-top: 10px;
- } 
+.contain .contain-right .update-detail .input {
+  margin-top: 10px;
+}
 .contain .contain-right .update-detail .input input {
   padding: 10px;
   margin-top: 4px;
@@ -390,8 +387,8 @@ export default {
   align-items: flex-end;
 }
 /*
-        RESET PASSWORD
-     */
+          RESET PASSWORD
+       */
 .previouse_password,
 .new_password,
 .conform_password,
@@ -422,5 +419,16 @@ export default {
   border: none;
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.none {
+  border: none;
+}
+.boder {
+  border: 1px solid;
 }
 </style>

@@ -6,10 +6,13 @@
       <router-link to="/">List all students</router-link> 
       <router-link to="/checkleave">Cheack leave</router-link>
       <router-link to="/createuser">Create User</router-link>
+  
     </div>
     <div class="nav_right">
       <router-link to="/signout">Sign Out</router-link>
+      <router-link to="/admin_profile">Profile</router-link>
     </div>
+   
   </nav>
   <router-view/>
 </div>
@@ -23,6 +26,7 @@
     </div>
     <div class="nav_right">
       <router-link to="/signout">Sign Out</router-link>
+      <router-link to="/studentprofile">Profile</router-link>
     </div>
   </nav>
   <router-view/>

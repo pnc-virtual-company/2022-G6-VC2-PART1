@@ -7,6 +7,8 @@ import LoginView from '../views/LoginView.vue'
 import CreateUserView from '../views/UserView/CreateUserView.vue'
 import SignOutView from '../views/SignOutView.vue'
 import StudentProfileView from '../views/UserView/StudentProfileView.vue'
+import StudentProfile from '../views/StudentView/StudentProfile.vue'
+import AdminProfileInStudentPart from '../views/UserView/AdminProfileView.vue'
 
 
 const routes = [
@@ -49,6 +51,16 @@ const routes = [
     path: '/studentprofile',
     name: 'studentprofile',
     component: StudentProfileView,
+  },
+  {
+    path: '/admin_profile',
+    name: 'admin_profile',
+    component: AdminProfileInStudentPart,
+  },
+  {
+    path: '/studentprofile',
+    name: 'studentprofile',
+    component: StudentProfile,
   },
 
 ]

@@ -79,54 +79,102 @@ export default {
       showPassword: false,
     };
   },
-
-  methods: {
+  methods:{
     toggleShow() {
       this.showPassword = !this.showPassword;
     },
-    storeDataUser() {
-      let dataLogin = { email: this.email, password: this.password };
-      if (this.role == "teacher") {
-        axios.post("login", dataLogin).then((res) => {
-          if (res.data.mas == "success") {
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user-role", this.role);
-            localStorage.setItem("email", this.email);
-            axios.get("users").then((res) => {
+    storeDataUser(){
+      let dataLogin = {email:this.email, password:this.password}
+      if(this.role == 'teacher'){
+        axios.post('login', dataLogin).then(res=>{
+          console.log(res.data);
+          if(res.data.mas == 'success'){
+            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('user-role', this.role)
+            localStorage.setItem('email', this.email)
+            axios.get('users').then(res=>{
               for (const user of res.data) {
-                if (user.email == this.email) {
-                  localStorage.setItem("user", JSON.stringify(user));
-                  this.$router.go();
+                if(user.email == this.email){
+                  localStorage.setItem('user', JSON.stringify(user))
+                  this.$router.go()
                 }
               }
-            });
-          } else {
+            })
+          }else{
             alert("Your Login not success. Please try again");
           }
-        });
+        })
       }
-      if (this.role == "student") {
-        axios.post("students/login", dataLogin).then((res) => {
-          if (res.data.mas == "success") {
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user-role", this.role);
-            localStorage.setItem("email", this.email);
-            axios.get("students").then((res) => {
+      if(this.role == 'student'){
+        axios.post('students/login', dataLogin).then(res=>{
+          if(res.data.mas == 'success'){
+            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('user-role', this.role)
+            localStorage.setItem('email', this.email)
+            axios.get('students').then(res=>{
               for (const user of res.data) {
-                if (user.email == this.email) {
-                  localStorage.setItem("user", JSON.stringify(user));
-                  this.$router.go();
+                if(user.email == this.email){
+                  localStorage.setItem('user', JSON.stringify(user))
+                  this.$router.go()
                 }
               }
-            });
-          } else {
+            })
+          }else{
             alert("Your Login not success. Please try again");
           }
-        });
+        })
       }
-    },
-  },
-};
+    }
+  }
+}
+
+  // methods: {
+  //   toggleShow() {
+  //     this.showPassword = !this.showPassword;
+  //   },
+  //   storeDataUser() {
+  //     let dataLogin = { email: this.email, password: this.password };
+  //     if (this.role == "teacher") {
+  //       axios.post("login", dataLogin).then((res) => {
+  //         if (res.data.mas == "success") {
+  //           localStorage.setItem("token", res.data.token);
+  //           localStorage.setItem("user-role", this.role);
+  //           localStorage.setItem("email", this.email);
+  //           axios.get("users").then((res) => {
+  //             for (const user of res.data) {
+  //               if (user.email == this.email) {
+  //                 localStorage.setItem("user", JSON.stringify(user));
+  //                 this.$router.go();
+  //               }
+  //             }
+  //           });
+  //         } else {
+  //           alert("Your Login not success. Please try again");
+  //         }
+  //       });
+  //     }
+  //     if (this.role == "student") {
+  //       axios.post("students/login", dataLogin).then((res) => {
+  //         if (res.data.mas == "success") {
+  //           localStorage.setItem("token", res.data.token);
+  //           localStorage.setItem("user-role", this.role);
+  //           localStorage.setItem("email", this.email);
+  //           axios.get("students").then((res) => {
+  //             for (const user of res.data) {
+  //               if (user.email == this.email) {
+  //                 localStorage.setItem("user", JSON.stringify(user));
+  //                 this.$router.go();
+  //               }
+  //             }
+  //           });
+  //         } else {
+  //           alert("Your Login not success. Please try again");
+  //         }
+  //       });
+  //     }
+  //   },
+  // },
+// };
 </script>
 
 <style scoped>
@@ -138,6 +186,14 @@ export default {
   justify-content: center;
   display: flex;
 }
+
+.contain .description{
+  /* color: #05B2E9; */
+  margin-left: 50px;
+  width: 40%;
+  line-height: 50px;
+}
+
 .contain .contain-form {
   margin-top: 120px;
   width: 30%;

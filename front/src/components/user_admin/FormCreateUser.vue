@@ -214,6 +214,10 @@ export default {
 };
 </script>
 <style scoped>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ff28d01112a97b20f8ead73f68b482387135032f
 .container{
   align-items: center;
   justify-content: center;

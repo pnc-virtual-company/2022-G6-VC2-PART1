@@ -34,7 +34,9 @@ class StudentController extends Controller
             'gender' => 'required',
             'email' => 'required',
             'password' => 'required',
-            // 'picture' => 'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
+            // 'picture' => 'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999',
+            'password' => 'required',
+
         ]);
         $request->file('picture')->store('public/images');
         $student=new Student();
@@ -138,4 +140,6 @@ class StudentController extends Controller
             return response()->json($student);
         }
     }
+
+    
 }

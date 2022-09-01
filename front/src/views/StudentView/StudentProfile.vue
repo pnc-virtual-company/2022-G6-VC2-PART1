@@ -2,19 +2,19 @@
   <div class="contain">
     <div class="contain-left">
       <div class="contain-img">
-        <img :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
+        <img
+          src="https://i.pinimg.com/originals/62/3a/a8/623aa8f9933ee9a286871bf6e0782538.jpg"
+          alt=""
+        />
       </div>
       <div class="user-name">
-        <h2>{{ student.name }}</h2>
+        <h2>{{ }}</h2>
       </div>
       <div class="contain-menu">
         <nav>
           <ul>
             <li class="" :class="{ onPage: onAccount }" @click="pageAccount">
               Account
-            </li>
-            <li class="" :class="{ onPage: onUpdate }" @click="pageUpdate">
-              Update
             </li>
             <li @click="pageUpdatPassword">Password Reset</li>
           </ul>
@@ -27,11 +27,11 @@
           <h1>User Information Detail</h1>
           <div class="name flex">
             <strong>User Name: </strong>
-            <p>{{ student.name }}</p>
+            <p>{{student.name}}</p>
           </div>
           <div class="gender flex">
             <strong>User Gender: </strong>
-            <p>{{ student.gender }}</p>
+            <p>{{student.gender  }}</p>
           </div>
           <div class="Class-room flex">
             <strong>Class Room: </strong>
@@ -43,71 +43,16 @@
           </div>
           <div class="Class-room flex">
             <strong>Phone Number: </strong>
-            <p>{{ student.phone_number }}</p>
+            <p>{{student.phone_number}}</p>
           </div>
           <div class="email flex">
             <strong>User Email: </strong>
-            <p>{{ student.email }}</p>
+            <p>{{student.email}}</p>
           </div>
         </div>
         <div>
-          <button class="btn-back">
-            <router-link class="link-a" to="/" @click="$router.go(0)"
-              >Back</router-link
-            >
-          </button>
         </div>
       </div>
-
-      <div class="update-detail" v-if="onUpdate">
-        <h1>User Update Information</h1>
-        <div class="name input">
-          <strong>User Name</strong><br />
-          <input type="text" v-model="name" />
-        </div>
-        <div class="phone input">
-          <strong>phone number</strong><br />
-          <input type="number" v-model="phone_number" />
-        </div>
-        <div class="email input">
-          <strong>User Email</strong><br />
-          <input type="text" v-model="email" />
-        </div>
-        <div class="email input">
-          <strong>Bacth</strong>
-         <input
-                type="text"
-                placeholder="input your bacth"
-                v-model="bacth" />
-        </div>
-
-        <div class="flex">
-          <div class="select">
-            <strong>User Gender</strong><br />
-            <select name="" id="" v-model="gender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-          <div class="select">
-            <strong>Class</strong><br />
-            <select name="" id="" v-model="class_room">
-              <option value="Web 2022 A">Web A</option>
-              <option value="Web 2022 B">Web B</option>
-              <option value="SNA 2022">SNA</option>
-            </select>
-          </div>
-         
-        </div>
-
-        <div class="button-group">
-          <button class="update" @click="updataStudent">Update</button>
-          <button class="concel">
-            <router-link class="link-a" to="/" @click="$router.go(0)"
-              >Back</router-link
-            >
-          </button>
-        </div>
       </div>
 
       <div class="updae_password" v-if="onReset">
@@ -116,41 +61,61 @@
         </div>
         <div class="previouse_password">
           <strong>Previous Password</strong>
+          <div class="flex">
           <input
-            type="password"
+          :type="showOldPassword ? 'text' : 'password'"
             name=""
             id=""
             placeholder="previous password !!"
             v-model="oldPassword"
             required
           />
+          <i
+              @click="oldPasswords"
+              :class="showOldPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              style="font-size: 17px"
+            ></i>
+          </div>
         </div>
         <div class="new_password">
           <strong>New Password</strong>
+          <div class="flex">
           <input
-            type="password"
+          :type="showNewPassword ? 'text' : 'password'"
             name=""
             id=""
-            placeholder="new password !!"
+            placeholder="previous password !!"
             v-model="newPassword"
             required
           />
+          <i
+              @click="newPasswords"
+              :class="showNewPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              style="font-size: 17px"
+            ></i>
+          </div>
         </div>
         <div class="conform_password">
           <strong>Confirm Password</strong>
+          <div class="flex">
           <input
-            type="password"
+          :type="showConfirmPassword ? 'text' : 'password'"
             name=""
             id=""
-            placeholder="confirm password !!"
+            placeholder="previous password !!"
             v-model="confirmPassword"
             required
           />
+          <i
+              @click="confirmPasswords"
+              :class="showConfirmPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              style="font-size: 17px"
+            ></i>
+          </div>
         </div>
         <div class="button_group">
           <button @click="resetPassword">Reset</button>
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -159,13 +124,9 @@
 import axios from "@/api/api";
 
 export default {
-  props: {
-    student: Array,
-  },
   data() {
     return {
       onAccount: true,
-      onUpdate: false,
       onReset: false,
       name: "",
       email: "",
@@ -173,23 +134,40 @@ export default {
       class_room: "",
       bacth: "",
       phone_number: "",
+
+       ///reset//
+       showOldPassword: "",
+      showNewPassword: "",
+      showConfirmPassword:"",
       /**
        * PASSWORD DATA
        */
       oldPassword: "",
       newPassword: "",
       confirmPassword: "",
+      student:JSON.parse(localStorage.getItem("user"))
     };
   },
   methods: {
+    oldPasswords() {
+      this.showOldPassword = !this.showOldPassword;
+      
+    },
+    newPasswords(){
+      this.showNewPassword = !this.showNewPassword;
+      
+    },
+    confirmPasswords(){
+      this.showConfirmPassword = !this.showConfirmPassword;
+
+    },
     pageAccount() {
       this.onAccount = true;
       this.onUpdate = false;
       this.onReset = false;
     },
     pageUpdate() {
-      this.onAccount = false;
-      this.onUpdate = true;
+      this.onAccount = true;
       this.onReset = false;
       this.name = this.student.name;
       this.email = this.student.email;
@@ -204,36 +182,20 @@ export default {
       this.onReset = true;
     },
     // ___________ Updata Student____________
-    updataStudent() {
-      let student = {
-        name: this.name,
-        email: this.email,
-        gender: this.gender,
-        class_room: this.class_room,
-        bacth: this.bacth,
-        phone_number: this.phone_number,
-      };
-      let id = JSON.parse(localStorage.getItem("studentid"));
-      axios.post("students/" + id, student).then((res) => {
-        console.log(res.data);
-      });
-      this.onAccount = true;
-      this.onUpdate = false;
-    },
     resetPassword() {
       if (this.newPassword == this.confirmPassword) {
-        let id = JSON.parse(localStorage.getItem("studentid"));
+        let id = JSON.parse(localStorage.getItem("user")).id;
         let password = {
           oldPassword: this.oldPassword,
           newPassword: this.newPassword,
         };
+        console.log(id)
         axios
-        .patch("students/" + id, password).then(()=>{
-          console.log(this.oldPassword)
+        .patch("resetStudentPassword/" + id, password).then(()=>{
+          // console.log(this.oldPassword)
           alert("Reset succefully!")
         })
-        .catch(alert("please check your old password"));
-       
+        // .catch(alert("please check your old password"));
       } else {
         alert("Please check your confirm password");
       }
@@ -422,5 +384,10 @@ export default {
   border: none;
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

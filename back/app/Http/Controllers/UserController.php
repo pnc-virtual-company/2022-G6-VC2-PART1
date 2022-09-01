@@ -24,7 +24,7 @@ class UserController extends Controller
         $request-> validate([
             'name'=>'required|string|max:200',
             'email'=>'required|unique:users,email,$this->id,id',
-            'password'=>'required|string|min:8',
+            // 'password'=>'required|string|min:8',
 
         ]);
         $user = new User();
@@ -84,5 +84,16 @@ class UserController extends Controller
         } else {
             return response()->json(['message' => 'User cannot delete'], 404);
         }
+    }
+
+    public function resetAdminPassword(Request $request, $id){
+        $user = User::find($id);
+        if (Hash::check($request->oldPassword,$user->password)){
+            $user->password=bcrypt($request->newPassword);
+            $user->save();
+            return $user;
+        }
+        return 'password can not change!!';
+
     }
 }

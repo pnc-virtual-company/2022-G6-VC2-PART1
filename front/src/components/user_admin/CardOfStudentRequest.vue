@@ -4,20 +4,24 @@
       <div class="card-padding card">
         <h2>Padding</h2>
         <h3>{{ statusPadding }}</h3>
+        <button @click="getStudentLeave('padding')">more</button>
       </div>
       <div class="card-reject card">
         <h2>Reject</h2>
         <h3>{{ statusReject }}</h3>
+        <button @click="getStudentLeave('reject')">more</button>
       </div>
       <div class="card-approve card">
         <h2>Approve</h2>
         <h3>{{ statusApprove }}</h3>
+        <button @click="getStudentLeave('approve')">more</button>
       </div>
     </div>
   </div>
+  <div class="on-status"><h3>Status: {{show_status.toUpperCase()}}</h3></div>
 
   <div v-for="student of student_leave" :key="student">
-    <div class="card" v-if="student.status == 'padding'">
+    <div class="card" v-if="student.status == show_status">
       <div class="card_title">
         <h2>{{ student.students.name }}</h2>
       </div>
@@ -45,7 +49,7 @@
           </div>
         </div>
       </div>
-      <div class="card_footer">
+      <div class="card_footer" v-if="student.status == 'padding'">
         <button class="btn-orange" @click="changeStatus(student, 'reject')">
           reject
         </button>
@@ -66,11 +70,13 @@ export default {
       statusPadding: 0,
       statusReject: 0,
       statusApprove: 0,
+      show_status: 'padding'
     };
   },
   // FUNCTION students leave///
   methods: {
-    getStudentLeave() {
+    getStudentLeave(status) {
+      this.show_status = status
       axios.get("leave").then((response) => {
         this.student_leave = response.data;
       });
@@ -101,7 +107,7 @@ export default {
     },
   },
   mounted() {
-    this.getStudentLeave();
+    this.getStudentLeave('padding');
   },
 };
 </script>
@@ -109,6 +115,10 @@ export default {
 <style scoped>
 body {
   background: rgb(229, 229, 229);
+}
+.on-status{
+  width: 51%;
+  margin: 0 auto;
 }
 .status {
   /* background: #ffad5c; */
