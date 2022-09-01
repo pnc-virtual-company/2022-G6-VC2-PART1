@@ -97,16 +97,7 @@
               <option value="SNA 2022">SNA</option>
             </select>
           </div>
-          <!-- <div class="select">
-            <strong>Bacth</strong><br />
-            <div class="bacth">
-              <input
-                type="text"
-                placeholder="input your bacth"
-                v-model="bacth"
-              />
-            </div>
-          </div> -->
+         
         </div>
 
         <div class="button-group">

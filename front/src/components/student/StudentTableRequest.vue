@@ -43,8 +43,6 @@
 </template>
 <script>
 import axios from '@/api/api'
-// let userId = JSON.parse(localStorage.getItem('user')).id
-// let userId = JSON.parse(localStorage.getItem('user')).id
 export default {
   data() {
     return {

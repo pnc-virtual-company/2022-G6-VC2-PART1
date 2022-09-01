@@ -55,7 +55,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #05B2E9;
 }
 .nav_left,.nav_right{
   padding: 10px;
@@ -64,7 +64,7 @@ nav a.router-link-exact-active {
 a { 
     display: inline-block; 
     position: relative; 
-    color: #0087ca; 
+    color: #05B2E9; 
   } 
    
 a:after { 
@@ -75,7 +75,7 @@ a:after {
     height: 2px; 
     bottom: 0; 
     left: 0; 
-    background-color: #0087ca; 
+    background-color: #05B2E9; 
     transform-origin: bottom right; 
     transition: transform 0.25s ease-out; 
   } 
