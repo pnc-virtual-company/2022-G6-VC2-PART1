@@ -15,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return Student::get();
+        return Student::orderBy('id', 'desc')->get();
     }
 
     /**
@@ -34,7 +34,11 @@ class StudentController extends Controller
             'gender' => 'required',
             'email' => 'required',
             'password' => 'required',
+            // 'picture' => 'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999',
+            'password' => 'required',
+
         ]);
+        $request->file('picture')->store('public/images');
         $student=new Student();
         $student->name=$request->name;
         $student->class_room=$request->class_room;
@@ -43,9 +47,13 @@ class StudentController extends Controller
         $student->gender=$request->gender;
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
+        if ($request->picture) {
+            $request->file('picture')->store('public/images');
+            $student->picture = $request->file('picture')->hashName();
+        }
         $student->save();
-        $token=$student->createToken('myToken')->plainTextToken;
-        return response()->json(['mes'=>'store is Successfully','token'=>$token],201);
+        // $token=$student->createToken('myToken')->plainTextToken;
+        return response()->json(['mes'=>'store is Successfully'],201);
     }
 
     /**

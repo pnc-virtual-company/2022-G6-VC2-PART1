@@ -2,13 +2,9 @@
     <div>
         <div class="search-bar">
             <input type="text" placeholder="search" class="search" v-model="search">
-            <select name="" id="" class="search">
-                <option value="class">Class</option>
-                <option value="name">Name</option>
-                <option value="batch">Batch</option>
-            </select>
-            <button class="button-search">Search</button>
+            <!-- <button class="btn-orange">Search</button> -->
         </div>
+
         <table>
             <tr> 
                 <th>IMAGE</th> 
@@ -18,7 +14,10 @@
                 <th>MORE</th> 
             </tr> 
             <tr  v-for="student of students" :key="student">
-                <td><img class="circle" src="https://w7.pngwing.com/pngs/273/399/png-transparent-blue-rose-in-bloom-blue-rose-cut-flowers-blue-flower-blue-navy-blue-flower-thumbnail.png" alt=""></td>
+                <td>
+                    <img v-if="student.picture == null" class="circle" src="../../assets/user.png"  alt="">
+                    <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
+                </td>
                 <td>{{student.name}}</td>
                 <td>{{student.bacth+' '}}</td>
                 <td>{{student.class_room}}</td>

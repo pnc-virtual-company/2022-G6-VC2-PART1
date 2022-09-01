@@ -1,5 +1,6 @@
 <template>
   <div class="container" @submit.prevent>
+    <!-- *************************** form for create teacher ************************ -->
     <div class="create-admin" v-if="create_role">
       <div class="left">
         <h1>Hello world! <br> How are you</h1>
@@ -10,8 +11,14 @@
           <form action="">
             <div class="card">
               <div class="head">
-                <img src="https://media.istockphoto.com/vectors/young-man-anime-style-character-vector-id1188980757?k=20&m=1188980757&s=612x612&w=0&h=mchP5EsIbmDRCWs3k8N2xtDfjaMTF2DU3ahc_HPsSMw=" alt="">
+                <!-- ++++++++++++ Upload teacher image +++++++++++++ -->
+                <label for="image">
+                  <img v-if="previewImage != null" :src="previewImage" alt="">
+                  <img v-if="previewImage == null" src="../../assets/upload_image.jpg" alt="">
+                </label> 
+                <input type="file" @change="uploadImage" hidden id="image">
               </div>
+              <!-- +++++++++++++++ User Information ++++++++++++++++ -->
               <div class="body">
                 <div class="name input">*Name <br><input type="text" placeholder="" class="my-input" v-model="name"></div>
                 <small class="danger" v-if="name_empty">Name require*</small>
@@ -26,7 +33,9 @@
               </div>
               <div class="footer">
                 <div class="button-group">
+                  <!-- ++++++++++++++++++++ button create User ++++++++++++++++++++ -->
                   <button class="orange" @click="checkValidationAdmin">Create</button>
+                  <!-- ++++++++++++++++++++ button concel create user +++++++++++++++++++ -->
                   <button class="blue" @click="clearnForm">Concell</button>
                 </div>
               </div>
@@ -35,14 +44,21 @@
         </div>
       </div>
     </div>
+    <!-- ************************ form for create student ************************ -->
     <div class="create-student" v-if="!create_role">
       <div class="right">
         <div class="form">
           <form action="">
             <div class="card">
+              <!-- ++++++++++++ Upload teacher image +++++++++++++ -->
               <div class="head">
-                <img src="https://freesvg.org/img/1514826571.png" alt="">
+                <label for="image">
+                  <img v-if="previewImage != null" :src="previewImage" alt="">
+                  <img v-if="previewImage == null" src="../../assets/upload_image.jpg" alt="">
+                </label> 
+                <input type="file" @change="uploadImage" hidden id="image">
               </div>
+              <!-- +++++++++++++++ User Information ++++++++++++++++ -->
               <div class="body">
                 <div class="name input">*Name <br><input type="text" placeholder="" class="my-input" v-model="name"></div>
                 <small class="danger" v-if="name_empty">Name require*</small>
@@ -58,6 +74,9 @@
                   <div class="phone input">*Phone Number <br>
                     <input type="number" class="input my-input" v-model="phone_number">
                     <small class="danger" v-if="phone_number_empty">phone_number require*</small>
+
+                    <input type="text" class="input my-input" v-model="phone_number">
+
                   </div>
                 </div>
                 <div class="flex">
@@ -75,7 +94,9 @@
               </div>
               <div class="footer">
                 <div class="button-group">
+                  <!-- ++++++++++++++++++++ button create User ++++++++++++++++++++ -->
                   <button class="orange" @click="checkValidationStudent">Create</button>
+                  <!-- ++++++++++++++++++++ button concel create user +++++++++++++++++++ -->
                   <button class="blue" @click="clearnForm">Concell</button>
                 </div>
               </div>
@@ -89,17 +110,21 @@
       </div>
     </div>
   </div>
+
 </template>
 <script>
+
 export default {
   data() {
     return {
+      previewImage:null,
       name: "",
       email: "",
-      password: 12345678,
+      password: '12345678',
       gender: "male",
       class_room: "",
       phone_number: "",
+      picture: "user",
       batch: "",
       name_empty: false,
       class_empty: false,
@@ -107,10 +132,19 @@ export default {
       gender_empty:false,
       phone_number_empty: false,
       email_empty: false,
+      password_empty: false,
       create_role:true
     };
   },
   methods: {
+    /**
+     * @todo Upload image
+     * @return show image for preview 
+     */
+    uploadImage(e){
+      this.picture=e.target.files[0]
+      this.previewImage = URL.createObjectURL(this.picture);
+    },
     /**
      * @todo change form for user create user
      * @return new form for create user
@@ -118,8 +152,10 @@ export default {
     isCreateUser(){
       if(this.create_role){
         this.create_role = false
+        this.clearnForm()
       }else{
         this.create_role = true
+        this.clearnForm()
       }
     },
     /**
@@ -163,32 +199,35 @@ export default {
      * @return new admin
      */
     createAdmin() {
-        let newUser = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          gender: this.gender,
-        };
-        this.$emit("create-user", newUser, 'teacher');
+        let newUser = new FormData();
+        newUser.append("name", this.name);
+        newUser.append("email", this.email);
+        newUser.append("password", this.password);
+        newUser.append("gender", this.gender);
+        if(this.picture != 'user'){
+          newUser.append("picture", this.picture);
+        }
         this.clearnForm
+        this.$emit("create-user", newUser, 'teacher');
     },
     /**
      * @todo create new student
      * @return new student
      */
     createStudent() {
-        let newUser = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          gender: this.gender,
-          class_room: this.class_room,
-          phone_number: this.phone_number,
-          bacth: this.batch,
-        };
-        this.$emit("create-user", newUser, 'student');
-        console.log(newUser);
-        this.clearnForm
+      let newUser = new FormData();
+      newUser.append("name", this.name);
+      newUser.append("email", this.email);
+      newUser.append("password", this.password);
+      newUser.append("gender", this.gender);
+      newUser.append("class_room", this.class_room);
+      newUser.append("phone_number",this.phone_number);
+      if(this.picture != 'user'){
+        newUser.append("picture", this.picture);
+      }
+      newUser.append("bacth", this.batch);
+      this.clearnForm
+      this.$emit("create-user", newUser, 'student');
     },
     /**
      * @todo clean form create
@@ -198,18 +237,20 @@ export default {
       this.email = "";
       this.phone_number = "";
       this.class_room = "";
-      this.batch = ""
+      this.batch = "",
+      this.previewImage = null,
+      this.picture="user"
     }
   },
 };
 </script>
 <style scoped>
-/* small{
-  margin-bottom:10px;
-} */
+
+
 .danger{
   color: red;
 }
+
 .container{
   align-items: center;
   justify-content: center;
@@ -254,6 +295,7 @@ export default {
   height: 100px;
   border-radius: 50%;
   border: 2px solid rgb(207, 207, 207);
+  cursor: pointer;
 }
 .container .create-admin .right .form .card .body .input{
   margin-top: 10px;
@@ -280,7 +322,6 @@ export default {
   align-items: center;
   justify-content: center;
   display: flex;
-  /* display: none; */
 }
 .button-create-admin{
   background: #FFAD5C;
@@ -298,17 +339,14 @@ export default {
 .container .create-student .right{
   margin-left: 0px;
   width: 25%;
-  /* background: blue; */
 }
 .container .create-student .right .form .card{
-  /* background: burlywood; */
   width: 100%;
   padding: 30px;
   box-shadow: rgba(0, 0, 0, 0.395) 0px 1px 4px;
   border-radius: 5px;
 }
 .container .create-student .right .form .card .head {
-  /* background: rgb(180, 222, 135); */
   align-items: center;
   justify-content: center;
   display: flex;
@@ -318,6 +356,7 @@ export default {
   height: 100px;
   border-radius: 50%;
   border: 1px solid rgb(177, 177, 177);
+  cursor: pointer;
 }
 .container .create-student .right .form .card .body .flex{
   margin-bottom: -20px;
