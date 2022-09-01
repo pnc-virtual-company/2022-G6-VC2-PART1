@@ -1,5 +1,6 @@
 <template>
   <div class="container" @submit.prevent>
+    <!-- *************************** form for create teacher ************************ -->
     <div class="create-admin" v-if="create_role">
       <div class="left">
         <h1>Hello world! <br> How are you</h1>
@@ -10,12 +11,14 @@
           <form action="">
             <div class="card">
               <div class="head">
+                <!-- ++++++++++++ Upload teacher image +++++++++++++ -->
                 <label for="image">
                   <img v-if="previewImage != null" :src="previewImage" alt="">
                   <img v-if="previewImage == null" src="../../assets/upload_image.jpg" alt="">
                 </label> 
                 <input type="file" @change="uploadImage" hidden id="image">
               </div>
+              <!-- +++++++++++++++ User Information ++++++++++++++++ -->
               <div class="body">
                 <div class="name input">*Name <br><input type="text" placeholder="" class="my-input" v-model="name"></div>
                 <div class="email input">*Email <br><input type="email" placeholder="" class="my-input" v-model="email"></div>
@@ -28,7 +31,9 @@
               </div>
               <div class="footer">
                 <div class="button-group">
+                  <!-- ++++++++++++++++++++ button create User ++++++++++++++++++++ -->
                   <button class="orange" @click="checkValidationAdmin">Create</button>
+                  <!-- ++++++++++++++++++++ button concel create user +++++++++++++++++++ -->
                   <button class="blue" @click="clearnForm">Concell</button>
                 </div>
               </div>
@@ -37,11 +42,13 @@
         </div>
       </div>
     </div>
+    <!-- ************************ form for create student ************************ -->
     <div class="create-student" v-if="!create_role">
       <div class="right">
         <div class="form">
           <form action="">
             <div class="card">
+              <!-- ++++++++++++ Upload teacher image +++++++++++++ -->
               <div class="head">
                 <label for="image">
                   <img v-if="previewImage != null" :src="previewImage" alt="">
@@ -49,6 +56,7 @@
                 </label> 
                 <input type="file" @change="uploadImage" hidden id="image">
               </div>
+              <!-- +++++++++++++++ User Information ++++++++++++++++ -->
               <div class="body">
                 <div class="name input">*Name <br><input type="text" placeholder="" class="my-input" v-model="name"></div>
                 <div class="email input">*Email <br><input type="email" placeholder="" class="my-input" v-model="email"></div>
@@ -74,7 +82,9 @@
               </div>
               <div class="footer">
                 <div class="button-group">
+                  <!-- ++++++++++++++++++++ button create User ++++++++++++++++++++ -->
                   <button class="orange" @click="checkValidationStudent">Create</button>
+                  <!-- ++++++++++++++++++++ button concel create user +++++++++++++++++++ -->
                   <button class="blue" @click="clearnForm">Concell</button>
                 </div>
               </div>
@@ -114,6 +124,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * @todo Upload image
+     * @return show image for preview 
+     */
     uploadImage(e){
       this.picture=e.target.files[0]
       this.previewImage = URL.createObjectURL(this.picture);
@@ -122,13 +136,6 @@ export default {
      * @todo change form for user create user
      * @return new form for create user
      */
-    upload(e){
-        console.log(e.target.files[0]);
-        this.picture=e.target.files[0]
-    },
-    addImage(){
-      console.log("Hello this is ", this.picture);
-    },
     isCreateUser(){
       if(this.create_role){
         this.create_role = false
@@ -178,8 +185,6 @@ export default {
      * @return new admin
      */
     createAdmin() {
-      console.log("Image is the best");
-        // let newUser = {name:this.name, email:this.email, password:this.password, gender:this.gender, picture:this.picture}
         let newUser = new FormData();
         newUser.append("name", this.name);
         newUser.append("email", this.email);
@@ -188,10 +193,8 @@ export default {
         if(this.picture != 'user'){
           newUser.append("picture", this.picture);
         }
+        this.clearnForm
         this.$emit("create-user", newUser, 'teacher');
-        console.log("Image is the best");
-
-      this.clearnForm
     },
     /**
      * @todo create new student
@@ -209,9 +212,8 @@ export default {
         newUser.append("picture", this.picture);
       }
       newUser.append("bacth", this.batch);
-      this.$emit("create-user", newUser, 'student');
-      console.log(newUser);
       this.clearnForm
+      this.$emit("create-user", newUser, 'student');
     },
     /**
      * @todo clean form create
@@ -224,7 +226,6 @@ export default {
       this.batch = "",
       this.previewImage = null,
       this.picture="user"
-      this.picture= "";
     }
   },
 };
@@ -274,6 +275,7 @@ export default {
   height: 100px;
   border-radius: 50%;
   border: 2px solid rgb(207, 207, 207);
+  cursor: pointer;
 }
 .container .create-admin .right .form .card .body .input{
   margin-top: 10px;
@@ -300,7 +302,6 @@ export default {
   align-items: center;
   justify-content: center;
   display: flex;
-  /* display: none; */
 }
 .button-create-admin{
   background: #FFAD5C;
@@ -318,17 +319,14 @@ export default {
 .container .create-student .right{
   margin-left: 0px;
   width: 25%;
-  /* background: blue; */
 }
 .container .create-student .right .form .card{
-  /* background: burlywood; */
   width: 100%;
   padding: 30px;
   box-shadow: rgba(0, 0, 0, 0.395) 0px 1px 4px;
   border-radius: 5px;
 }
 .container .create-student .right .form .card .head {
-  /* background: rgb(180, 222, 135); */
   align-items: center;
   justify-content: center;
   display: flex;
@@ -338,6 +336,7 @@ export default {
   height: 100px;
   border-radius: 50%;
   border: 1px solid rgb(177, 177, 177);
+  cursor: pointer;
 }
 .container .create-student .right .form .card .body .flex{
   margin-bottom: -20px;
