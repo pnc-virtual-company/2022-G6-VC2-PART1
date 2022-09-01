@@ -24,22 +24,19 @@ class UserController extends Controller
         $request-> validate([
             'name'=>'required|string|max:200',
             'email'=>'required|unique:users,email,$this->id,id',
-            // 'password'=>'required|string|min:8',
-
+            'password'=>'required|string|min:8',
         ]);
         $user = new User();
         $user-> name = $request -> name;
         $user-> gender = $request -> gender;
         $user -> email = $request -> email;
         $user -> password = bcrypt($request->password);
-
+        if($request->picture){
+            $user->picture = $request->file('picture')->hashName();
+            $request->file('picture')->store('public/images');
+        }
         $user ->save();
-        // $token = $user->createToken('myToken')->plainTextToken;
-
         return response()->json($user);
-
-        return response()->json(['message' => 'User create Sucessfully']);
-
     }
 
 /********************************** User Log In ************************************* */
@@ -47,7 +44,7 @@ class UserController extends Controller
         if(Auth::attempt($request->only('email', 'password'))){ 
             $user = Auth::user(); 
             $token = $user->createToken('mytoken')->plainTextToken; 
-            $cookie = cookie('jwt', $token, 60*1); 
+            $cookie = cookie('jwt', $token, 60*24); 
             return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
         } 
         return response()->json(['mas'=>"Invalid"]); 
