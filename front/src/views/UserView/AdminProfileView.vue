@@ -45,24 +45,6 @@
           </button>
         </div>
       </div>
-<<<<<<< HEAD
-      <div class="contain-right">
-        <div class="account-detail" v-if="onAccount">
-          <div>
-            <h1>User Information Detail</h1>
-            <div class="name flex">
-              <strong>User Name: </strong>
-              <p>{{admin.name}}</p>
-            </div>
-            <div class="gender flex">
-              <strong>User Gender: </strong>
-              <p>{{ admin.gender }}</p>
-            </div>
-            <div class="email flex">
-              <strong>User Email: </strong>
-              <p>{{ admin.email }}</p>
-            </div>
-=======
 
       <div class="update-detail" v-if="onUpdate">
         <h1>User Update Information</h1>
@@ -83,7 +65,6 @@
               <option selected value="male">Male</option>
               <option value="female">Female</option>
             </select>
->>>>>>> 399f30e9c85dbd543df51fc31ffa0d875b7e4882
           </div>
         </div>
         <div class="button-group">
@@ -190,14 +171,6 @@ export default {
   methods: {
     oldPasswords() {
       this.showOldPassword = !this.showOldPassword;
-      
-<<<<<<< HEAD
-      },
-      checkValidationPassword(){
-     
-      }
-=======
->>>>>>> 399f30e9c85dbd543df51fc31ffa0d875b7e4882
     },
     newPasswords(){
       this.showNewPassword = !this.showNewPassword;
