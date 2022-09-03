@@ -40,6 +40,7 @@ export default{
     display: flex;
     width: 100%;
     text-align: left;
+    margin-top: 50px;
 }
 .request .request-form{
     width: 60%;

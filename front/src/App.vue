@@ -1,38 +1,37 @@
 <template>
-<!-- Teacher navigation -->
-<div v-if="checkForUserRole=='teacher'">
-  <nav>
-    <div class="nav_left">
-      <router-link to="/">List all students</router-link> 
-      <router-link to="/checkleave">Cheack leave</router-link>
-      <router-link to="/createuser">Create User</router-link>
-  
+    <div v-if="checkForUserRole!=''">
+      <nav>
+        <!-- my logo -->
+        <div class="left">
+          <div class="logo">
+            <img src="@/assets/logo.png" alt="" srcset="">
+          </div>
+        </div>
+        <!-- Teacher menu -->
+        <div class="nav_teacher nav"  v-if="checkForUserRole=='teacher'">
+          <router-link to="/">List all students</router-link> 
+          <router-link to="/checkleave">Cheack leave</router-link>
+          <router-link to="/createuser">Create User</router-link>
+          <!-- <router-view/> -->
+        </div>  
+        <!-- Student menu -->
+        <div class="nav_student nav"  v-if="checkForUserRole=='student'">
+          <router-link to="/request">New Request</router-link>
+          <router-link to="/leaveList">List Leave</router-link>
+          <!-- <router-view/> -->
+        </div>
+        <!-- menu right sigh -->
+        <div class="right">
+          <router-link to="/admin_profile"  v-if="checkForUserRole=='teacher'"><img src="@/assets/user.png" alt=""></router-link>
+          <router-link to="/studentprofile"  v-if="checkForUserRole=='student'"><img src="@/assets/user.png" alt=""></router-link>
+          <router-link to="/signout" class="logout">Sign Out</router-link>
+        </div>  
+      </nav>
+      <router-view/>
     </div>
-    <div class="nav_right">
-      <router-link to="/signout">Sign Out</router-link>
-      <router-link to="/admin_profile">Profile</router-link>
-    </div>
-   
-  </nav>
-  <router-view/>
-</div>
-
-<!-- Student navigation -->
-<div v-if="checkForUserRole=='student'">
-  <nav>
-    <div class="nav_left">
-      <router-link to="/request">New Request</router-link>
-      <router-link to="/leaveList">List Leave</router-link>
-    </div>
-    <div class="nav_right">
-      <router-link to="/signout">Sign Out</router-link>
-      <router-link to="/studentprofile">Profile</router-link>
-    </div>
-  </nav>
-  <router-view/>
-<!-- Form user login -->
-</div>
+<!-- User login -->
   <LoginView v-if="checkForUserRole==''"/>
+
 </template>
 
 <style scoped>
@@ -43,34 +42,26 @@
   text-align: center;
   color: #2c3e50;
 }
-
 nav {
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-
 nav a {
   font-weight: bold;
   color: #2c3e50;
-  margin:10px;
+  margin:10px 20px;
   text-decoration: none;
 }
-
 nav a.router-link-exact-active {
   color: #05B2E9;
 }
-.nav_left,.nav_right{
-  padding: 10px;
-}
-
 a { 
     display: inline-block; 
     position: relative; 
     color: #05B2E9; 
-  } 
-   
+} 
 a:after { 
     content: ''; 
     position: absolute; 
@@ -82,11 +73,39 @@ a:after {
     background-color: #05B2E9; 
     transform-origin: bottom right; 
     transition: transform 0.25s ease-out; 
-  } 
+} 
 a:hover:after { 
     transform: scaleX(1); 
     transform-origin: bottom left; 
-  }
+}
+
+nav .left {
+  width: 20%;
+}
+nav .left .logo img{
+  width: 135px;
+  height: 70px;
+}
+nav .nav {
+  width: 60%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+nav .right{
+  width: 20%;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+nav .right img{
+  width: 50px;
+}
+.logout{
+  background: #05B2E9;  
+  padding: 7px 20px;
+  border-radius: 4px;
+}
 </style>
 
   <script>
@@ -113,6 +132,7 @@ a:hover:after {
     computed:{
       checkForUserRole(){
         let userRole = localStorage.getItem('user-role')
+        console.log(userRole);
         if(userRole == 'teacher'){
           return 'teacher';
         }else if(userRole == 'student'){

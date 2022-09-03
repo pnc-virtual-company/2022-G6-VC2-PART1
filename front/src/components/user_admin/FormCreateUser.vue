@@ -3,8 +3,12 @@
     <!-- *************************** form for create teacher ************************ -->
     <div class="create-admin" v-if="create_role">
       <div class="left">
-        <h1>Hello world! <br> How are you</h1>
-        <button class="button-create-student" @click="isCreateUser">Create Student</button>
+        <h1>NEW ADMIN ACCOUNT</h1>
+        <br>
+        <h4>To create new student account, please click on button below</h4>
+        <div class="button">
+          <button class="button-create-student" @click="isCreateUser">Create Student</button>
+        </div>
       </div>
       <div class="right">
         <div class="form">
@@ -93,8 +97,12 @@
         </div>
       </div>
       <div class="left">
-        <h1>Hello world! <br> How are you</h1>
-        <button class="button-create-admin" @click="isCreateUser">Create Admin</button>
+        <h1>NEW STUDENT ACCOUNT</h1>
+        <br>
+        <h4>To create new ADMIN account, please click on button below</h4>
+        <div class="button">
+          <button class="button-create-admin" @click="isCreateUser">Create Admin</button>
+        </div>
       </div>
     </div>
   </div>
@@ -255,6 +263,18 @@ export default {
 .container .create-admin .left{
   width: 30%;
   text-align: center;
+  padding: 30px 0;
+  margin-right: 40px;
+}
+.container .create-admin .left h1, h4{
+  margin: 10px 0;
+  line-height: 30px;
+}
+.container .create-admin .left .button{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: -20px;
 }
 .container .create-admin .right{
   width: 30%;
@@ -313,8 +333,18 @@ export default {
 .container .create-student .left{
   width: 30%;
   text-align: center;
-  margin-left: 60px;
-
+  padding: 30px 30px;
+  margin-left: 100px;
+}
+.container .create-student .left h1, h4{
+  margin: 10px 0;
+  line-height: 26px;
+}
+.container .create-studen .left .button{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: -60px;
 }
 .container .create-student .right{
   margin-left: 0px;

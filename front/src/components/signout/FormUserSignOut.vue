@@ -39,8 +39,8 @@ export default {
     justify-content: center;
     display: flex;
     width: 100%;
-    background: rgba(186, 186, 186, 0.549);
-    height: 100vh;
+    background: rgba(186, 186, 186, 0.379);
+    height: 106.6vh;
     margin-top: -100px;
     z-index: 1;
     position: relative;

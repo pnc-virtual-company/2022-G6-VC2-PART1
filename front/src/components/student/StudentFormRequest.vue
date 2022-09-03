@@ -56,7 +56,7 @@
                 </div>
                 <div class="button-group">
                     <button class="concell">CONCELL</button>
-                    <button class="submit" @click.prevent="addReques">SUBMIT</button>
+                    <router-link to="/leaveList"><button class="submit" @click="addReques">SUBMIT</button></router-link>
                 </div>
             </form>
         </div>
@@ -137,6 +137,7 @@ export default {
             this.reason = '';
             this.start_date = new Date();
             this.end_date = new Date();
+            this.$router.go()
         }
     },
     mounted(){

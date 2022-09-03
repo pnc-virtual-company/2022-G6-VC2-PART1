@@ -100,33 +100,29 @@ export default {
 }
 </script>
 <style scoped>
-
 table { 
     margin:auto;
     font-family: arial, sans-serif; 
     border-collapse: collapse; 
     width: 80%; 
 
-  } 
-  td, th { 
+} 
+td, th { 
     border: 1px solid #dddddd; 
     text-align: left; 
     padding: 15px; 
-  } 
+} 
 th{
     background-color:  #6BD6F8;
 }
-   
-  tr:nth-child(even) { 
+tr:nth-child(even) { 
     background-color: #efecec; 
 }
-
 .search-bar{
     display:flex;
     width: 80%;
     margin: 10px auto;
     justify-content: end;
-
 }
 .button-42 {
   background-color: #FFAD5C;;
@@ -176,7 +172,7 @@ th{
   width:60%;
   justify-content:space-evenly;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 50px;
 }
 .leave_type,.status{
   margin-top: 15px;
