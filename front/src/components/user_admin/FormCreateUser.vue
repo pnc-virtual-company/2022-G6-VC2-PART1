@@ -25,7 +25,9 @@
               <!-- +++++++++++++++ User Information ++++++++++++++++ -->
               <div class="body">
                 <div class="name input">*Name <br><input type="text" placeholder="" class="my-input" v-model="name"></div>
+                <small class="danger" v-if="name_empty">Name require*</small>
                 <div class="email input">*Email <br><input type="email" placeholder="" class="my-input" v-model="email"></div>
+                <small class="danger" v-if="email_empty">Email require*</small>
                 <div class="gender input">*Gender <br>
                   <select class="input my-input" name="" id=""  v-model="gender">
                     <option value="male">Male</option>
@@ -63,24 +65,34 @@
               <!-- +++++++++++++++ User Information ++++++++++++++++ -->
               <div class="body">
                 <div class="name input">*Name <br><input type="text" placeholder="" class="my-input" v-model="name"></div>
+                <small class="danger" v-if="name_empty">Name require*</small>
                 <div class="email input">*Email <br><input type="email" placeholder="" class="my-input" v-model="email"></div>
+                <small class="danger" v-if="email_empty">Email require*</small>
                 <div class="flex">
                   <div class="gender input">*Gender <br>
                     <select class="input my-input select" name="" id="" v-model="gender">
-                      <option value="male">Male</option>
+                      <option value="male" selected>Male</option>
                       <option value="female">Female</option>
                     </select>
                   </div>
                   <div class="phone input">*Phone Number <br>
+                    <input type="number" class="input my-input" v-model="phone_number">
+                    <small class="danger" v-if="phone_number_empty">phone_number require*</small>
+
                     <input type="text" class="input my-input" v-model="phone_number">
+
                   </div>
                 </div>
                 <div class="flex">
-                  <div class="class input">*Class <br>
+                  <div class="class input"><br>
+                  <label for="">*Class </label>
                     <input type="text" class="input my-input" v-model="class_room">
+                    <small class="danger" v-if="class_empty">Class require*</small>
                   </div>
-                  <div class="batch input">*Batch <br>
+                  <div class="batch input"><br>
+                    <label for="">*Batch </label>
                     <input type="text" class="input my-input" v-model="batch">
+                    <small class="danger" v-if="batch_empty">Batch require*</small>
                   </div>
                 </div>
               </div>
@@ -125,6 +137,7 @@ export default {
       name_empty: false,
       class_empty: false,
       batch_empty: false,
+      gender_empty:false,
       phone_number_empty: false,
       email_empty: false,
       password_empty: false,
@@ -178,13 +191,14 @@ export default {
       if (this.phone_number.length < 8){ this.phone_number_empty = true }
       // check validation phone number
       if (this.phone_number.length < 8){ this.phone_number_empty = true }
+      //check gender
+      if(this.gender.length ==0) {this.gender_empty=true}
       // check validation class
       if (this.class_room == '' ){ this.class_empty = true }
       // check validation batch
       if (this.batch == '' ){ this.batch_empty = true }
       // check for create user
       if (!this.name_empty && !this.email_empty && !this.phone_number_empty && !this.class_empty && !this.batch_empty) {
-        // console.log('Where are you now?');
         this.createStudent()
       }
     },
@@ -239,6 +253,12 @@ export default {
 };
 </script>
 <style scoped>
+
+
+.danger{
+  color: red;
+}
+
 .container{
   align-items: center;
   justify-content: center;
