@@ -72,6 +72,16 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User Update Successfully!'], 200);
     }
+/************************************ Update User Profile ***************************** */
+    public function updateUserProfile(Request $request, $id){
+        $user= User::findOrFail($id);
+        // if ($request->picture) {
+            $user->picture = $request->file('picture')->hashName();
+            $request->file('picture')->store('public/images');
+        // }
+        $user->save();
+        return response()->json(['mes'=>'Update profile is Successfully'],201);
+    }
 
 /************************************* Delete user *********************************** */
     public function destroyUser($id){
@@ -84,7 +94,7 @@ class UserController extends Controller
     }
 
     public function resetAdminPassword(Request $request, $id){
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         if (Hash::check($request->oldPassword,$user->password)){
             $user->password=bcrypt($request->newPassword);
             $user->save();

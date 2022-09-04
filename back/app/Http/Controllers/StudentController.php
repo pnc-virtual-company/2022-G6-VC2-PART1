@@ -34,11 +34,9 @@ class StudentController extends Controller
             'gender' => 'required',
             'email' => 'required',
             'password' => 'required',
-            // 'picture' => 'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999',
             'password' => 'required',
 
         ]);
-        $request->file('picture')->store('public/images');
         $student=new Student();
         $student->name=$request->name;
         $student->class_room=$request->class_room;
@@ -48,8 +46,8 @@ class StudentController extends Controller
         $student->email=$request->email;
         $student->password=bcrypt($request->password);
         if ($request->picture) {
-            $request->file('picture')->store('public/images');
             $student->picture = $request->file('picture')->hashName();
+            $request->file('picture')->store('public/images');
         }
         $student->save();
         // $token=$student->createToken('myToken')->plainTextToken;
@@ -81,7 +79,6 @@ class StudentController extends Controller
             'class_room' => 'required',
             'gender' => 'required',
             'email' => 'required',
-
         ]);
         $student= Student::findOrFail($id);
         $student->name=$request->name;
@@ -90,10 +87,18 @@ class StudentController extends Controller
         $student->email=$request->email;
         $student->phone_number=$request->phone_number;
         $student->bacth=$request->bacth;
-
         $student->save();
-        $token=$student->createToken('myToken')->plainTextToken;
-        return response()->json(['mes'=>'Update is Successfully','token'=>$token],201);
+        return response()->json(['mes'=>'Update is very Successfully'],201);
+    }
+    public function updateImage(Request $request, $id)
+    {
+        $student= Student::findOrFail($id);
+        // if ($request->picture) {
+            $student->picture = $request->file('picture')->hashName();
+            $request->file('picture')->store('public/images');
+        // }
+        $student->save();
+        return response()->json(['mes'=>'Update is Successfully'],201);
     }
 
     /**
@@ -135,6 +140,8 @@ class StudentController extends Controller
         Auth::user()->tokens()->delete(); 
         return response()->json(['message' => 'Sign out success!'], 200);
     }
+
+
     public function resetPassword(Request $request, $id){
         $student= Student::findOrFail($id);
         if (Hash::check($request->oldPassword,$student->password)){
@@ -142,6 +149,7 @@ class StudentController extends Controller
             $student->save();
             return response()->json($student);
         }
+        return response()->json(['message' => 'reset password fail']);
     }
 
     

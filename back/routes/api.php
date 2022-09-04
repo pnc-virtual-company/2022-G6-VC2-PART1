@@ -20,22 +20,26 @@ use App\Http\Controllers\StudentController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::patch('change/{id}',[UserController::class,'resetAdminPassword']);
 
-// user Rout appi (/users)
-Route::post('/login', [UserController::class, 'login']);
 /**
  * STUDENT ROUT
  */
 Route::post('/students/login',[StudentController::class,'login']);
-
+// user Rout appi (/users)
+Route::post('/login', [UserController::class, 'login']);
 Route::post('/createUser', [UserController::class, 'createUser']);
-Route::get('/users', [UserController::class, 'getUsers']);
-Route::put('/users/{id}', [UserController::class, 'updateUser']);
-Route::delete('/users/{id}', [UserController::class, 'destroyUser']);
-Route::get('/users/{id}', [UserController::class, 'getUser']);
-Route::post('/logout', [UserController::class, 'logout']);
+
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+
+    Route::get('/users', [UserController::class, 'getUsers']);
+    Route::put('/users/{id}', [UserController::class, 'updateUser']);
+    Route::put('/users/profile/{id}', [UserController::class, 'updateUserProfile']);
+    Route::delete('/users/{id}', [UserController::class, 'destroyUser']);
+    Route::get('/users/{id}', [UserController::class, 'getUser']);
+    Route::post('/logout', [UserController::class, 'logout']);
+    Route::patch('change/{id}',[UserController::class,'resetAdminPassword']);
     
     /**
      * Leave request route
@@ -56,7 +60,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/students/logout',[StudentController::class,'logout']);
     Route::get('students',[StudentController::class,'index']);
     Route::get('students/{id}',[StudentController::class,'show']);
-    Route::post('students/{id}',[StudentController::class,'update']);
+    Route::put('students/{id}',[StudentController::class,'update']);
+    Route::put('students/update_image/{id}',[StudentController::class,'updateImage']);
     Route::delete('students/{id}',[StudentController::class,'destroy']);
     Route::patch('resetStudentPassword/{id}',[StudentController::class,'resetPassword']);
 });
