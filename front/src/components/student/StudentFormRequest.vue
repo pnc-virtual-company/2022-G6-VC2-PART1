@@ -52,7 +52,7 @@
 
                 <div class="reason">
                     <label for="">Reason</label>
-                    <div><textarea name="" id="" cols="30" rows="5" v-model="reason"></textarea></div>
+                    <div><textarea name="" id="" cols="30" rows="3" v-model="reason"></textarea></div>
                 </div>
                 <div class="button-group">
                     <button class="concell">CONCELL</button>
@@ -121,8 +121,8 @@ export default {
             }
         },
         addReques(){
-            let student_id = JSON.parse(localStorage.getItem('user'))
-            let newReques={ student_id:student_id.id,
+            let student_id = JSON.parse(localStorage.getItem('user')).id
+            let newReques={ student_id:student_id,
                             start_date:this.start_date,
                             end_date:this.end_date,
                             duration:this.duration,
@@ -130,14 +130,16 @@ export default {
                             leave_type:this.leave_type,
                             status:'padding'
                           }
-            axios.post('leave/',newReques)
+            axios.post('leave/',newReques).then(()=>{
+                this.$router.go()
+            })
             this.time_leave = '';
             this.time_arrive = '';
             this.duration = '';
             this.reason = '';
             this.start_date = new Date();
             this.end_date = new Date();
-            this.$router.go()
+            
         }
     },
     mounted(){

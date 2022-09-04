@@ -78,9 +78,6 @@
                   <div class="phone input">*Phone Number <br>
                     <input type="number" class="input my-input" v-model="phone_number">
                     <small class="danger" v-if="phone_number_empty">phone_number require*</small>
-
-                    <input type="text" class="input my-input" v-model="phone_number">
-
                   </div>
                 </div>
                 <div class="flex">

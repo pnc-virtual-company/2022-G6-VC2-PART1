@@ -4,7 +4,7 @@
         <!-- my logo -->
         <div class="left">
           <div class="logo">
-            <img src="@/assets/logo.png" alt="" srcset="">
+            <img src="@/assets/logo.jpg" alt="" srcset="">
           </div>
         </div>
         <!-- Teacher menu -->
@@ -22,8 +22,14 @@
         </div>
         <!-- menu right sigh -->
         <div class="right">
-          <router-link to="/admin_profile"  v-if="checkForUserRole=='teacher'"><img src="@/assets/user.png" alt=""></router-link>
-          <router-link to="/studentprofile"  v-if="checkForUserRole=='student'"><img src="@/assets/user.png" alt=""></router-link>
+          <router-link to="/admin_profile"  v-if="checkForUserRole=='teacher'">
+            <img v-if="user.picture == null" class="circle" src="@/assets/user.png"  alt="">
+            <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+user.picture"  alt="">
+          </router-link>
+          <router-link to="/studentprofile"  v-if="checkForUserRole=='student'">
+            <img v-if="user.picture == null" class="circle" src="@/assets/user.png"  alt="">
+            <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+user.picture"  alt="">
+          </router-link>
           <router-link to="/signout" class="logout">Sign Out</router-link>
         </div>  
       </nav>
@@ -80,11 +86,19 @@ a:hover:after {
 }
 
 nav .left {
-  width: 20%;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+nav .left .logo{
+  width: 100%;
+}
+
 nav .left .logo img{
-  width: 135px;
+  width: 70px;
   height: 70px;
+  margin-left: 10px;
 }
 nav .nav {
   width: 60%;
@@ -100,11 +114,17 @@ nav .right{
 }
 nav .right img{
   width: 50px;
+  border-radius: 50%;
+  border: 2px solid #05B2E9;
 }
 .logout{
   background: #05B2E9;  
   padding: 7px 20px;
   border-radius: 4px;
+}
+.logout:hover{
+  background:none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 </style>
 
@@ -117,7 +137,8 @@ nav .right img{
     },
     data() {
       return {
-        checkUserRole:''
+        checkUserRole:'',
+        user:JSON.parse(localStorage.getItem('user'))
       }
     },
     methods:{

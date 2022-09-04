@@ -1,9 +1,26 @@
 <template>
+  <!-- <div class="previous-page">
+    <button class="btn-back">
+      <router-link class="link-a" to="/" @click="this.$router.go()">Back</router-link>
+    </button>
+  </div> -->
   <div class="contain">
     <div class="contain-left">
-      <div class="contain-img">
+      <div class="contain-img" v-if="onAccount || onReset">
         <img v-if="admin.picture == null" class="circle" src="../../assets/user.png"  alt="">
         <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+admin.picture"  alt="">
+      </div>
+
+      <div class="contain-img" v-if="onUpdate">
+        <label for="image">
+          <img v-if="previewImage != null" :src="previewImage" alt="">
+          <img v-else src="../../assets/upload_image.jpg" alt="">
+          <!-- <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+admin.picture"  alt=""> -->
+        </label> 
+        <input type="file" @change="uploadImage" hidden id="image">
+      </div>
+      <div class="user-name">
+        <h2>{{ admin.name }}</h2>
       </div>
 
       <div class="contain-menu">
@@ -15,7 +32,7 @@
             <li class="" :class="{ onPage: onUpdate }" @click="pageUpdate">
               Update
             </li>
-            <li @click="pageUpdatPassword">Password Reset</li>
+            <li class="" :class="{ onPage: onReset }" @click="pageUpdatPassword">Password Reset</li>
           </ul>
         </nav>
       </div>
@@ -37,13 +54,7 @@
             <p>{{ admin.email }}</p>
           </div>
         </div>
-        <div>
-          <button class="btn-back">
-            <router-link class="link-a" to="/" @click="$router.go(0)"
-              >Back</router-link
-            >
-          </button>
-        </div>
+
       </div>
 
       <div class="update-detail" v-if="onUpdate">
@@ -59,7 +70,7 @@
         </div>
 
         <div class="flex">
-          <div class="select">
+          <div class="select-gender">
             <strong>User Gender</strong><br />
             <select name="" id="" v-model="gender">
               <option selected value="male">Male</option>
@@ -67,8 +78,9 @@
             </select>
           </div>
         </div>
-        <div class="button-group">
-          <button class="update" @click="updataAdmin">Update</button>
+        <div class="button_group">
+          <button class="submit" @click="updataAdmin">Update</button>
+          <button class="cancel" @click="this.$router.go()">Cancel</button>
         </div>
       </div>
       <!-- _______________Updata_Password form___________ -->
@@ -79,59 +91,27 @@
         <div class="previouse_password">
           <strong>Previous Password</strong>
           <div class="flex">
-          <input
-          :type="showOldPassword ? 'text' : 'password'"
-            name=""
-            id=""
-            placeholder="previous password !!"
-            v-model="oldPassword"
-            required
-          />
-          <i
-              @click="oldPasswords"
-              :class="showOldPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
-              style="font-size: 17px"
-            ></i>
+            <input :type="showOldPassword ? 'text' : 'password'" name="" id="" v-model="oldPassword" required/>
+            <i @click="oldPasswords" :class="showOldPassword ? 'fa fa-eye' : 'fa fa-eye-slash'" style="font-size: 17px"></i>
           </div>
         </div>
         <div class="new_password">
           <strong>New Password</strong>
           <div class="flex">
-            <input
-              :type="showNewPassword ? 'text' : 'password'"
-              name=""
-              id=""
-              placeholder="new password !!"
-              v-model="newPassword"
-              required
-            />
-            <i
-              @click="newPasswords"
-              :class="showNewPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
-              style="font-size: 17px"
-            ></i>
+            <input :type="showNewPassword ? 'text' : 'password'" name="" id="" v-model="newPassword" required />
+            <i @click="newPasswords" :class="showNewPassword ? 'fa fa-eye' : 'fa fa-eye-slash'" style="font-size: 17px"></i>
           </div>
         </div>
         <div class="conform_password">
           <strong>Confirm Password</strong>
           <div class="flex">
-            <input
-              :type="showConfirmPassword ? 'text' : 'password'"
-              name=""
-              id=""
-              placeholder="confirm password !!"
-              v-model="confirmPassword"
-              required
-            />
-            <i
-              @click="confirmPasswords"
-              :class="showConfirmPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
-              style="font-size: 17px"
-            ></i>
+            <input :type="showConfirmPassword ? 'text' : 'password'" name="" id="" v-model="confirmPassword" required/>
+            <i @click="confirmPasswords" :class="showConfirmPassword ? 'fa fa-eye' : 'fa fa-eye-slash'" style="font-size: 17px" ></i>
           </div>
         </div>
         <div class="button_group">
-          <button @click="resetAdminPassword">Reset</button>
+          <button class="submit" @click="resetAdminPassword">Reset</button>
+          <button class="cancel" @click="this.$router.go()">Cancel</button>
         </div>
       </div>
     </div>
@@ -150,6 +130,8 @@ export default {
       name: "",
       email: "",
       gender: "male",
+      picture:"",
+      previewImage:null,
 
       ///reset//
       showOldPassword: "",
@@ -169,6 +151,10 @@ export default {
     };
   },
   methods: {
+    uploadImage(e){
+      this.picture=e.target.files[0]
+      this.previewImage = URL.createObjectURL(this.picture);
+    },
     oldPasswords() {
       this.showOldPassword = !this.showOldPassword;
     },
@@ -198,21 +184,48 @@ export default {
       this.onUpdate = false;
       this.onReset = true;
     },
-    // ___________ Updata Admin____________
+    // ___________ Update Admin____________
     updataAdmin() {
       let admin = {
         name: this.name,
         email: this.email,
         gender: this.gender,
       };
+
+      /**
+       * @todo get Id of user
+       */
       let id = JSON.parse(localStorage.getItem("user")).id;
+
+      /**
+       * @todo update user information
+       */
       axios.put("users/" + id, admin).then((res) => {
         console.log(res.data);
         console.log(id);
       });
+
+      /**
+       * @todo update user profile
+       */
+      let image = new FormData();
+      if(this.picture != ''){
+        image.append("_method",'PUT');
+        image.append("picture", this.picture);
+        axios.post("/users/profile/" + id, image).then((res) => {
+          console.log(res.data);
+        });
+      }
+
+      /**
+       * @todo Get new data of user
+       * @return new data
+       */
       axios.get("/users/" + id).then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data));
+        this.$router.go()
       });
+
       this.onAccount = true;
       this.onUpdate = false;
     },
@@ -226,8 +239,15 @@ export default {
         };
         axios
           .patch("change/" + user.id, password)
-          .then(alert("Change password succefully!!"));
-        // .catch(alert("Please check your old password!!"));
+          .then(()=>{
+            alert("Change password succefully!!")
+            localStorage.removeItem('studentid')
+            localStorage.removeItem('email')
+            localStorage.removeItem('user')
+            localStorage.removeItem('user-role')
+            localStorage.removeItem('token')
+            this.$router.go()
+          });
       } else {
         alert("Please check your confirm password");
       }
@@ -237,11 +257,16 @@ export default {
 </script>
 
 <style scoped>
+.previous-page{
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 40px;
+}
 .contain {
   display: flex;
   width: 70%;
-  margin: 50px auto;
-  height: 78vh;
+  margin: 60px auto;
+  height: 68vh;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 4px;
 }
@@ -281,11 +306,15 @@ export default {
 .contain .contain-right {
   width: 60%;
   padding: 50px;
+  align-items: start;
+  justify-content: start;
 }
 /* on menu account */
 .contain .contain-right .account-detail {
   margin-top: 30px;
   line-height: 40px;
+  align-items: center;
+  justify-content: start;
 }
 .contain .contain-right .account-detail .flex {
   align-items: center;
@@ -323,7 +352,13 @@ export default {
   box-sizing: border-box;
   margin-top: 20px;
 }
-.contain .contain-right .update-detail .flex .select select {
+.contain .contain-right .update-detail .flex .select-gender {
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+.contain .contain-right .update-detail .flex select {
   border: 1px solid rgb(207, 207, 207);
   margin-top: 10px;
   width: 100%;
@@ -339,11 +374,9 @@ export default {
 .contain .contain-right .update-detail .button-group .update {
   background: #05b2e9;
 }
-
 .link-a {
   text-decoration: none;
 }
-
 .btn-back {
   align-items: center;
   appearance: button;
@@ -370,11 +403,9 @@ export default {
   -webkit-user-select: none;
   touch-action: manipulation;
 }
-
 .btn-back:active {
   background-color: #006ae8;
 }
-
 .btn-back:hover {
   background-color: #1c84ff;
 }
@@ -384,20 +415,20 @@ export default {
   align-items: flex-end;
 }
 /*
-          RESET PASSWORD
-       */
+  * RESET PASSWORD
+*/
 .previouse_password,
 .new_password,
 .conform_password,
 .button-group,
 .button_group {
-  width: 80%;
+  width: 100%;
   margin-top: 10px;
 }
 .previouse_password input,
 .new_password input,
 .conform_password input {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   font-size: 1.1rem;
   margin-top: 5px;
@@ -405,17 +436,12 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
+i{
+  margin-left: -70px;
+  margin-right: 20px;
+}
 .updae_password {
   margin-top: 20px;
-}
-.button_group button {
-  width: 30%;
-  padding: 10px;
-  font-size: 1.1rem;
-  background: #05b2e9;
-  border: none;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .flex {
   display: flex;
@@ -427,5 +453,20 @@ export default {
 }
 .boder {
   border: 1px solid;
+}
+button{
+  padding: 9px 30px;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 3px;
+  margin-top: 15px;
+}
+.cancel{
+  background: #ffad5c;
+  margin-left: 10px;
+}
+.submit{
+  background: #05b2e9;
 }
 </style>

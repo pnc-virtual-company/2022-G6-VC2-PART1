@@ -19,6 +19,7 @@
 import listAllStudent from '@/components/user_admin/ListOfStudentProfile.vue'
 import StudentProfile from '@/components/user_admin/StudentProfile.vue'
 import axios from '@/api/api'
+
 // const URL_LISTSTUDENTS = process.env.VUE_APP_API_URL + 'students'
 // const URL_STUDENTS = process.env.VUE_APP_API_URL + 'students/'
 export default {
@@ -62,9 +63,15 @@ export default {
     })
  },
 //  filter-student
-filterStudent(search){
-  if(search!=''){
-    this.dataStudents = this.dataStudents.filter(student=>student.name.toLowerCase().includes(search.toLowerCase()))
+filterStudent(data){
+  if(data.search!=''){
+    if(data.categorry=='name'){
+      this.dataStudents = this.dataStudents.filter(student=>student.name.toLowerCase().includes(data.search.toLowerCase()))
+    }
+    else if(data.categorry=='class'){
+      this.dataStudents = this.dataStudents.filter(student=>student.class_room.toLowerCase().includes(data.search.toLowerCase()))
+
+    }
   }
   else{
     this.getAllStudents()

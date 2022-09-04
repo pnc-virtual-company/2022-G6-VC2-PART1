@@ -40,7 +40,7 @@ export default{
     display: flex;
     width: 100%;
     text-align: left;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 .request .request-form{
     width: 60%;
@@ -59,7 +59,7 @@ export default{
     border-radius: 6px 6px 0 0;
 }
 .request .request-form form{
-    padding: 30px 60px;
+    padding: 10px 60px;
 }
 .request .request-form .flex{
     align-items: center;
@@ -71,13 +71,14 @@ export default{
     align-items: center;
     justify-content: space-between;
     display: flex;
-    margin-bottom: 18px;
+    margin-bottom: 13px;
     outline: none;
     padding: 7px;
     font-size: 16px;
 }
 .request .request-form .leave-type, .reason{
     width: 100%;
+    margin-top: 10px;
 }
 .request .request-form .leave-type select{
     width: 100%;
@@ -88,6 +89,9 @@ export default{
     margin-bottom: 13px;
     outline: none;
     mask-repeat: no-repeat;
+    padding: 20px;
+    font-size: 15px;
+    box-sizing: border-box;
 }
 .button-group{
     width: 100%;
@@ -117,14 +121,14 @@ export default{
 }
 .contant .contant-card{
     width: 60%;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 .contant .contant-card .card{
     border: 1px solid rgb(186, 186, 186);
     border-top: 6px solid #55B4F4;
     border-radius: 5px;
     padding: 15px 60px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     line-height: 32px;
 }
 .contant .contant-card .card .flex{

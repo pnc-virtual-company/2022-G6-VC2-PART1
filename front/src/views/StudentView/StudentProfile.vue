@@ -2,10 +2,8 @@
   <div class="contain">
     <div class="contain-left">
       <div class="contain-img">
-        <img
-          src="https://i.pinimg.com/originals/62/3a/a8/623aa8f9933ee9a286871bf6e0782538.jpg"
-          alt=""
-        />
+        <img v-if="student.picture == null" class="circle" src="../../assets/user.png"  alt="">
+        <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
       </div>
       <div class="user-name">
         <h2>{{student.name }}</h2>
@@ -16,7 +14,7 @@
             <li class="" :class="{ onPage: onAccount }" @click="pageAccount">
               Account
             </li>
-            <li @click="pageUpdatPassword">Password Reset</li>
+            <li class="" :class="{ onPage: onReset }" @click="pageUpdatPassword">Password Reset</li>
           </ul>
         </nav>
       </div>
@@ -53,13 +51,12 @@
         <div>
         </div>
       </div>
-      </div>
 
-      <div class="updae_password" v-if="onReset">
+      <div class="update_password" v-if="onReset">
         <div class="title">
           <h1>RESET PASSWORD</h1>
         </div>
-        <div class="previouse_password">
+        <div class="previouse_password info">
           <strong>Previous Password</strong>
           <div class="flex">
           <input
@@ -77,7 +74,7 @@
             ></i>
           </div>
         </div>
-        <div class="new_password">
+        <div class="new_password info">
           <strong>New Password</strong>
           <div class="flex">
           <input
@@ -95,7 +92,7 @@
             ></i>
           </div>
         </div>
-        <div class="conform_password">
+        <div class="conform_password info">
           <strong>Confirm Password</strong>
           <div class="flex">
           <input
@@ -114,8 +111,10 @@
           </div>
         </div>
         <div class="button_group">
-          <button @click="resetPassword">Reset</button>
+          <button class="submit" @click="resetPassword">Reset</button>
+          <button class="cancel" @click="this.$router.go()">Cancel</button>
         </div>
+      </div>
     </div>
   </div>
 </template>
@@ -192,10 +191,15 @@ export default {
         console.log(id)
         axios
         .patch("resetStudentPassword/" + id, password).then(()=>{
-          // console.log(this.oldPassword)
           alert("Reset succefully!")
+          localStorage.removeItem('studentid')
+          localStorage.removeItem('email')
+          localStorage.removeItem('user')
+          localStorage.removeItem('user-role')
+          localStorage.removeItem('token')
+          this.$router.go()
         })
-        // .catch(alert("please check your old password"));
+        .catch(alert("please check your old password"));
       } else {
         alert("Please check your confirm password");
       }
@@ -263,49 +267,40 @@ export default {
 .contain .contain-right .account-detail .flex p {
   text-indent: 20px;
 }
-/* on menu update */
- .contain .contain-right .update-detail .input {
- margin-top: 10px;
- } 
-.contain .contain-right .update-detail .input input {
-  padding: 10px;
-  margin-top: 4px;
-  font-size: 15px;
+/*
+        RESET PASSWORD
+*/
+.contain .contain-right .update_password{
   width: 100%;
+}
+.contain .contain-right .update_password .info{
+  width: 100%;
+  margin-top: 20px;
+}
+.contain .contain-right .update_password .info .flex input{
+  width: 93.5%;
+  padding: 9px 15px;
+  margin-top: 5px;
   outline: none;
-  box-sizing: border-box;
-  border: 1px solid rgb(213, 213, 213);
+  font-size: 16px;
 }
-.contain .contain-right .update-detail .flex {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  /* gap: 50px; */
-  /* background: tan; */
-  box-sizing: border-box;
+.contain .contain-right .update_password .info .flex i{
+  margin-left: -30px;
 }
-.contain .contain-right .update-detail .flex .select {
-  margin-top: 10px;
-  width: 43%;
-  /* background: teal; */
-  box-sizing: border-box;
+.contain .contain-right .update_password .button_group{
   margin-top: 20px;
 }
-.contain .contain-right .update-detail .flex .select select {
-  border: 1px solid rgb(207, 207, 207);
-  margin-top: 10px;
-  width: 100%;
+.contain .contain-right .update_password .button_group button{
+  padding: 8px 25px;
+  border: none;
+  border-radius: 3px;
 }
-.contain .contain-right .update-detail .button-group {
-  margin-top: 20px;
-  width: 100%;
-  gap: 20px;
-}
-.contain .contain-right .update-detail .button-group .concel {
-  background: #ffad5c;
-}
-.contain .contain-right .update-detail .button-group .update {
+.contain .contain-right .update_password .button_group .submit{
   background: #05b2e9;
+}
+.contain .contain-right .update_password .button_group .cancel{
+  background: #ffad5c;
+  margin-left: 20px;
 }
 
 .link-a {
@@ -345,49 +340,5 @@ export default {
 
 .btn-back:hover {
   background-color: #1c84ff;
-}
-.account-detail {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-}
-/*
-        RESET PASSWORD
-     */
-.previouse_password,
-.new_password,
-.conform_password,
-.button-group,
-.button_group {
-  width: 80%;
-  margin-top: 10px;
-}
-.previouse_password input,
-.new_password input,
-.conform_password input {
-  width: 100%;
-  padding: 10px;
-  font-size: 1.1rem;
-  margin-top: 5px;
-  border: none;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-}
-.updae_password {
-  margin-top: 20px;
-}
-.button_group button {
-  width: 30%;
-  padding: 10px;
-  font-size: 1.1rem;
-  background: #05b2e9;
-  border: none;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-.flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 </style>

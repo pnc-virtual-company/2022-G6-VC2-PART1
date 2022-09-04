@@ -2,6 +2,10 @@
     <div>
         <div class="search-bar">
             <input type="text" placeholder="search" class="search" v-model="search">
+            <select class="search" v-model="searchCategory">
+                <option value="name">name</option>
+                <option value="class">class</option>
+            </select>
             <!-- <button class="btn-orange">Search</button> -->
         </div>
 
@@ -38,7 +42,8 @@
         },
         data(){
             return {
-                search:''
+                search:'',
+                searchCategory:'name'
             }
         },
         methods:{
@@ -53,7 +58,7 @@
         },
         watch:{
             search(){
-                this.$emit('filter-student', this.search)
+                this.$emit('filter-student',{search:this.search,categorry:this.searchCategory})
             }
         }
     }
@@ -118,6 +123,7 @@ select{
     display: flex;
     color: wheat;
     font-size: 20px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 }
 .btn-orange{
     padding: 0.5rem;

@@ -146,8 +146,8 @@ body {
   padding: 7px 25px;
   border: none;
   margin-bottom: 10px;
-  background: #ffad5c;
-  border-radius: 4px;
+  background: #55b4f4;
+  border-radius: 3px;
 }
 .card {
   width: 50%;
@@ -156,6 +156,15 @@ body {
   border-radius: 5px;
   margin: 20px auto;
   border-top: 5px solid #55b4f4;
+}
+.card-padding h2{
+  color:#ffad5c;
+}
+.card-approve h2{
+  color:#07b7dd;
+}
+.card-reject h2{
+  color:crimson;
 }
 .card_title {
   margin: auto;

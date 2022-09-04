@@ -1,13 +1,30 @@
 <template>
-  <div class="contain">
+  <div class="previous-page">
+    <button class="btn-back">
+      <router-link class="link-a" to="/" @click="$router.go(0)">Back</router-link>
+    </button>
+  </div>
+  <div class="contain" @submit.prevent>
     <div class="contain-left">
-      <div class="contain-img">
+
+      <!-- ======================= user profile ========================== -->
+      <div class="contain-img" v-if="onAccount || onReset">
         <img v-if="student.picture == null" class="circle" src="../../assets/user.png"  alt="">
         <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
+      </div>
+      <div class="contain-img" v-if="onUpdate">
+        <label for="image">
+          <img v-if="previewImage != null" :src="previewImage" alt="">
+          <img v-else-if="student.picture == null" src="../../assets/upload_image.jpg" alt="">
+          <img v-else class="circle" :src="'http://127.0.0.1:8000/storage/images/'+student.picture"  alt="">
+        </label> 
+        <input type="file" @change="uploadImage" hidden id="image">
       </div>
       <div class="user-name">
         <h2>{{ student.name }}</h2>
       </div>
+
+      <!-- ======================== menu detail ======================== -->
       <div class="contain-menu">
         <nav>
           <ul>
@@ -17,12 +34,14 @@
             <li class="" :class="{ onPage: onUpdate }" @click="pageUpdate">
               Update
             </li>
-            <li @click="pageUpdatPassword">Password Reset</li>
+            <li class="" :class="{ onPage: onReset }" @click="pageUpdatPassword">Password Reset</li>
           </ul>
         </nav>
       </div>
     </div>
     <div class="contain-right">
+
+      <!-- ======================== user information ======================== -->
       <div class="account-detail" v-if="onAccount">
         <div>
           <h1>User Information Detail</h1>
@@ -51,66 +70,60 @@
             <p>{{ student.email }}</p>
           </div>
         </div>
-        <div>
-          <button class="btn-back">
-            <router-link class="link-a" to="/" @click="$router.go(0)"
-              >Back</router-link
-            >
-          </button>
-        </div>
+
       </div>
 
+      <!-- ======================== update user information ======================== -->
       <div class="update-detail" v-if="onUpdate">
         <h1>User Update Information</h1>
         <div class="name input">
           <strong>User Name</strong><br />
           <input type="text" v-model="name" />
         </div>
-        <div class="phone input">
-          <strong>phone number</strong><br />
-          <input type="number" v-model="phone_number" />
-        </div>
+
         <div class="email input">
           <strong>User Email</strong><br />
           <input type="text" v-model="email" />
         </div>
-        <div class="email input">
-          <strong>Bacth</strong>
-         <input
-                type="text"
-                placeholder="input your bacth"
-                v-model="bacth" />
+        <div class="flex">
+          <div class="select input">
+            <strong>phone number</strong><br />
+            <input type="number" v-model="phone_number" />
+          </div>
+          <div class=" select input">
+            <strong>Bacth</strong>
+          <input
+                  type="text"
+                  placeholder="input your bacth"
+                  v-model="bacth" />
+          </div>
         </div>
 
         <div class="flex">
-          <div class="select">
+          <div class="select input">
             <strong>User Gender</strong><br />
             <select name="" id="" v-model="gender">
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
           </div>
-          <div class="select">
+          <div class="input">
             <strong>Class</strong><br />
-            <select name="" id="" v-model="class_room">
-              <option value="Web 2022 A">Web A</option>
-              <option value="Web 2022 B">Web B</option>
-              <option value="SNA 2022">SNA</option>
-            </select>
+            <input type="text" placeholder="input your bacth" v-model="class_room" />
           </div>
          
         </div>
 
         <div class="button-group">
-          <button class="update" @click="updataStudent">Update</button>
+          <router-link class="link-a" to="/" ><button class="update" @click="updataStudent">Update</button></router-link>
+          
           <button class="concel">
-            <router-link class="link-a" to="/" @click="$router.go(0)"
-              >Back</router-link
-            >
+            <router-link class="link-a" to="/" @click="$router.go(0)">Back</router-link>
           </button>
         </div>
       </div>
 
+      <!-- ========================= update password view ======================== -->
       <div class="updae_password" v-if="onReset">
         <div class="title">
           <h1>RESET PASSWORD</h1>
@@ -180,9 +193,20 @@ export default {
       oldPassword: "",
       newPassword: "",
       confirmPassword: "",
+      picture:"",
+      previewImage: null
+
     };
   },
   methods: {
+    /**
+     * @todo Upload image
+     * @return show image for preview 
+     */
+    uploadImage(e){
+      this.picture=e.target.files[0]
+      this.previewImage = URL.createObjectURL(this.picture);
+    },
     pageAccount() {
       this.onAccount = true;
       this.onUpdate = false;
@@ -206,6 +230,9 @@ export default {
     },
     // ___________ Updata Student____________
     updataStudent() {
+      /**
+       * @todo update user information
+       */
       let student = {
         name: this.name,
         email: this.email,
@@ -213,13 +240,28 @@ export default {
         class_room: this.class_room,
         bacth: this.bacth,
         phone_number: this.phone_number,
+        _method: 'PUT',
       };
       let id = JSON.parse(localStorage.getItem("studentid"));
       axios.post("students/" + id, student).then((res) => {
         console.log(res.data);
       });
-      this.onAccount = true;
-      this.onUpdate = false;
+
+    /**
+     * @todo update user profile
+     */
+      let image = new FormData();
+      if(this.picture != ''){
+        image.append("_method",'PUT');
+        image.append("picture", this.picture);
+        axios.post("students/update_image/" + id, image).then((res) => {
+          console.log(res.data);
+        });
+      }
+
+      setTimeout(() => {
+        this.$router.go()
+      }, 1000);
     },
     resetPassword() {
       if (this.newPassword == this.confirmPassword) {
@@ -229,11 +271,15 @@ export default {
           newPassword: this.newPassword,
         };
         axios
-        .patch("students/" + id, password).then(()=>{
+        .patch("resetStudentPassword/" + id, password).then(()=>{
           console.log(this.oldPassword)
           alert("Reset succefully!")
         })
-        .catch(alert("please check your old password"));
+        .catch((error)=>{
+          console.log(error);
+          alert("please check your old password")
+        }
+        );
        
       } else {
         alert("Please check your confirm password");
@@ -244,12 +290,17 @@ export default {
 </script>
 
 <style scoped>
+.previous-page{
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 40px;
+}
 .contain {
   display: flex;
   width: 70%;
-  margin: 50px auto;
+  margin: 20px auto;
   height: 78vh;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   border-radius: 4px;
 }
 .contain .contain-left {
@@ -326,9 +377,7 @@ export default {
 .contain .contain-right .update-detail .flex .select {
   margin-top: 10px;
   width: 43%;
-  /* background: teal; */
   box-sizing: border-box;
-  margin-top: 20px;
 }
 .contain .contain-right .update-detail .flex .select select {
   border: 1px solid rgb(207, 207, 207);
